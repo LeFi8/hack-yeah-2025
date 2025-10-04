@@ -14,7 +14,6 @@ export class Game {
   private possibilityManager = new PossibilityManager();
   private currentPossibilities: Possibility[] = [];
   private gameRunning: boolean = false;
-  private monthsElapsed: number = 0; // Track months since game start
 
   getCurrentPossibilities(): Possibility[] {
     return this.currentPossibilities
@@ -26,7 +25,6 @@ export class Game {
     }
 
     this.state.initialize();
-    this.monthsElapsed = 0;
   }
 
   tick(): GameTickResult {
@@ -34,23 +32,23 @@ export class Game {
       throw new Error("Game not started");
     }
 
-    this.monthsElapsed++;
+    this.state.increaseMonthsElapsed();
 
     // Apply monthly state changes
     this.state.applyMonthlyEffects();
 
     // Age up every 12 months (1 year)
-    if (this.monthsElapsed % 12 === 0) {
+    if (this.state.getMonthsElapsed() % 12 === 0) {
       this.state.age += 1;
     }
 
     // Generate possibilities every 12 months
-    const possibilities = this.monthsElapsed % 12 === 0 
+    const possibilities = this.state.getMonthsElapsed() % 12 === 0 
       ? this.generatePossibilities() 
       : [];
 
     // Generate events every 6 months
-    const events = this.monthsElapsed % 6 === 0 
+    const events = this.state.getMonthsElapsed() % 6 === 0 
       ? this.processRandomEvents() 
       : [];
 
@@ -97,11 +95,11 @@ export class Game {
   }
 
   getMonthsElapsed(): number {
-    return this.monthsElapsed;
+    return this.state.getMonthsElapsed();
   }
 
   getYearsElapsed(): number {
-    return Math.floor(this.monthsElapsed / 12);
+    return Math.floor(this.getMonthsElapsed( ) / 12);
   }
 
   finish() {
