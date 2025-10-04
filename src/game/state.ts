@@ -6,11 +6,19 @@ export interface Item {
 }
 
 export class CharacterCondition {
-  balance: number = 0
+  savings: number = 0
+  monthlyExpenses: number = 0
+  monthlyIncomeNetto: number = 0
+  monthlyIncomeBrutto: number = 0
+  zusAccountAccumulated: number = 0
+
+  // 0-podstawowe 1-średnie 2-licencjat/inż 3-magister 4-doktorat
+  educationLevel: number = 0
   mentalHealth: number = 0
   physicalHealth: number = 0
-  monthlyExpenses: number = 0
-  monthlyIncome: number = 0
+  happiness: number = 0
+
+  maxHealth: number = 100
 }
 
 export class Focus {
