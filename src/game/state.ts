@@ -1,28 +1,27 @@
 import type { Item } from "./items";
-import type {Possibility} from "./possibilities";
-import {BooleanFocus} from "./utils";
-import {RangeCounter} from "./utils";
-import {JobContract} from "./work";
-
+import type { Possibility } from "./possibilities";
+import { BooleanFocus } from "./utils";
+import { RangeCounter } from "./utils";
+import { JobContract } from "./work";
 
 export class CharacterCondition {
-  balance = 0
-  additionalMonthlyIncome: number = 0
-  monthlyExpenses = new RangeCounter(0, 0, null)
+  balance = 0;
+  additionalMonthlyIncome: number = 0;
+  monthlyExpenses = new RangeCounter(0, 0, null);
 
-  mentalHealth = new RangeCounter(0, 0, 100)
-  physicalHealth = new RangeCounter(0, 0, 100)
-  happiness = new RangeCounter(0, 0, 100)
+  mentalHealth = new RangeCounter(0, 0, 100);
+  physicalHealth = new RangeCounter(0, 0, 100);
+  happiness = new RangeCounter(0, 0, 100);
 
   // TODO: dynamically change max health with age
-  maxHealth = new RangeCounter(100, 0, 100)
+  maxHealth = new RangeCounter(100, 0, 100);
 }
 
 export class Focus {
-  hobby = new BooleanFocus()
-  health = new BooleanFocus()
-  relation = new BooleanFocus()
-  work = new BooleanFocus()
+  hobby = new BooleanFocus();
+  health = new BooleanFocus();
+  relation = new BooleanFocus();
+  work = new BooleanFocus();
 
   private chance(probability: number): boolean {
     return Math.random() < probability;
@@ -52,7 +51,7 @@ export class Focus {
       _state.character.mentalHealth.add(-1);
     }
 
-    // If we focus on work we have like 15% chance 
+    // If we focus on work we have like 15% chance
     // of decrasing mental health, physical health and happiness
     if (!this.work.get()) {
       if (this.chance(0.15)) {
@@ -74,37 +73,35 @@ export class Focus {
 
 export class Education {
   // 0-podstawowe 1-średnie 2-licencjat/inż 3-magister 4-doktorat
-  level = new RangeCounter(0, 0, 4)
-  fieldOfStudy: string = ""
-  isStudying: boolean = false
+  level = new RangeCounter(0, 0, 4);
+  fieldOfStudy: string = "";
+  isStudying: boolean = false;
 
-  applyMonthlyEffects(state: State) {
-    
-  }
+  applyMonthlyEffects(state: State) {}
 }
 
 export class ZUS {
-  isAlreadyRetired: boolean = false
-  alreadyAccummulated: number = 0
+  isAlreadyRetired: boolean = false;
+  alreadyAccummulated: number = 0;
   // It needs to be caluclated each month based on job income and type
   // It tells you how much you will get when retired
-  predictedPension: number = 0
+  predictedPension: number = 0;
 }
 
 export class State {
   public age: number = 0;
   private monthsElapsed: number = 0; // Track months since game start
-  public character: CharacterCondition
+  public character: CharacterCondition;
   public job: JobContract | null = null;
   public education: Education = new Education();
   public zus: ZUS = new ZUS();
   public items: Item[] = [];
   public focus: Focus;
-  public currentPossibilities: Possibility[] = []
+  public currentPossibilities: Possibility[] = [];
 
   constructor() {
-    this.character = new CharacterCondition()
-    this.focus = new Focus()
+    this.character = new CharacterCondition();
+    this.focus = new Focus();
   }
 
   initialize() {
@@ -123,9 +120,9 @@ export class State {
     this.character.maxHealth.add(100);
 
     this.focus.health.set(true);
-    this.focus.relation.set(false)
-    this.focus.work.set(true)
-    this.focus.hobby.set(false)
+    this.focus.relation.set(false);
+    this.focus.work.set(true);
+    this.focus.hobby.set(false);
   }
 
   increaseMonthsElapsed() {
@@ -137,7 +134,7 @@ export class State {
   }
 
   shouldGameEnd(): boolean {
-    return false
+    return false;
   }
 
   setFocus(focus: Focus) {
@@ -150,9 +147,8 @@ export class State {
 
     // Handle Items
     this.items.forEach((item: Item) => {
-        item.applyMonthlyEffects(this);
-      }
-    )
+      item.applyMonthlyEffects(this);
+    });
 
     // Handle focuses
     this.focus.applyEffects(this);
@@ -165,15 +161,15 @@ export class State {
 
   addItem(item: Item) {
     if (item.monthlyCost) {
-        this.character.monthlyExpenses.add(item.monthlyCost)
+      this.character.monthlyExpenses.add(item.monthlyCost);
     }
-    this.items.push(item)
+    this.items.push(item);
   }
 
   removeItem(item: Item) {
     if (item.monthlyCost) {
-        this.character.monthlyExpenses.add(-item.monthlyCost)
+      this.character.monthlyExpenses.add(-item.monthlyCost);
     }
-    this.items = this.items.filter(i => i !== item)
+    this.items = this.items.filter((i) => i !== item);
   }
 }

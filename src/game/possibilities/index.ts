@@ -1,2 +1,2 @@
-export * from './possibility'
-export * from './possibility-manager'
+export * from "./possibility";
+export * from "./possibility-manager";

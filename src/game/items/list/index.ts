@@ -1,2 +1,2 @@
-export * from './cat'
-export * from './depression'
+export * from "./cat";
+export * from "./depression";

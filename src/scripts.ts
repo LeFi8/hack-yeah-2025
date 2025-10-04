@@ -1,12 +1,12 @@
-import { Game, type GameTickResult } from './game/game.ts';
-import * as readline from 'readline';
-import type { Possibility } from './game/possibilities/possibility.ts';
+import { Game, type GameTickResult } from "./game/game.ts";
+import * as readline from "readline";
+import type { Possibility } from "./game/possibilities/possibility.ts";
 
 console.log("scripts loaded");
 
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 });
 
 function askQuestion(question: string): Promise<string> {
@@ -22,41 +22,52 @@ function displayGameState(result: GameTickResult, monthsElapsed: number) {
 
   console.log(`\n📊 Character Condition:`);
   console.log(`   Balance: ${result.state.character.balance}`);
-  console.log(`   Additional Monthly Income: ${result.state.character.additionalMonthlyIncome}`);
-  console.log(`   Monthly Expenses: ${result.state.character.monthlyExpenses.get()}`);
+  console.log(
+    `   Additional Monthly Income: ${result.state.character.additionalMonthlyIncome}`,
+  );
+  console.log(
+    `   Monthly Expenses: ${result.state.character.monthlyExpenses.get()}`,
+  );
   console.log(`   Mental Health: ${result.state.character.mentalHealth.get()}`);
-  console.log(`   Physical Health: ${result.state.character.physicalHealth.get()}`);
+  console.log(
+    `   Physical Health: ${result.state.character.physicalHealth.get()}`,
+  );
   console.log(`   Happiness: ${result.state.character.happiness.get()}`);
-  console.log(`   Health: ${result.state.focus.health.get() ? 'Yes' : 'No'}`);
+  console.log(`   Health: ${result.state.focus.health.get() ? "Yes" : "No"}`);
 
   console.log(`\n🎯 Job:`);
-  console.log(`   Employed: ${result.state.job ? 'Yes' : 'No'}`);
+  console.log(`   Employed: ${result.state.job ? "Yes" : "No"}`);
   if (result.state.job) {
-    console.log(`   Position: ${result.state.job.position}`);
-    console.log(`   Contract Type: ${result.state.job.contractType}`);
-    console.log(`   Netto: ${result.state.job.monthlyIncomeNetto.get()}`);
-    console.log(`   Brutto: ${result.state.job.monthlyIncomeBrutto.get()}`);
+    console.log(`   Position: ${result.state.job.getPosition()}`);
+    console.log(`   Contract Type: ${result.state.job.getContractType()}`);
+    console.log(`   Netto: ${result.state.job.getNettoIncome()}`);
+    console.log(`   Brutto: ${result.state.job.getBruttoIncome()}`);
   }
 
   console.log(`\n🎓 Education:`);
   console.log(`   Level: ${result.state.education.level.get()}`);
-  console.log(`   Studying: ${result.state.education.isStudying ? 'Yes' : 'No'}`);
-
+  console.log(
+    `   Studying: ${result.state.education.isStudying ? "Yes" : "No"}`,
+  );
 
   console.log(`\n🛠️  ZUS:`);
-  console.log(`   Already Accumulated: ${result.state.zus.alreadyAccummulated}`);
+  console.log(
+    `   Already Accumulated: ${result.state.zus.alreadyAccummulated}`,
+  );
 
   console.log(`   Focuses:`);
-  console.log(`       Work: ${result.state.focus.work.get() ? 'Yes' : 'No'}`);
-  console.log(`       Relation: ${result.state.focus.relation.get() ? 'Yes' : 'No'}`);
-  console.log(`       Health: ${result.state.focus.health.get() ? 'Yes' : 'No'}`);
-  console.log(`       Hobby: ${result.state.focus.hobby.get() ? 'Yes' : 'No'}`);
+  console.log(`       Work: ${result.state.focus.work.get() ? "Yes" : "No"}`);
+  console.log(
+    `       Relation: ${result.state.focus.relation.get() ? "Yes" : "No"}`,
+  );
+  console.log(
+    `       Health: ${result.state.focus.health.get() ? "Yes" : "No"}`,
+  );
+  console.log(`       Hobby: ${result.state.focus.hobby.get() ? "Yes" : "No"}`);
 
-  if (result.events.length > 0) {
+  if (result.event) {
     console.log("\n📅 Events this month:");
-    result.events.forEach((event, index) => {
-      console.log(`  ${index + 1}. ${event.getTitle()}`);
-    });
+    console.log(`  1. ${result.event.getTitle()}`);
   }
 
   if (result.possibilities.length > 0) {
@@ -68,31 +79,37 @@ function displayGameState(result: GameTickResult, monthsElapsed: number) {
       });
     });
   }
-
 }
 
-async function handlePossibilitySelection(game: Game, possibilities: Possibility[]) {
+async function handlePossibilitySelection(
+  game: Game,
+  possibilities: Possibility[],
+) {
   if (possibilities.length === 0) {
     return;
   }
 
-  const possibilityChoice = await askQuestion(`\nSelect a possibility (1-${possibilities.length}) or 'skip': `);
-  
-  if (possibilityChoice.toLowerCase() === 'skip') {
+  const possibilityChoice = await askQuestion(
+    `\nSelect a possibility (1-${possibilities.length}) or 'skip': `,
+  );
+
+  if (possibilityChoice.toLowerCase() === "skip") {
     console.log("Skipped selecting a possibility.");
     return;
   }
 
   const possibilityIndex = parseInt(possibilityChoice) - 1;
-  
+
   if (possibilityIndex < 0 || possibilityIndex >= possibilities.length) {
     console.log("Invalid possibility selection.");
     return;
   }
 
   const selectedPossibility = possibilities[possibilityIndex];
-  
-  const optionChoice = await askQuestion(`\nSelect an option (1-${selectedPossibility.options.length}): `);
+
+  const optionChoice = await askQuestion(
+    `\nSelect an option (1-${selectedPossibility.options.length}): `,
+  );
   const optionIndex = parseInt(optionChoice) - 1;
 
   if (optionIndex < 0 || optionIndex >= selectedPossibility.options.length) {
@@ -102,9 +119,11 @@ async function handlePossibilitySelection(game: Game, possibilities: Possibility
 
   try {
     game.selectPossibility(selectedPossibility, optionIndex);
-    console.log(`\nYou chose: ${selectedPossibility.options[optionIndex].title}`);
+    console.log(
+      `\nYou chose: ${selectedPossibility.options[optionIndex].title}`,
+    );
     console.log("Effects applied!");
-  } catch (error ) {
+  } catch (error) {
     if (error instanceof Error) {
       console.error("Error selecting possibility:", error.message);
     } else {
@@ -114,32 +133,34 @@ async function handlePossibilitySelection(game: Game, possibilities: Possibility
 }
 
 function delay(ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function testGameLoop() {
   console.log("Starting Life Simulator...");
   const game = new Game();
   game.start();
-  
+
   const running = true;
-  
+
   while (running && game.isGameRunning()) {
     // Tick the game (advance by 1 month)
     const result = game.tick();
-    
+
     // Display current state
     displayGameState(result, game.getMonthsElapsed());
 
     // Handle possibilities if any
     if (result.possibilities.length > 0) {
       await handlePossibilitySelection(game, result.possibilities);
-    } 
+    }
 
     await delay(2000);
   }
-  
-  console.log(`\nGame ended after ${game.getYearsElapsed()} years and ${game.getMonthsElapsed() % 12} months.`);
+
+  console.log(
+    `\nGame ended after ${game.getYearsElapsed()} years and ${game.getMonthsElapsed() % 12} months.`,
+  );
   rl.close();
   process.exit(0);
 }

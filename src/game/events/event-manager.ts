@@ -1,45 +1,52 @@
-import type {Event} from "./event";
-import type {State} from "../state";
-import {Illness} from "./list/illness";
-import {Theft} from "./list/theft";
-import {FoundMoney} from "./list/found-money";
-import {VegateblesGetMoreExpensive} from "./list/vegatebles-get-more-expensive";
-import {FriendsByReading} from "./list/friends-by-reading";
+import type { Event } from "./event";
+import type { State } from "../state";
+import { Illness } from "./list/illness";
+import { Theft } from "./list/theft";
+import { FoundMoney } from "./list/found-money";
+import { VegateblesGetMoreExpensive } from "./list/vegatebles-get-more-expensive";
+import { FriendsByReading } from "./list/friends-by-reading";
 
 export class EventManager {
-  private events: Event[]
+  private events: Event[];
 
   constructor() {
     this.events = [
-        new Illness(),
-        new Theft(),
-        new FoundMoney(),
-        new VegateblesGetMoreExpensive(),
-        new FriendsByReading(),
-    ]
+      new Illness(),
+      new Theft(),
+      new FoundMoney(),
+      new VegateblesGetMoreExpensive(),
+      new FriendsByReading(),
+    ];
   }
 
-  getRandom(state: State): Event[] {
-    const filteredEvents = this.events.filter((event) => event.canActivate(state));
+  getRandom(state: State): Event | null {
+    const filteredEvents = this.events.filter((event) =>
+      event.canActivate(state),
+    );
 
     if (filteredEvents.length === 0) {
-      return [];
+      return null;
     }
 
-    const weightedEvents = filteredEvents.map(event => ({
-      event,
-      weight: event.getWeight(state)
-    })).filter(item => item.weight > 0);
+    const weightedEvents = filteredEvents
+      .map((event) => ({
+        event,
+        weight: event.getWeight(state),
+      }))
+      .filter((item) => item.weight > 0);
 
     if (weightedEvents.length === 0) {
-      return [];
+      return null;
     }
 
     const selectedEvents: Event[] = [];
     const availableEvents = [...weightedEvents];
 
-    for (let i = 0; i < 3 && availableEvents.length > 0; i++) {
-      const totalWeight = availableEvents.reduce((sum, item) => sum + item.weight, 0);
+    for (let i = 0; i < 1 && availableEvents.length > 0; i++) {
+      const totalWeight = availableEvents.reduce(
+        (sum, item) => sum + item.weight,
+        0,
+      );
 
       if (totalWeight === 0) break;
 
@@ -60,7 +67,6 @@ export class EventManager {
       selectedEvents.push(selected.event);
     }
 
-    return selectedEvents;
+    return selectedEvents[0];
   }
-
 }
