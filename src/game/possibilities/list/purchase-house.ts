@@ -6,7 +6,7 @@ export const purchaseHouse = {
     {
       title: 'cheap',
       applyEffects: (_state: State) => {
-
+        _state.character.balance -= 5000
       }
     }
   ],

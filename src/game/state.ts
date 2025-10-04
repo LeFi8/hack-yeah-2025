@@ -47,4 +47,8 @@ export class State {
   setFocus(focus: Focus) {
     this.focus = focus;
   }
+
+  applyMonthlyEffects() {
+    console.log("Applying monthly effects...");
+  }
 }
