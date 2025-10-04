@@ -1,4 +1,4 @@
-import {Possibility} from "./posibilities.ts";
+import type {Possibility} from "./posibilities.ts";
 
 export interface Item {
   // type: 'person' | 'car' | 'house' | 'work'
