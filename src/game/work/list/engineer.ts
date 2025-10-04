@@ -1,23 +1,24 @@
-import { JobContract } from "../job-contract";
-import type { State } from "../../state";
+import {JobContract} from "../job-contract";
+import type {State} from "../../state";
 
 export class Engineer extends JobContract {
   constructor(
-    contractType: "UOP" | "UZ" | "B2B" | "UNREGISTERED" = "UOP",
-    private readonly lvl: number,
+    contractType: "UOP" | "UZ" | "B2B" | "UNREGISTERED",
+    private readonly lvl: number
   ) {
     super(contractType);
   }
 
   getBruttoIncome(): number {
-    return 5000 * this.lvl;
+    return 5000 * this.lvl
   }
 
   getPosition(): string {
-    return "Engineer";
+      return 'Engineer'
   }
 
   applyMonthlyEffects(state: State) {
     super.applyMonthlyEffects(state);
   }
+
 }

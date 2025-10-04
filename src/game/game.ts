@@ -1,10 +1,10 @@
-import { Focus, State } from "./state";
-import { PossibilityManager, type Possibility } from "./possibilities";
+import {Focus, State} from "./state";
+import { PossibilityManager, type Possibility} from "./possibilities";
 import { EventManager, type Event } from "./events";
 
 export interface GameTickResult {
   possibilities: Possibility[];
-  event: Event | null;
+  events: Event[];
   state: State;
 }
 
@@ -16,7 +16,7 @@ export class Game {
   private gameRunning: boolean = false;
 
   getCurrentPossibilities(): Possibility[] {
-    return this.currentPossibilities;
+    return this.currentPossibilities
   }
 
   start() {
@@ -43,16 +43,14 @@ export class Game {
     }
 
     // Generate possibilities every 12 months
-    const possibilities =
-      this.state.getMonthsElapsed() % 12 === 0
-        ? this.generatePossibilities()
-        : [];
+    const possibilities = this.state.getMonthsElapsed() % 12 === 0 
+      ? this.generatePossibilities() 
+      : [];
 
     // Generate events every 6 months
-    const event =
-      this.state.getMonthsElapsed() % 6 === 0
-        ? this.processRandomEvents()
-        : null;
+    const events = this.state.getMonthsElapsed() % 6 === 0 
+      ? this.processRandomEvents() 
+      : [];
 
     // Check if game should end
     if (this.state.shouldGameEnd()) {
@@ -61,21 +59,21 @@ export class Game {
 
     return {
       possibilities,
-      event,
-      state: this.state,
+      events,
+      state: this.state
     };
   }
 
   selectPossibility(possibility: Possibility, selectedOption: number) {
-    if (selectedOption < 0 || selectedOption >= possibility.options.length) {
+    if (selectedOption < 0 || selectedOption >= possibility.getOptions(this.state).length) {
       throw new Error("Invalid option selected");
     }
 
-    possibility.options[selectedOption].applyEffects(this.state);
-
+    possibility.getOptions(this.state)[selectedOption].applyEffects(this.state);
+    
     // Remove used possibility
     this.currentPossibilities = this.currentPossibilities.filter(
-      (p) => p !== possibility,
+      p => p !== possibility
     );
   }
 
@@ -84,20 +82,18 @@ export class Game {
   }
 
   // Updated methods to return data instead of storing internally
-  private processRandomEvents(): Event | null {
-    const event: Event | null = this.eventManager.getRandom(this.state);
-    if (event) {
-      event.applyEffects(this.state);
+  private processRandomEvents(): Event[] {
+    const events: Event[] = this.eventManager.getRandom(this.state);
+    events.forEach(event => {
+      event.applyEffects(this.state)
       console.log(`Event occurred: ${event.getTitle()}`);
       console.log(`Description: ${event.getDescription()}`);
-    }
-    return event;
+    });
+    return events;
   }
 
   private generatePossibilities(): Possibility[] {
-    const possibilities: Possibility[] = this.possibilityManager.getRandom(
-      this.state,
-    );
+    const possibilities: Possibility[] = this.possibilityManager.getRandom(this.state);
     this.currentPossibilities = possibilities;
     return possibilities;
   }
@@ -107,7 +103,7 @@ export class Game {
   }
 
   getYearsElapsed(): number {
-    return Math.floor(this.getMonthsElapsed() / 12);
+    return Math.floor(this.getMonthsElapsed( ) / 12);
   }
 
   finish() {
