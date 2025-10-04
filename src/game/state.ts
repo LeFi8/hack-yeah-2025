@@ -1,4 +1,4 @@
-import { DeathCalculator } from "./death/DeathCalculator";
+import { DeathCalculator } from "./death/deathCalculator";
 import type { Item } from "./items";
 import type { Possibility } from "./possibilities";
 import { BooleanFocus } from "./utils";
