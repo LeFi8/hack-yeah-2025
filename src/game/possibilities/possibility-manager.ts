@@ -1,16 +1,18 @@
-import {State} from "../state";
-import type {Possibility} from "./possibility";
-import {CatInNeed} from "./list/cat-in-need";
-import {GymMembershipEvent} from "./list/gym-membership-event";
-import {NewHobby} from "./list/new-hobby";
-import {ChooseDiet} from "./list/choose-diet";
-import {WorkWaiter} from "./list/work-waiter";
-import {WorkEngineer} from "./list/work-engineer";
-import {University} from "./list/university";
-import {GetNewCar} from "./list/get-new-car.ts";
+import { State } from "../state";
+import type { Possibility } from "./possibility";
+import { CatInNeed } from "./list/cat-in-need";
+import { GymMembershipEvent } from "./list/gym-membership-event";
+import { NewHobby } from "./list/new-hobby";
+import { ChooseDiet } from "./list/choose-diet";
+import { WorkWaiter } from "./list/work-waiter";
+import { WorkEngineer } from "./list/work-engineer";
+import { University } from "./list/university";
+import { GetNewCar } from "./list/get-new-car.ts";
+import {FindLifePartner} from "./list/find-life-partner.ts";
+import {ProposeToGirlfriend} from "./list/propose-to-girlfriend.ts";
 
 export class PossibilityManager {
-  private possibilities: Possibility[]
+  private possibilities: Possibility[];
 
   constructor() {
     this.possibilities = [
@@ -21,8 +23,10 @@ export class PossibilityManager {
       new WorkWaiter(),
       new WorkEngineer(),
       new University(),
-        new GetNewCar(),
-    ]
+      new GetNewCar(),
+      new FindLifePartner(),
+      new ProposeToGirlfriend()
+    ];
   }
 
   getRandom(state: State): Possibility[] {
