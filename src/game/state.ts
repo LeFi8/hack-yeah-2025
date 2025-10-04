@@ -23,18 +23,62 @@ export class CharacterCondition {
 }
 
 export class Focus {
+  hobby = new BooleanFocus()
   health = new BooleanFocus()
   relation = new BooleanFocus()
   work = new BooleanFocus()
 
+  private chance(probability: number): boolean {
+    return Math.random() < probability;
+  }
+
   applyEffects(_state: State) {
-    // state.character.physicalHealth += this.health
-    // state.character.mentalHealth += this.health
+    // If Health focus is active you have 70% to increase health,
+    // otherwise 50% to decrease it
+    if (this.health.get() && this.chance(0.7)) {
+      _state.character.physicalHealth.add(1);
+    } else if (this.chance(0.5)) {
+      _state.character.physicalHealth.add(-1);
+    }
+
+    // If Relation focus is active you have 80% to increase hapiness
+    // and 60% to increase mental health,
+    // otherwise 50% to decrease happiness and mental health
+    if (this.relation.get()) {
+      if (this.chance(0.8)) {
+        _state.character.happiness.add(1);
+      }
+      if (this.chance(0.6)) {
+        _state.character.mentalHealth.add(1);
+      }
+    } else if (this.chance(0.5)) {
+      _state.character.happiness.add(-1);
+      _state.character.mentalHealth.add(-1);
+    }
+
+    // If we focus on work we have like 15% chance 
+    // of decrasing mental health, physical health and happiness
+    if (!this.work.get()) {
+      if (this.chance(0.15)) {
+        _state.character.mentalHealth.add(-1);
+      }
+      if (this.chance(0.15)) {
+        _state.character.physicalHealth.add(-1);
+      }
+      if (this.chance(0.15)) {
+        _state.character.happiness.add(-1);
+      }
+    }
+
+    if (this.hobby.get() && this.chance(0.6)) {
+      _state.character.happiness.add(1);
+    }
   }
 }
 
 export class State {
   public age: number = 0;
+  private monthsElapsed: number = 0; // Track months since game start
   public character: CharacterCondition
   public items: Item[] = [];
   public focus: Focus;
@@ -47,6 +91,7 @@ export class State {
 
   initialize() {
     this.age = 18;
+    this.monthsElapsed = 0;
 
     this.character.balance = 5000;
     this.character.monthlyExpenses.add(1500);
@@ -63,6 +108,15 @@ export class State {
     this.focus.health.set(true);
     this.focus.relation.set(false)
     this.focus.work.set(true)
+    this.focus.hobby.set(false)
+  }
+
+  increaseMonthsElapsed() {
+    this.monthsElapsed += 1;
+  }
+
+  getMonthsElapsed(): number {
+    return this.monthsElapsed;
   }
 
   shouldGameEnd(): boolean {

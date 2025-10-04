@@ -32,17 +32,18 @@ function displayGameState(result: GameTickResult, monthsElapsed: number) {
   console.log(`   Physical Health: ${result.state.character.physicalHealth.get()}`);
   console.log(`   Happiness: ${result.state.character.happiness.get()}`);
 
-  console.log(`   Health: ${result.state.focus.health}`);
+  console.log(`   Health: ${result.state.focus.health.get() ? 'Yes' : 'No'}`);
 
   console.log(`   Focuses:`);
-  console.log(`       Work: ${result.state.focus.work}`);
-  console.log(`       Relation: ${result.state.focus.relation}`);
-  console.log(`       Health: ${result.state.focus.health}`);
+  console.log(`       Work: ${result.state.focus.work.get() ? 'Yes' : 'No'}`);
+  console.log(`       Relation: ${result.state.focus.relation.get() ? 'Yes' : 'No'}`);
+  console.log(`       Health: ${result.state.focus.health.get() ? 'Yes' : 'No'}`);
+  console.log(`       Hobby: ${result.state.focus.hobby.get() ? 'Yes' : 'No'}`);
 
   if (result.events.length > 0) {
     console.log("\n📅 Events this month:");
     result.events.forEach((event, index) => {
-      console.log(`  ${index + 1}. ${event.title}`);
+      console.log(`  ${index + 1}. ${event.getTitle()}`);
     });
   }
 
@@ -91,8 +92,12 @@ async function handlePossibilitySelection(game: Game, possibilities: Possibility
     game.selectPossibility(selectedPossibility, optionIndex);
     console.log(`\nYou chose: ${selectedPossibility.options[optionIndex].title}`);
     console.log("Effects applied!");
-  } catch (error) {
-    console.error("Error selecting possibility:", error.message);
+  } catch (error ) {
+    if (error instanceof Error) {
+      console.error("Error selecting possibility:", error.message);
+    } else {
+      console.error("Error selecting possibility:", error);
+    }
   }
 }
 
