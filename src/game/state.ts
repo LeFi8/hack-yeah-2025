@@ -1,4 +1,4 @@
-import {Possibility} from "./posibilities.ts";
+import type {Possibility} from "./posibilities.ts";
 
 export interface Item {
   // type: 'person' | 'car' | 'house' | 'work'
@@ -42,5 +42,17 @@ export class State {
   constructor() {
     this.character = new CharacterCondition()
     this.focus = new Focus()
+  }
+
+  initialize() {
+    this.age = 18;
+  }
+
+  shouldGameEnd(): boolean {
+    return false
+  }
+
+  setFocus(focus: Focus) {
+    this.focus = focus;
   }
 }
