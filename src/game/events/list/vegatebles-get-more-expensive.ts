@@ -1,7 +1,7 @@
 import type {Event} from '../event'
 import type {State} from '../../state'
 import type {Item} from "../../items";
-import {VegetarianDiet} from "../../items/list/diets/vegetarian-diet.ts";
+import {VegetarianDiet} from "../../items/list/diets/vegetarian-diet";
 
 export class VegateblesGetMoreExpensive implements Event {
     private readonly priceRising: number

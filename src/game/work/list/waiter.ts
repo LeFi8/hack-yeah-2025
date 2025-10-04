@@ -1,5 +1,5 @@
 import {JobContract} from "../job-contract";
-import type {State} from "../../state.ts";
+import type {State} from "../../state";
 
 export class Waiter extends JobContract {
   constructor(

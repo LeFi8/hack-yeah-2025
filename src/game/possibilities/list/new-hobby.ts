@@ -1,9 +1,9 @@
-import {State} from "../../state.ts";
-import type {Possibility} from "../possibility.ts";
-import {Hobby} from "../../items/list/hobbys/hobby.ts";
-import {ReadingBooksHobby} from "../../items/list/hobbys/reading-books-hobby.ts";
-import {JoggingHobby} from "../../items/list/hobbys/jogging-hobby.ts";
-import {VideoGamesHobby} from "../../items/list/hobbys/video-games-hobby.ts";
+import {State} from "../../state";
+import type {Possibility} from "../possibility";
+import {Hobby} from "../../items/list/hobbys/hobby";
+import {ReadingBooksHobby} from "../../items/list/hobbys/reading-books-hobby";
+import {JoggingHobby} from "../../items/list/hobbys/jogging-hobby";
+import {VideoGamesHobby} from "../../items/list/hobbys/video-games-hobby";
 
 export class NewHobby implements Possibility {
     title = "You decided to start a new hobby";

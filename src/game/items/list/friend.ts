@@ -1,4 +1,4 @@
-import type {Item} from "../item.ts";
+import type {Item} from "../item";
 
 export class Friend implements Item {
     applyMonthlyEffects() {

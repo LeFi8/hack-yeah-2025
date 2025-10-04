@@ -1,10 +1,10 @@
 import type {Event} from "./event";
-import type {State} from "../state.ts";
-import {Illness} from "./list/illness.ts";
-import {Theft} from "./list/theft.ts";
-import {FoundMoney} from "./list/found-money.ts";
-import {VegateblesGetMoreExpensive} from "./list/vegatebles-get-more-expensive.ts";
-import {FriendsByReading} from "./list/friends-by-reading.ts";
+import type {State} from "../state";
+import {Illness} from "./list/illness";
+import {Theft} from "./list/theft";
+import {FoundMoney} from "./list/found-money";
+import {VegateblesGetMoreExpensive} from "./list/vegatebles-get-more-expensive";
+import {FriendsByReading} from "./list/friends-by-reading";
 
 export class EventManager {
   private events: Event[]

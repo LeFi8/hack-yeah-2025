@@ -1,6 +1,6 @@
 import {State} from "../../state";
 import type {Item} from "../item";
-import {Depression} from "./depression.ts";
+import {Depression} from "./depression";
 
 export class Cat implements Item {
   monthlyCost = 20

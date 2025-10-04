@@ -1,5 +1,5 @@
-import type {Item} from "../../item.ts";
-import type {State} from "../../../state.ts";
+import type {Item} from "../../item";
+import type {State} from "../../../state";
 
 export class Hobby implements Item {
     applyMonthlyEffects(_: State) {return}

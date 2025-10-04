@@ -1,6 +1,6 @@
-import {State} from "../../state.ts";
-import type {Possibility} from "../possibility.ts";
-import {GymMembership} from "../../items/list/gym-membership.ts";
+import {State} from "../../state";
+import type {Possibility} from "../possibility";
+import {GymMembership} from "../../items/list/gym-membership";
 
 export class GymMembershipEvent implements Possibility {
     title = "Buy gim membership";

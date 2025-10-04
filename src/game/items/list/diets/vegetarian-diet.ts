@@ -1,5 +1,5 @@
-import {Diet} from "./diet.ts";
-import type {State} from "../../../state.ts";
+import {Diet} from "./diet";
+import type {State} from "../../../state";
 
 export class VegetarianDiet extends Diet {
     monthlyCost: number;

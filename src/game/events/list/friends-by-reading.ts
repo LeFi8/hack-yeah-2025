@@ -1,8 +1,8 @@
 import type {Event} from '../event'
 import type {State} from '../../state'
-import {ReadingBooksHobby} from "../../items/list/hobbys/reading-books-hobby.ts";
+import {ReadingBooksHobby} from "../../items/list/hobbys/reading-books-hobby";
 import type {Item} from "../../items";
-import {Friend} from "../../items/list/friend.ts";
+import {Friend} from "../../items/list/friend";
 
 export class FriendsByReading implements Event {
     canActivate = (state: State) => {

@@ -1,8 +1,8 @@
-import {State} from "../../state.ts";
-import type {Possibility} from "../possibility.ts";
-import {VegetarianDiet} from "../../items/list/diets/vegetarian-diet.ts";
-import {FastFoodDiet} from "../../items/list/diets/fast-food-diet.ts";
-import {Diet} from "../../items/list/diets/diet.ts";
+import {State} from "../../state";
+import type {Possibility} from "../possibility";
+import {VegetarianDiet} from "../../items/list/diets/vegetarian-diet";
+import {FastFoodDiet} from "../../items/list/diets/fast-food-diet";
+import {Diet} from "../../items/list/diets/diet";
 
 export class ChooseDiet implements Possibility {
     title = "Decide what will you eat every day";

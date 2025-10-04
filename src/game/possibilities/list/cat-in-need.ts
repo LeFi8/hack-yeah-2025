@@ -1,5 +1,5 @@
 import {State} from "../../state";
-import type {Possibility} from "../possibility.ts";
+import type {Possibility} from "../possibility";
 import {Cat} from "../../items";
 
 export class CatInNeed implements Possibility {

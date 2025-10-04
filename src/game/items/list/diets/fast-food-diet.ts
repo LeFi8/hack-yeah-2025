@@ -1,5 +1,5 @@
-import type {State} from "../../../state.ts";
-import {Diet} from "./diet.ts";
+import type {State} from "../../../state";
+import {Diet} from "./diet";
 
 export class FastFoodDiet extends Diet {
     monthlyCost = 80

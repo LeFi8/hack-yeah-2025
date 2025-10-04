@@ -1,4 +1,4 @@
-import {State} from "../state.ts";
+import {State} from "../state";
 
 export interface PossibilityOption {
   title: string

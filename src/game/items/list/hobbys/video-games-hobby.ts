@@ -1,5 +1,5 @@
-import {Hobby} from "./hobby.ts";
-import {State} from "../../../state.ts";
+import {Hobby} from "./hobby";
+import {State} from "../../../state";
 
 export class VideoGamesHobby extends Hobby {
     monthlyCost = 50
