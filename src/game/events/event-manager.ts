@@ -1,8 +1,18 @@
-import {State} from "./state.ts";
+import type {Event} from "./event";
+import type {State} from "../state.ts";
+import {illness} from "./list/illness.ts";
 
 export class EventManager {
+  private events: Event[]
+
+  constructor() {
+    this.events = [
+      illness,
+    ]
+  }
+
   getRandom(state: State): Event[] {
-    const filteredEvents = allEvents.filter((event) => event.canActivate());
+    const filteredEvents = this.events.filter((event) => event.canActivate());
 
     if (filteredEvents.length === 0) {
       return [];
@@ -46,32 +56,3 @@ export class EventManager {
   }
 
 }
-
-export interface Event {
-  title: string,
-  getWeight: (state: State) => number
-  applyEffects: (state: State ) => void
-  canActivate: () => boolean
-}
-
-
-const allEvents: Event[] = [
-  {
-    title: 'illness',
-    canActivate: () => {
-      return true;
-    },
-    applyEffects: (state: State) => {
-      // get ran dom duration - 3 months
-      // get random damage - 1 - 5 points
-      // state.character.balance -=  state.character.monthlyIncome * duratin;
-      // state.character.physicalHealth -= damage
-    },
-    getWeight: (state: State) => {
-      if (state.focus.health > 1) {
-        return 1;
-      }
-      return 2
-    }
-  }
-]

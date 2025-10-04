@@ -1,6 +1,6 @@
 import {Focus, State} from "./state.ts";
-import {PossibilityManager, type Possibility} from "./posibilities.ts";
-import { EventManager, type Event } from "./event.ts";
+import { PossibilityManager, type Possibility} from "./possibilities";
+import { EventManager, type Event } from "./events";
 
 export class Game {
   private state: State = new State();

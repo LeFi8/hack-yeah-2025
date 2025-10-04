@@ -1,4 +1,4 @@
-import type {Possibility} from "./posibilities.ts";
+import type {Possibility} from "./possibilities";
 
 export interface Item {
   // type: 'person' | 'car' | 'house' | 'work'
@@ -26,7 +26,7 @@ export class Focus {
   relation: number = 0
   work: number = 0
 
-  applyEffects(state: State) {
+  applyEffects(_state: State) {
     // state.character.physicalHealth += this.health
     // state.character.mentalHealth += this.health
   }
