@@ -20,19 +20,31 @@ function askQuestion(question: string): Promise<string> {
 function displayGameState(result: GameTickResult, monthsElapsed: number) {
   console.log(`\n=== Month ${monthsElapsed} (Age: ${result.state.age}) ===`);
 
-  console.log(`\n📊 Current State:`);
+  console.log(`\n📊 Character Condition:`);
   console.log(`   Balance: ${result.state.character.balance}`);
+  console.log(`   Additional Monthly Income: ${result.state.character.additionalMonthlyIncome}`);
   console.log(`   Monthly Expenses: ${result.state.character.monthlyExpenses.get()}`);
-  console.log(`   Income (Netto): ${result.state.character.monthlyIncomeNetto.get()}`);
-  console.log(`   Income (Brutto): ${result.state.character.monthlyIncomeBrutto.get()}`);
-  console.log(`   ZUS Account: ${result.state.character.zusAccountAccumulated.get()}`);
-
-  console.log(`   Education Level: ${result.state.character.educationLevel.get()}`);
   console.log(`   Mental Health: ${result.state.character.mentalHealth.get()}`);
   console.log(`   Physical Health: ${result.state.character.physicalHealth.get()}`);
   console.log(`   Happiness: ${result.state.character.happiness.get()}`);
-
   console.log(`   Health: ${result.state.focus.health.get() ? 'Yes' : 'No'}`);
+
+  console.log(`\n🎯 Job:`);
+  console.log(`   Employed: ${result.state.job ? 'Yes' : 'No'}`);
+  if (result.state.job) {
+    console.log(`   Position: ${result.state.job.position}`);
+    console.log(`   Contract Type: ${result.state.job.contractType}`);
+    console.log(`   Netto: ${result.state.job.monthlyIncomeNetto.get()}`);
+    console.log(`   Brutto: ${result.state.job.monthlyIncomeBrutto.get()}`);
+  }
+
+  console.log(`\n🎓 Education:`);
+  console.log(`   Level: ${result.state.education.level.get()}`);
+  console.log(`   Studying: ${result.state.education.isStudying ? 'Yes' : 'No'}`);
+
+
+  console.log(`\n🛠️  ZUS:`);
+  console.log(`   Already Accumulated: ${result.state.zus.alreadyAccummulated}`);
 
   console.log(`   Focuses:`);
   console.log(`       Work: ${result.state.focus.work.get() ? 'Yes' : 'No'}`);
