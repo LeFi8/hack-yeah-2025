@@ -1,5 +1,6 @@
 import type {Possibility} from "./possibilities";
 import {RangeCounter} from "./utils";
+import type {Item} from "./items";
 
 
 export class CharacterCondition {
@@ -58,5 +59,19 @@ export class State {
   // TODO: handle items, focuses, monthly income and spent
   applyMonthlyEffects() {
     console.log("Applying monthly effects...");
+  }
+
+  addItem(item: Item) {
+    if (item.monthlyCost) {
+        this.character.monthlyExpenses.add(item.monthlyCost)
+    }
+    this.items.push(item)
+  }
+
+  removeItem(item: Item) {
+    if (item.monthlyCost) {
+        this.character.monthlyExpenses.add(-item.monthlyCost)
+    }
+    this.items = this.items.filter(i => i !== item)
   }
 }

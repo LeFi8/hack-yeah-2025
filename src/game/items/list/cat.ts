@@ -1,7 +1,9 @@
 import {State} from "../../state";
 import type {Item} from "../item";
+import {Depression} from "./depression.ts";
 
 export class Cat implements Item {
+  monthlyCost = 20
   private monthsLeft: number
   constructor() {
     this.monthsLeft = Math.random() * 50
@@ -9,11 +11,11 @@ export class Cat implements Item {
 
   applyMonthlyEffects(state: State) {
     state.character.balance -= 20
-    // state.character.happiness++
+    state.character.happiness.add(1)
     this.monthsLeft--
     if (this.monthsLeft <= 0) {
-      // remove cat from items
-      // add depression to items
+      state.removeItem(this)
+      state.addItem(new Depression())
     }
   }
 }

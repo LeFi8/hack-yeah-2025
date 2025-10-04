@@ -8,10 +8,10 @@ export class Depression implements Item {
   }
 
   applyMonthlyEffects(state: State) {
-    // state.character.happiness--
+    state.character.happiness.add(-1)
     this.monthsLeft--
     if (this.monthsLeft <= 0) {
-      // remove depression from items
+        state.removeItem(this)
     }
   }
 }

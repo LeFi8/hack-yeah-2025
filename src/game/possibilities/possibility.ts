@@ -8,6 +8,6 @@ export interface PossibilityOption {
 export interface Possibility {
   title: string
   getWeight: (state: State) => number
-  canActivate: () => boolean
+  canActivate: (state: State) => boolean
   options: PossibilityOption[]
 }

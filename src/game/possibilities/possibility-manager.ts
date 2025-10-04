@@ -3,12 +3,14 @@ import type {Possibility} from "./possibility";
 import {purchaseHouse} from "./list/purchase-house";
 import {purchaseCar} from "./list/purchase-car";
 import {goForHolidays} from "./list/holidays";
+import {CatInNeed} from "./list/cat-in-need.ts";
 
 export class PossibilityManager {
   private possibilities: Possibility[]
 
   constructor() {
     this.possibilities = [
+        new CatInNeed(),
       purchaseHouse,
       purchaseCar,
       goForHolidays,

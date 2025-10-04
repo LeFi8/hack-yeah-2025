@@ -5,5 +5,6 @@ export interface Item {
   // type: 'person' | 'car' | 'house' | 'work'
   // applyEffects: (state: State) => void,
   // TODO: add icon url
+  monthlyCost?: number,
   applyMonthlyEffects: (state: State) => void,
 }
