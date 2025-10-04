@@ -16,10 +16,6 @@ export class Game {
   private gameRunning: boolean = false;
   private monthsElapsed: number = 0; // Track months since game start
 
-  // private historyOfPossibilities: Possibility[]
-  // private historyOfEvents: Event[]
-  // private historyOfState: State[]
-
   getCurrentPossibilities(): Possibility[] {
     return this.currentPossibilities
   }

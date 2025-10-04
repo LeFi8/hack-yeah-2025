@@ -1,6 +1,8 @@
+import type { Item } from "./items";
 import type {Possibility} from "./possibilities";
+import {BooleanFocus} from "./utils";
 import {RangeCounter} from "./utils";
-import type {Item} from "./items";
+
 
 
 export class CharacterCondition {
@@ -21,9 +23,9 @@ export class CharacterCondition {
 }
 
 export class Focus {
-  health: number = 0
-  relation: number = 0
-  work: number = 0
+  health = new BooleanFocus()
+  relation = new BooleanFocus()
+  work = new BooleanFocus()
 
   applyEffects(_state: State) {
     // state.character.physicalHealth += this.health
@@ -45,7 +47,22 @@ export class State {
 
   initialize() {
     this.age = 18;
-    // TODO: init random init state
+
+    this.character.balance = 5000;
+    this.character.monthlyExpenses.add(1500);
+    this.character.monthlyIncomeNetto.add(4000);
+    this.character.monthlyIncomeBrutto.add(5000);
+
+    // // // 0-podstawowe 1-średnie 2-licencjat/inż 3-magister 4-doktorat
+    this.character.educationLevel.add(1);
+    this.character.mentalHealth.add(80);
+    this.character.physicalHealth.add(80);
+    this.character.happiness.add(80);
+    this.character.maxHealth.add(100);
+
+    this.focus.health.set(true);
+    this.focus.relation.set(false)
+    this.focus.work.set(true)
   }
 
   shouldGameEnd(): boolean {
@@ -59,6 +76,25 @@ export class State {
   // TODO: handle items, focuses, monthly income and spent
   applyMonthlyEffects() {
     console.log("Applying monthly effects...");
+
+    // Handle Items
+    this.items.forEach((item: Item) => {
+        item.applyMonthlyEffects(this);
+      }
+    )
+
+    // Handle focuses
+    this.focus.applyEffects(this);
+
+    // Handle income from job
+    this.character.balance += this.character.monthlyIncomeNetto.get();
+
+    // Handle ZUS account
+    const zusContribution = Math.floor(this.character.monthlyIncomeBrutto.get() - this.character.monthlyIncomeNetto.get());
+    this.character.zusAccountAccumulated.add(zusContribution);
+
+    // Handle expences
+    this.character.balance -= this.character.monthlyExpenses.get();
   }
 
   addItem(item: Item) {
