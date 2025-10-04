@@ -23,14 +23,14 @@ function FocusChart() {
         blendMode="multiply"
         legends={[
           {
-            anchor: 'top-left',
-            direction: 'column',
+            anchor: "top-left",
+            direction: "column",
             translateX: -20,
             translateY: -40,
             itemWidth: 0,
             itemHeight: 0,
-            symbolShape: 'circle'
-          }
+            symbolShape: "circle",
+          },
         ]}
       />
     </>

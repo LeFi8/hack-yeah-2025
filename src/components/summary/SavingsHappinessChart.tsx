@@ -20,7 +20,7 @@ const data = [
       { x: "20", y: 4000 },
       { x: "21", y: 1000 },
     ],
-  }
+  },
 ];
 
 function SavingsHappinessChart() {
@@ -41,7 +41,11 @@ function SavingsHappinessChart() {
         colors={{ scheme: "set2" }}
         enableArea={true}
         axisLeft={null}
-        axisBottom={{ legend: "Age", legendOffset: 20, legendPosition: "middle" }}
+        axisBottom={{
+          legend: "Age",
+          legendOffset: 20,
+          legendPosition: "middle",
+        }}
         pointSize={10}
         pointColor={{ theme: "background" }}
         pointBorderWidth={2}

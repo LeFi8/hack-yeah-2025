@@ -13,7 +13,7 @@ function InfoTile({ title, value }: InfoTileProps) {
         <div className="text-zus text-xl">{value}</div>
       </div>
     </>
-  )
-};
+  );
+}
 
 export default InfoTile;
