@@ -1,19 +1,10 @@
 import { useState } from "react";
 import Card from "../../common/Card.tsx";
+import type { Possibility } from "../../../game/possibilities";
 
 interface PossibilitiesProps {
-  possibilities: {
-    title: string;
-    choices:
-      | {
-          text: string;
-        }[]
-      | null;
-  }[];
-  onPossibilityChosen: (
-    possibilityIndex: number,
-    choiceIndex: number | null,
-  ) => void;
+  possibilities: Possibility[];
+  onPossibilityChosen: (possibilityIndex: number, choiceIndex: number) => void;
 }
 
 function Possibilities({
@@ -25,8 +16,8 @@ function Possibilities({
   );
 
   const handlePossibilityClick = (possibilityIndex: number) => {
-    if (possibilities[possibilityIndex].choices === null) {
-      onPossibilityChosen(possibilityIndex, null);
+    if (possibilities[possibilityIndex].options.length === 1) {
+      onPossibilityChosen(possibilityIndex, 0);
       return;
     }
     setSelectedPossibility(possibilityIndex);
@@ -50,13 +41,13 @@ function Possibilities({
             </Card>
           ))}
         {selectedPossibility !== null &&
-          possibilities[selectedPossibility].choices?.map((choice, index) => (
+          possibilities[selectedPossibility].options.map((option, index) => (
             <Card
               key={index}
               onClick={() => handleChoiceClick(index)}
               className="grow flex flex-col items-center justify-center"
             >
-              <p className={"text-lg"}>{choice.text}</p>
+              <p className={"text-lg"}>{option.title}</p>
             </Card>
           ))}
       </div>

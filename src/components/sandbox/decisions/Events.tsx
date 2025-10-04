@@ -1,9 +1,10 @@
 import { useState } from "react";
 import Card from "../../common/Card.tsx";
 import Button from "../../common/Button.tsx";
+import { type Event } from "../../../game/events";
 
 interface EventsProps {
-  allEvents: { title: string; description: string }[];
+  allEvents: Event[];
   onEventAccepted: () => void;
 }
 
@@ -24,8 +25,8 @@ function Events({ allEvents, onEventAccepted }: EventsProps) {
     <div className="flex flex-col h-full gap-3">
       <Card key={events.length} className={"grow"}>
         <>
-          <h2 className="text-xl pb-2 font-bold">{currentEvent.title}</h2>
-          <p>{currentEvent.description}</p>
+          <h2 className="text-xl pb-2 font-bold">{currentEvent.getTitle()}</h2>
+          <p>{currentEvent.getDescription()}</p>
         </>
       </Card>
       <Button text={"OK"} onClick={acceptCurrentEvent} />

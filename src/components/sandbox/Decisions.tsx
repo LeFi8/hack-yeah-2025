@@ -1,69 +1,60 @@
 import Title from "../common/Title.tsx";
 import Events from "./decisions/Events.tsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Possibilities from "./decisions/Possibilities.tsx";
+import type { GameTickResult } from "../../game/game.ts";
 
-const events = [
-  {
-    title: "Śmierć kota",
-    description: "Twój kot niestety umarł :( Nie martw się, to tylko gra.",
-  },
-  {
-    title: "Znalazłeś pieniądze",
-    description: "Na chodniku znalazłeś 100zł. Gratulacje!",
-  },
-];
+interface DecisionsProps {
+  tickResult: GameTickResult;
+  onEventHandled: () => void;
+  onPossibilityHandled: (possibilityIndex: number, choiceIndex: number) => void;
+}
 
-const possibilities = [
-  {
-    title: "Zostań wegetarianinem",
-    choices: null,
-  },
-  {
-    title: "Zacznij ćwiczyć",
-    choices: null,
-  },
-  {
-    title: "Naucz się programować",
-    choices: [
-      { text: "JavaScript", effect: { intelligence: +5, happiness: -2 } },
-      { text: "Python", effect: { intelligence: +3, happiness: +1 } },
-      { text: "C++", effect: { intelligence: +7, happiness: -5 } },
-    ],
-  },
-];
-
-function Decisions() {
+function Decisions({
+  tickResult,
+  onEventHandled,
+  onPossibilityHandled,
+}: DecisionsProps) {
   const [presentEvents, setPresentEvents] = useState(false);
-  const [presentPossibilities, setPresentPossibilities] = useState(true);
+  const [presentPossibilities, setPresentPossibilities] = useState(false);
+
+  useEffect(() => {
+    if (tickResult.event !== null) {
+      setPresentEvents(true);
+    }
+    if (tickResult.possibilities.length) {
+      setPresentPossibilities(true);
+    }
+  }, [tickResult]);
 
   const onEventsAccepted = () => {
     setPresentEvents(false);
-    setPresentPossibilities(true);
+    onEventHandled();
   };
 
   const onPossibilityChosen = (
     possibilityIndex: number,
-    choiceIndex: number | null,
+    choiceIndex: number,
   ) => {
-    // TODO: send decision to backend, activate next tick
-    console.log(`Chosen possibility ${possibilities[possibilityIndex].title}.`);
-    if (choiceIndex !== null) {
-      console.log(
-        `Selectd choice: ${possibilities[possibilityIndex].choices?.[choiceIndex]?.text}`,
-      );
-    }
+    onPossibilityHandled(possibilityIndex, choiceIndex);
+    const selectedOne = tickResult.possibilities[possibilityIndex];
+    console.log(
+      `${selectedOne.title}: ${selectedOne.options[choiceIndex].title}`,
+    );
   };
 
   return (
     <div className="flex flex-col h-full">
       <Title text={"Decisions"} />
       {presentEvents && (
-        <Events allEvents={events} onEventAccepted={onEventsAccepted} />
+        <Events
+          allEvents={[tickResult.event!]}
+          onEventAccepted={onEventsAccepted}
+        />
       )}
-      {presentPossibilities && (
+      {!presentEvents && presentPossibilities && (
         <Possibilities
-          possibilities={possibilities}
+          possibilities={tickResult.possibilities}
           onPossibilityChosen={onPossibilityChosen}
         />
       )}

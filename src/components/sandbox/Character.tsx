@@ -1,9 +1,14 @@
 import Title from "../common/Title.tsx";
+import type { GameTickResult } from "../../game/game.ts";
 
-function Character() {
+interface CharacterProps {
+  tickResult: GameTickResult;
+}
+
+function Character({ tickResult }: CharacterProps) {
   return (
     <>
-      <Title text={"Age 19"} />
+      <Title text={`Age ${tickResult.state.age}`} />
     </>
   );
 }
