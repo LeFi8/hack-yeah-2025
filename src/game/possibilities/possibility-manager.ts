@@ -2,6 +2,8 @@ import {State} from "../state";
 import type {Possibility} from "./possibility";
 import {CatInNeed} from "./list/cat-in-need.ts";
 import {GymMembershipEvent} from "./list/gym-membership-event.ts";
+import {NewHobby} from "./list/new-hobby.ts";
+import {ChooseDiet} from "./list/choose-diet.ts";
 
 export class PossibilityManager {
   private possibilities: Possibility[]
@@ -10,6 +12,8 @@ export class PossibilityManager {
     this.possibilities = [
         new CatInNeed(),
         new GymMembershipEvent(),
+        new NewHobby(),
+        new ChooseDiet(),
     ]
   }
 
