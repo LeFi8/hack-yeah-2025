@@ -7,6 +7,7 @@ import { VegateblesGetMoreExpensive } from "./list/vegatebles-get-more-expensive
 import { FriendsByReading } from "./list/friends-by-reading";
 import { HelpedNeighbor } from "./list/helped-neighbour.ts";
 import { CarIsBroken } from "./list/car-is-broken.ts";
+import {TravelingDueToCar} from "./list/traveling-due-to-car.ts";
 
 export class EventManager {
   private events: Event[];
@@ -20,6 +21,7 @@ export class EventManager {
       new FriendsByReading(),
       new HelpedNeighbor(),
       new CarIsBroken(),
+      new TravelingDueToCar(),
     ];
   }
 
