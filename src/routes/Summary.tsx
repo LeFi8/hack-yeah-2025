@@ -1,7 +1,7 @@
 import SavingsHappinessChart from "../components/summary/SavingsHappinessChart.tsx";
 import FocusChart from "../components/summary/FocusChart.tsx";
-import Title from "../components/common/Title.tsx";
 import InfoTile from "../components/summary/InfoTile.tsx";
+import LifeSummary from "../components/summary/LifeSummary.tsx";
 
 function Summary() {
   return (
@@ -39,7 +39,7 @@ function Summary() {
               </div>
             </div>
             <div className="border-2 rounded-2xl bg-white shadow-md flex-3 p-5">
-              <Title text="Your Life" />
+              <LifeSummary />
             </div>
           </div>
         </div>
