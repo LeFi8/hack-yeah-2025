@@ -1,8 +1,29 @@
+import State from "../components/State.tsx";
+import Character from "../components/Character.tsx";
+import Decisions from "../components/Decisions.tsx";
+import LifeChart from "../components/LifeChart.tsx";
+
 function SandboxMode() {
   return (
     <>
-      <h1>Sandbox </h1>
-      <div>Content goes here...</div>
+      <div className="flex gap-5 p-4 h-dvh">
+        <div className="flex-4 flex flex-col gap-5">
+          <div className="bg-white shadow-md py-5 px-8 border-2 rounded-2xl flex-1">
+            <LifeChart />
+          </div>
+          <div className="flex flex-4 gap-5">
+            <div className="bg-white shadow-md py-5 px-8 border-2 rounded-2xl  flex-3">
+              <Character />
+            </div>
+            <div className="bg-white shadow-md py-5 px-8 border-2 rounded-2xl flex-7">
+              <Decisions />
+            </div>
+          </div>
+        </div>
+        <div className="bg-white shadow-md py-5 px-8 border-2 rounded-2xl flex-1">
+          <State />
+        </div>
+      </div>
     </>
   );
 }
