@@ -1,21 +1,21 @@
-import {State} from "../state";
+import { State } from "../state";
 
 export abstract class JobContract {
-  abstract getBruttoIncome(): number
-  abstract getPosition(): string
+  abstract getBruttoIncome(): number;
+  abstract getPosition(): string;
 
   private zusPercent = {
-    'UOP': 12,
-    'UZ': 8,
-    'B2B': 6,
-    'UNREGISTERED': 0,
-  }
+    UOP: 12,
+    UZ: 8,
+    B2B: 6,
+    UNREGISTERED: 0,
+  };
   private taxPercent = {
-    'UOP': 25,
-    'UZ': 20,
-    'B2B': 12,
-    'UNREGISTERED': 0,
-  }
+    UOP: 25,
+    UZ: 20,
+    B2B: 12,
+    UNREGISTERED: 0,
+  };
 
   constructor(
     protected readonly contractType: "UOP" | "UZ" | "B2B" | "UNREGISTERED",
@@ -27,12 +27,16 @@ export abstract class JobContract {
   }
 
   getZusContribution(): number {
-    return this.getBruttoIncome() * (this.zusPercent[this.contractType] / 100)
+    return this.getBruttoIncome() * (this.zusPercent[this.contractType] / 100);
   }
 
   getNettoIncome(): number {
-    const totalTaxAndZusPercent = this.taxPercent[this.contractType] + this.zusPercent[this.contractType];
-    return this.getBruttoIncome() - this.getBruttoIncome() * (totalTaxAndZusPercent / 100);
+    const totalTaxAndZusPercent =
+      this.taxPercent[this.contractType] + this.zusPercent[this.contractType];
+    return (
+      this.getBruttoIncome() -
+      this.getBruttoIncome() * (totalTaxAndZusPercent / 100)
+    );
   }
 
   getContractType(): string {

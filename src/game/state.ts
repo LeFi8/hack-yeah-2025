@@ -2,6 +2,7 @@ import type { Item } from "./items";
 import type { Possibility } from "./possibilities";
 import { BooleanFocus } from "./utils";
 import { RangeCounter } from "./utils";
+import type { History } from "./utils/history";
 import { JobContract } from "./work";
 
 export class CharacterCondition {
@@ -15,6 +16,22 @@ export class CharacterCondition {
 
   // TODO: dynamically change max health with age
   maxHealth = new RangeCounter(100, 0, 100);
+
+  clone(): CharacterCondition {
+    const clone = new CharacterCondition();
+    clone.balance = this.balance;
+    clone.additionalMonthlyIncome = this.additionalMonthlyIncome;
+    clone.monthlyExpenses = new RangeCounter(
+      this.monthlyExpenses.get(),
+      0,
+      null,
+    );
+    clone.mentalHealth = new RangeCounter(this.mentalHealth.get(), 0, 100);
+    clone.physicalHealth = new RangeCounter(this.physicalHealth.get(), 0, 100);
+    clone.happiness = new RangeCounter(this.happiness.get(), 0, 100);
+    clone.maxHealth = new RangeCounter(this.maxHealth.get(), 0, 100);
+    return clone;
+  }
 }
 
 export class Focus {
@@ -98,6 +115,7 @@ export class State {
   public items: Item[] = [];
   public focus: Focus;
   public currentPossibilities: Possibility[] = [];
+  private stateHistory: History[] = [];
 
   constructor() {
     this.character = new CharacterCondition();
@@ -171,5 +189,17 @@ export class State {
       this.character.monthlyExpenses.add(-item.monthlyCost);
     }
     this.items = this.items.filter((i) => i !== item);
+  }
+
+  updateHistory() {
+    this.stateHistory.push({
+      age: this.age,
+      month: (this.getMonthsElapsed() % 12) + 1,
+      characterCondition: this.character.clone(),
+    });
+  }
+
+  getHistory(): History[] {
+    return this.stateHistory;
   }
 }

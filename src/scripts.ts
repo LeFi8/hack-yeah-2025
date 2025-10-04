@@ -17,8 +17,10 @@ function askQuestion(question: string): Promise<string> {
   });
 }
 
-function displayGameState(result: GameTickResult, monthsElapsed: number) {
-  console.log(`\n=== Month ${monthsElapsed} (Age: ${result.state.age}) ===`);
+function displayGameState(result: GameTickResult, game: Game) {
+  console.log(
+    `\n=== Month ${game.getMonthsElapsed()} (Age: ${result.state.age}) ===`,
+  );
 
   console.log(`\n📊 Character Condition:`);
   console.log(`   Balance: ${result.state.character.balance}`);
@@ -74,7 +76,7 @@ function displayGameState(result: GameTickResult, monthsElapsed: number) {
     console.log("\n🎯 New Possibilities Available:");
     result.possibilities.forEach((possibility, index) => {
       console.log(`  ${index + 1}. ${possibility.title}`);
-      possibility.options.forEach((option, optionIndex) => {
+      possibility.getOptions(game.getState()).forEach((option, optionIndex) => {
         console.log(`     ${optionIndex + 1}) ${option.title}`);
       });
     });
@@ -108,11 +110,14 @@ async function handlePossibilitySelection(
   const selectedPossibility = possibilities[possibilityIndex];
 
   const optionChoice = await askQuestion(
-    `\nSelect an option (1-${selectedPossibility.options.length}): `,
+    `\nSelect an option (1-${selectedPossibility.getOptions(game.getState()).length}): `,
   );
   const optionIndex = parseInt(optionChoice) - 1;
 
-  if (optionIndex < 0 || optionIndex >= selectedPossibility.options.length) {
+  if (
+    optionIndex < 0 ||
+    optionIndex >= selectedPossibility.getOptions(game.getState()).length
+  ) {
     console.log("Invalid option selection.");
     return;
   }
@@ -120,7 +125,7 @@ async function handlePossibilitySelection(
   try {
     game.selectPossibility(selectedPossibility, optionIndex);
     console.log(
-      `\nYou chose: ${selectedPossibility.options[optionIndex].title}`,
+      `\nYou chose: ${selectedPossibility.getOptions(game.getState())[optionIndex].title}`,
     );
     console.log("Effects applied!");
   } catch (error) {
@@ -148,7 +153,7 @@ async function testGameLoop() {
     const result = game.tick();
 
     // Display current state
-    displayGameState(result, game.getMonthsElapsed());
+    displayGameState(result, game);
 
     // Handle possibilities if any
     if (result.possibilities.length > 0) {

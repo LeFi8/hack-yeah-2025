@@ -1,13 +1,13 @@
-import {State} from "../state";
+import { State } from "../state";
 
 export interface PossibilityOption {
-  title: string
-  applyEffects: (state: State) => void
+  title: string;
+  applyEffects: (state: State) => void;
 }
 
 export interface Possibility {
-  title: string
-  getWeight: (state: State) => number
-  canActivate: (state: State) => boolean
-  getOptions(state: State): PossibilityOption[]
+  title: string;
+  getWeight: (state: State) => number;
+  canActivate: (state: State) => boolean;
+  getOptions(state: State): PossibilityOption[];
 }

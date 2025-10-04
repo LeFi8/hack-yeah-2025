@@ -1,7 +1,7 @@
 import type { Event } from "../event";
 import type { State } from "../../state";
-import {Car} from "../../items/list/car.ts";
-import type {Item} from "../../items";
+import { Car } from "../../items/list/car.ts";
+import type { Item } from "../../items";
 
 export class CarIsBroken implements Event {
   private readonly repairCost: number;
@@ -9,7 +9,7 @@ export class CarIsBroken implements Event {
     this.repairCost = 500;
   }
   canActivate = (state: State) => {
-      return state.items.some((item: Item) => item instanceof Car);
+    return state.items.some((item: Item) => item instanceof Car);
   };
   applyEffects = (state: State) => {
     state.character.balance -= this.repairCost;

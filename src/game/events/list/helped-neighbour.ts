@@ -16,9 +16,9 @@ export class HelpedNeighbor implements Event {
     return `Your neighbor needed help carrying groceries. You offered your assistance, which made you feel good and strengthened your sense of community.`;
   };
   getWeight = (state: State) => {
-      if (state.focus.relation.get()) {
-          return 2;
-      }
-      return 1;
+    if (state.focus.relation.get()) {
+      return 2;
+    }
+    return 1;
   };
 }

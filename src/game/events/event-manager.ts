@@ -5,21 +5,21 @@ import { Theft } from "./list/theft";
 import { FoundMoney } from "./list/found-money";
 import { VegateblesGetMoreExpensive } from "./list/vegatebles-get-more-expensive";
 import { FriendsByReading } from "./list/friends-by-reading";
-import {HelpedNeighbor} from "./list/helped-neighbour.ts";
-import {CarIsBroken} from "./list/car-is-broken.ts";
+import { HelpedNeighbor } from "./list/helped-neighbour.ts";
+import { CarIsBroken } from "./list/car-is-broken.ts";
 
 export class EventManager {
   private events: Event[];
 
   constructor() {
     this.events = [
-        new Illness(),
-        new Theft(),
-        new FoundMoney(),
-        new VegateblesGetMoreExpensive(),
-        new FriendsByReading(),
-        new HelpedNeighbor(),
-        new CarIsBroken(),
+      new Illness(),
+      new Theft(),
+      new FoundMoney(),
+      new VegateblesGetMoreExpensive(),
+      new FriendsByReading(),
+      new HelpedNeighbor(),
+      new CarIsBroken(),
     ];
   }
 
