@@ -1,24 +1,22 @@
 import type {Possibility} from "./possibilities";
+import {RangeCounter} from "./utils";
 
-export interface Item {
-  // type: 'person' | 'car' | 'house' | 'work'
-  applyEffects: (state: State) => void,
-}
 
 export class CharacterCondition {
-  balance: number = 0
-  monthlyExpenses: number = 0
-  monthlyIncomeNetto: number = 0
-  monthlyIncomeBrutto: number = 0
-  zusAccountAccumulated: number = 0
+  balance = 0
+  monthlyExpenses = new RangeCounter(0, 0, null)
+  monthlyIncomeNetto  = new RangeCounter(0, 0, null)
+  monthlyIncomeBrutto = new RangeCounter(0, 0, null)
+  zusAccountAccumulated = new RangeCounter(0, 0, null)
 
   // 0-podstawowe 1-średnie 2-licencjat/inż 3-magister 4-doktorat
-  educationLevel: number = 0
-  mentalHealth: number = 0
-  physicalHealth: number = 0
-  happiness: number = 0
+  educationLevel = new RangeCounter(0, 0, 4)
+  mentalHealth = new RangeCounter(0, 0, 100)
+  physicalHealth = new RangeCounter(0, 0, 100)
+  happiness = new RangeCounter(0, 0, 100)
 
-  maxHealth: number = 100
+  // TODO: dynamically change max health with age
+  maxHealth = new RangeCounter(100, 0, 100)
 }
 
 export class Focus {
@@ -46,6 +44,7 @@ export class State {
 
   initialize() {
     this.age = 18;
+    // TODO: init random init state
   }
 
   shouldGameEnd(): boolean {
@@ -56,6 +55,7 @@ export class State {
     this.focus = focus;
   }
 
+  // TODO: handle items, focuses, monthly income and spent
   applyMonthlyEffects() {
     console.log("Applying monthly effects...");
   }

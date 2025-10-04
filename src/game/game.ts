@@ -1,4 +1,4 @@
-import {Focus, State} from "./state.ts";
+import {Focus, State} from "./state";
 import { PossibilityManager, type Possibility} from "./possibilities";
 import { EventManager, type Event } from "./events";
 
