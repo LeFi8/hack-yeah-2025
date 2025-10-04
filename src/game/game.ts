@@ -84,7 +84,11 @@ export class Game {
   // Updated methods to return data instead of storing internally
   private processRandomEvents(): Event[] {
     const events: Event[] = this.eventManager.getRandom(this.state);
-    events.forEach(event => event.applyEffects(this.state));
+    events.forEach(event => {
+      event.applyEffects(this.state)
+      console.log(`Event occurred: ${event.getTitle()}`);
+      console.log(`Description: ${event.getDescription()}`);
+    });
     return events;
   }
 
