@@ -1,45 +1,45 @@
 export class RangeCounter {
-  private val: number
-  private max: number | null
-  private min: number | null
+  private val: number;
+  private max: number | null;
+  private min: number | null;
 
   constructor(initVal: number, min: number | null, max: number | null) {
-    this.val = initVal
-    this.min = min
-    this.max = max
+    this.val = initVal;
+    this.min = min;
+    this.max = max;
   }
 
   add(diffVal: number) {
-    this.val += diffVal
+    this.val += diffVal;
     if (this.max !== null) {
-      this.val = Math.min(this.max, this.val)
+      this.val = Math.min(this.max, this.val);
     }
     if (this.min !== null) {
-      this.val = Math.max(this.min, this.val)
+      this.val = Math.max(this.min, this.val);
     }
   }
 
   get(): number {
-    return this.val
+    return this.val;
   }
 }
 
 export class BooleanFocus {
-  private isActive: boolean
+  private isActive: boolean;
 
   constructor(initVal: boolean = false) {
-    this.isActive = initVal
+    this.isActive = initVal;
   }
 
   set(value: boolean) {
-    this.isActive = value
+    this.isActive = value;
   }
 
   get(): boolean {
-    return this.isActive
+    return this.isActive;
   }
 
   toggle() {
-    this.isActive = !this.isActive
+    this.isActive = !this.isActive;
   }
 }
