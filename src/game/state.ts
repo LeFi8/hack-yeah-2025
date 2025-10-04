@@ -35,4 +35,16 @@ export class State {
     this.character = new CharacterCondition()
     this.focus = new Focus()
   }
+
+  initialize() {
+    this.age = 18;
+  }
+
+  shouldGameEnd(): boolean {
+    return false
+  }
+
+  setFocus(focus: Focus) {
+    this.focus = focus;
+  }
 }
