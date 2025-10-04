@@ -12,7 +12,7 @@ export class CatInNeed implements Possibility {
             }
         },
         {
-            title: 'Carry to shelter',
+            title: 'Carry it to shelter',
             applyEffects: (state: State) => {
                 state.character.happiness.add(2)
             }
