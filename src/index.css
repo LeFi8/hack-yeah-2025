@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+@theme {
+  --color-btp: rgb(183, 62, 62);
+}
