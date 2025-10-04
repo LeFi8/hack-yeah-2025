@@ -1,12 +1,12 @@
 import { State } from "../state";
 
 export abstract class JobContract {
-  abstract getBruttoIncome(): number
-  abstract getPosition(): string
-  abstract canUpgrade(): boolean
-  abstract getLvl(): number
-  abstract upgrade(): void
-  abstract getNextLvlContract()
+  abstract getBruttoIncome(): number;
+  abstract getPosition(): string;
+  abstract canUpgrade(): boolean;
+  abstract getLvl(): number;
+  abstract upgrade(): void;
+  abstract getNextLvlContract();
 
   private zusPercent = {
     UOP: 12,
@@ -48,7 +48,7 @@ export abstract class JobContract {
   }
 
   getLvlName(lvl: number): string {
-    return ['Junior', 'Middle', 'Senior'][lvl] ?? ''
+    return ["Junior", "Middle", "Senior"][lvl] ?? "";
   }
 }
 

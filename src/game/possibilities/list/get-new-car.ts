@@ -1,6 +1,6 @@
 import { State } from "../../state";
 import type { Possibility } from "../possibility";
-import { Car } from "../../items/list/car.ts";
+import { Car } from "../../items/list/car";
 
 export class GetNewCar implements Possibility {
   title = "You need a new car";

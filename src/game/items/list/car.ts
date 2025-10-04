@@ -1,4 +1,4 @@
-import type { Item } from "../item.ts";
+import type { Item } from "../item";
 
 export class Car implements Item {
   monthlyCost: number;

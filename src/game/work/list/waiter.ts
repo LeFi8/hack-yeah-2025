@@ -26,10 +26,10 @@ export class Waiter extends JobContract {
   upgrade(): void {}
 
   getLvl(): number {
-    return 1
+    return 1;
   }
 
   getNextLvlContract() {
-    return new Waiter(this.contractType)
+    return new Waiter(this.contractType);
   }
 }

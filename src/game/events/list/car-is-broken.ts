@@ -1,6 +1,6 @@
 import type { Event } from "../event";
 import type { State } from "../../state";
-import { Car } from "../../items/list/car.ts";
+import { Car } from "../../items/list/car";
 import type { Item } from "../../items";
 
 export class CarIsBroken implements Event {
