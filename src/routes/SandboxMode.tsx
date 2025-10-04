@@ -1,7 +1,7 @@
-import State from "../components/State.tsx";
-import Character from "../components/Character.tsx";
-import Decisions from "../components/Decisions.tsx";
-import LifeChart from "../components/LifeChart.tsx";
+import State from "../components/sandbox/State.tsx";
+import Character from "../components/sandbox/Character.tsx";
+import Decisions from "../components/sandbox/Decisions.tsx";
+import LifeChart from "../components/sandbox/LifeChart.tsx";
 
 function SandboxMode() {
   return (

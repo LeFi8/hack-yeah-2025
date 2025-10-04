@@ -1,4 +1,4 @@
-import Title from "./common/Title.tsx";
+import Title from "../common/Title.tsx";
 
 function Character() {
   return (
