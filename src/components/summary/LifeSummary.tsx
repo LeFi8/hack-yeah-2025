@@ -13,18 +13,20 @@ function LifeSummary() {
   const [hasError, setHasError] = useState(false);
 
   const fetchSummary = async () => {
+    const geminiClient = GeminiClient.newClient();
+    if (!geminiClient) {
+      setIsLoading(false);
+      setHasError(false);
+      setSummary("");
+      return;
+    }
+
     setIsLoading(true);
     setHasError(false);
 
     try {
-      const geminiClient = new GeminiClient();
       const query = QueryBuilder.build(stats);
       const result = await geminiClient.generate(query);
-
-      if (!geminiClient.clientExistsCheck()) {
-        setSummary("");
-        setIsLoading(false);
-      }
 
       setSummary(result);
       setIsLoading(false);
@@ -39,12 +41,6 @@ function LifeSummary() {
     fetchSummary();
   }, []);
 
-  console.log("Rendering with state:", {
-    isLoading,
-    hasError,
-    summary: summary.length > 0,
-  });
-
   return (
     <>
       <Title text="Your Life" />
@@ -57,8 +53,10 @@ function LifeSummary() {
         </div>
       ) : hasError ? (
         <div className="text-red-600 py-4">
-          <p className="mb-2">Failed to generate life summary. Please try again.</p>
-          <button 
+          <p className="mb-2">
+            Failed to generate life summary. Please try again.
+          </p>
+          <button
             onClick={fetchSummary}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
