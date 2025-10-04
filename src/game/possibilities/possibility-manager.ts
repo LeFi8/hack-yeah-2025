@@ -7,6 +7,7 @@ import {ChooseDiet} from "./list/choose-diet";
 import {WorkWaiter} from "./list/work-waiter";
 import {WorkEngineer} from "./list/work-engineer";
 import {University} from "./list/university";
+import {GetNewCar} from "./list/get-new-car.ts";
 
 export class PossibilityManager {
   private possibilities: Possibility[]
@@ -20,6 +21,7 @@ export class PossibilityManager {
       new WorkWaiter(),
       new WorkEngineer(),
       new University(),
+        new GetNewCar(),
     ]
   }
 
