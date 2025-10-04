@@ -1,3 +1,4 @@
+import { DeathCalculator } from "./death/DeathCalculator";
 import type { Item } from "./items";
 import type { Possibility } from "./possibilities";
 import { BooleanFocus } from "./utils";
@@ -44,7 +45,7 @@ export class Focus {
     hobby: boolean,
     health: boolean,
     relation: boolean,
-    work: boolean
+    work: boolean,
   ) {
     this.hobby.set(hobby);
     this.health.set(health);
@@ -129,14 +130,12 @@ export class State {
   public currentPossibilities: Possibility[] = [];
   private stateHistory: History[] = [];
 
+  public deathReason: string | null = null;
+  public isGameEnded: boolean = false;
+
   constructor() {
     this.character = new CharacterCondition();
-    this.focus = new Focus(
-      false,
-      true,
-      false,
-      true
-    );
+    this.focus = new Focus(false, true, false, true);
   }
 
   initialize() {
@@ -169,6 +168,14 @@ export class State {
   }
 
   shouldGameEnd(): boolean {
+    const deathResult = DeathCalculator.shouldGameEnd(this);
+
+    if (deathResult.isDead) {
+      this.isGameEnded = true;
+      this.deathReason = deathResult.reason || "Unknown cause";
+      return true;
+    }
+
     return false;
   }
 
@@ -176,7 +183,6 @@ export class State {
     this.focus = focus;
   }
 
-  // TODO: handle items, focuses, monthly income and spent
   applyMonthlyEffects() {
     console.log("Applying monthly effects...");
 

@@ -7,6 +7,7 @@ export interface GameTickResult {
   possibilities: Possibility[];
   event: Event | null;
   state: State;
+  isFinished: boolean;
 }
 
 export class Game {
@@ -66,6 +67,7 @@ export class Game {
       possibilities,
       event,
       state: this.state,
+      isFinished: this.state.shouldGameEnd(),
     };
   }
 

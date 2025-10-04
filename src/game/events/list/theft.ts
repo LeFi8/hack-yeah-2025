@@ -5,12 +5,12 @@ export class Theft implements Event {
   private amountStolen: number;
   private randomizeAmountStolen = () => {
     this.amountStolen = 2000 * (Math.random() + 1);
-  }
+  };
   constructor() {
     this.amountStolen = 2000;
   }
   canActivate = (_: State) => {
-    this.randomizeAmountStolen()
+    this.randomizeAmountStolen();
     return true;
   };
   applyEffects = (state: State) => {
