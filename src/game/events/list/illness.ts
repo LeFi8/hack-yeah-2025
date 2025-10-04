@@ -29,10 +29,10 @@ export class Illness implements Event {
     return `
       You have been diagnosed with a serious illness that requires immediate treatment. 
       The treatment will be expensive and will take a toll on your mental and physical health.
-      Happiness: ${this.happinessChange}
-      Mental Health: ${this.mentalHealthChange}
-      Physical Health: ${this.physicalHealthChange}
-      Balance: ${this.balanceChange}
+      Happiness: ${this.happinessChange.toFixed(0)}.
+      Mental Health: ${this.mentalHealthChange.toFixed(0)}.
+      Physical Health: ${this.physicalHealthChange.toFixed(0)}
+      Balance: ${this.balanceChange.toFixed(0)}
     `
   };
   getWeight = (state: State) => {

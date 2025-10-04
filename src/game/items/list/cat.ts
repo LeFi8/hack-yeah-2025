@@ -10,7 +10,6 @@ export class Cat implements Item {
   }
 
   applyMonthlyEffects(state: State) {
-    state.character.balance -= 20
     state.character.happiness.add(1)
     this.monthsLeft--
     if (this.monthsLeft <= 0) {
