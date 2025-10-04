@@ -10,8 +10,6 @@ export class CharacterCondition {
   additionalMonthlyIncome: number = 0
   monthlyExpenses = new RangeCounter(0, 0, null)
 
-  // 0-podstawowe 1-średnie 2-licencjat/inż 3-magister 4-doktorat
-  educationLevel = new RangeCounter(0, 0, 4)
   mentalHealth = new RangeCounter(0, 0, 100)
   physicalHealth = new RangeCounter(0, 0, 100)
   happiness = new RangeCounter(0, 0, 100)
@@ -74,6 +72,16 @@ export class Focus {
   }
 }
 
+export class Education {
+  // 0-podstawowe 1-średnie 2-licencjat/inż 3-magister 4-doktorat
+  level = new RangeCounter(0, 0, 4)
+  fieldOfStudy: string = ""
+  isStudying: boolean = false
+
+  applyMonthlyEffects(state: State) {
+    
+  }
+}
 
 export class ZUS {
   isAlreadyRetired: boolean = false
@@ -103,6 +111,7 @@ export class State {
   private monthsElapsed: number = 0; // Track months since game start
   public character: CharacterCondition
   public job: JobContract | null = null;
+  public education: Education = new Education();
   public zus: ZUS = new ZUS();
   public items: Item[] = [];
   public focus: Focus;
@@ -120,9 +129,9 @@ export class State {
     this.character.balance = 10000;
     this.character.monthlyExpenses.add(1000);
     this.job = null;
+    // 0-podstawowe 1-średnie 2-licencjat/inż 3-magister 4-doktorat
+    this.education.level.add(1);
 
-    // // // 0-podstawowe 1-średnie 2-licencjat/inż 3-magister 4-doktorat
-    this.character.educationLevel.add(1);
     this.character.mentalHealth.add(80);
     this.character.physicalHealth.add(80);
     this.character.happiness.add(80);
