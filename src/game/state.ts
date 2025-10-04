@@ -1,6 +1,6 @@
 import type { Item } from "./items";
 import type {Possibility} from "./possibilities";
-import {RangeCounter} from "./utils";
+import {BooleanFocus, RangeCounter} from "./utils";
 
 
 export class CharacterCondition {
@@ -21,9 +21,9 @@ export class CharacterCondition {
 }
 
 export class Focus {
-  health: number = 0
-  relation: number = 0
-  work: number = 0
+  health = new BooleanFocus()
+  relation = new BooleanFocus()
+  work = new BooleanFocus()
 
   applyEffects(_state: State) {
     // state.character.physicalHealth += this.health
@@ -58,9 +58,9 @@ export class State {
     this.character.happiness.add(80);
     this.character.maxHealth.add(100);
 
-    this.focus.health = 1;
-    this.focus.relation = 1;
-    this.focus.work = 1;
+    this.focus.health.set(true);
+    this.focus.relation.set(false)
+    this.focus.work.set(true)
   }
 
   shouldGameEnd(): boolean {

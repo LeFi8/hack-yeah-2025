@@ -22,5 +22,24 @@ export class RangeCounter {
   get(): number {
     return this.val
   }
+}
 
+export class BooleanFocus {
+  private isActive: boolean
+
+  constructor(initVal: boolean = false) {
+    this.isActive = initVal
+  }
+
+  set(value: boolean) {
+    this.isActive = value
+  }
+
+  get(): boolean {
+    return this.isActive
+  }
+
+  toggle() {
+    this.isActive = !this.isActive
+  }
 }
