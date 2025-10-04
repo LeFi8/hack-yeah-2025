@@ -6,7 +6,7 @@ export interface Item {
 }
 
 export class CharacterCondition {
-  savings: number = 0
+  balance: number = 0
   monthlyExpenses: number = 0
   monthlyIncomeNetto: number = 0
   monthlyIncomeBrutto: number = 0
