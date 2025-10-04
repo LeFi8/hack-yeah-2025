@@ -106,6 +106,7 @@ export class Education {
   level = new RangeCounter(0, 0, 4);
   fieldOfStudy: string = "";
   isStudying: boolean = false;
+  studyingSinceMonth: number = 0;
 
   applyMonthlyEffects(state: State) {}
 }

@@ -18,4 +18,18 @@ export class Waiter extends JobContract {
     super.applyMonthlyEffects(state);
     state.character.happiness.add(-0.2);
   }
+
+  canUpgrade() {
+    return false;
+  }
+
+  upgrade(): void {}
+
+  getLvl(): number {
+    return 1
+  }
+
+  getNextLvlContract() {
+    return new Waiter(this.contractType)
+  }
 }
