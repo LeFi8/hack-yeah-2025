@@ -78,11 +78,6 @@ export class Game {
     }
 
     possibility.getOptions(this.state)[selectedOption].applyEffects(this.state);
-
-    // Remove used possibility
-    this.currentPossibilities = this.currentPossibilities.filter(
-      (p) => p !== possibility,
-    );
   }
 
   selectFocus(focus: Focus) {

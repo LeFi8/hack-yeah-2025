@@ -40,6 +40,18 @@ export class Focus {
   relation = new BooleanFocus();
   work = new BooleanFocus();
 
+  constructor(
+    hobby: boolean,
+    health: boolean,
+    relation: boolean,
+    work: boolean
+  ) {
+    this.hobby.set(hobby);
+    this.health.set(health);
+    this.relation.set(relation);
+    this.work.set(work);
+  }
+
   private chance(probability: number): boolean {
     return Math.random() < probability;
   }
@@ -119,7 +131,12 @@ export class State {
 
   constructor() {
     this.character = new CharacterCondition();
-    this.focus = new Focus();
+    this.focus = new Focus(
+      false,
+      true,
+      false,
+      true
+    );
   }
 
   initialize() {
