@@ -1,21 +1,44 @@
 import type {Event} from '../event'
 import type {State} from '../../state'
 
-export const illness: Event = {
-  title: 'illness',
-  canActivate: () => {
+export class Illness implements Event {
+  happinessChange: number
+  mentalHealthChange: number
+  physicalHealthChange: number
+  balanceChange: number
+
+  constructor() {
+    this.happinessChange = -15 * (Math.random() + 1)
+    this.mentalHealthChange = -15 * (Math.random() + 1)
+    this.physicalHealthChange = -15 * (Math.random() + 1)
+    this.balanceChange = -1000 * (Math.random() + 1)
+  }
+  canActivate = (_: State) => {
     return true;
-  },
-  applyEffects: (_state: State) => {
-    // get ran dom duration - 3 months
-    // get random damage - 1 - 5 points
-    // state.character.balance -=  state.character.monthlyIncome * duratin;
-    // state.character.physicalHealth -= damage
-  },
-  getWeight: (state: State) => {
-    if (state.focus.health > 1) {
-      return 1;
+  };
+  applyEffects = (state: State) => {
+    state.character.happiness.add(this.happinessChange)
+    state.character.mentalHealth.add(this.mentalHealthChange)
+    state.character.physicalHealth.add(this.physicalHealthChange)
+    state.character.balance -= this.balanceChange
+  };
+  getTitle = () => {
+    return "You got seriously ill";
+  };
+  getDescription = () => {
+    return `
+      You have been diagnosed with a serious illness that requires immediate treatment. 
+      The treatment will be expensive and will take a toll on your mental and physical health.
+      Happiness: ${this.happinessChange}
+      Mental Health: ${this.mentalHealthChange}
+      Physical Health: ${this.physicalHealthChange}
+      Balance: ${this.balanceChange}
+    `
+  };
+  getWeight = (state: State) => {
+    if (state.focus.health.get()) {
+      return 0;
     }
-    return 2
+    return 1;
   }
 }

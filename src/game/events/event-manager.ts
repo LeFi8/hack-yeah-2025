@@ -1,18 +1,18 @@
 import type {Event} from "./event";
 import type {State} from "../state.ts";
-import {illness} from "./list/illness.ts";
+import {Illness} from "./list/illness.ts";
 
 export class EventManager {
   private events: Event[]
 
   constructor() {
     this.events = [
-      illness,
+      new Illness(),
     ]
   }
 
   getRandom(state: State): Event[] {
-    const filteredEvents = this.events.filter((event) => event.canActivate());
+    const filteredEvents = this.events.filter((event) => event.canActivate(state));
 
     if (filteredEvents.length === 0) {
       return [];

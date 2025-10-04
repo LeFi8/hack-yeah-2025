@@ -1,8 +1,5 @@
 import {State} from "../state";
 import type {Possibility} from "./possibility";
-import {purchaseHouse} from "./list/purchase-house";
-import {purchaseCar} from "./list/purchase-car";
-import {goForHolidays} from "./list/holidays";
 import {CatInNeed} from "./list/cat-in-need.ts";
 
 export class PossibilityManager {
@@ -11,14 +8,11 @@ export class PossibilityManager {
   constructor() {
     this.possibilities = [
         new CatInNeed(),
-      purchaseHouse,
-      purchaseCar,
-      goForHolidays,
     ]
   }
 
   getRandom(state: State): Possibility[] {
-    const filteredPossibilities = this.possibilities.filter((possibility) => possibility.canActivate());
+    const filteredPossibilities = this.possibilities.filter((possibility) => possibility.canActivate(state));
 
     if (filteredPossibilities.length === 0) {
       return [];
