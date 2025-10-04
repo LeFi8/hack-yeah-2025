@@ -3,9 +3,11 @@
 TODO: add setup instructions
 
 ## Requirements
+
 - Node v22
 
 ## Setup instruction
+
 1. Install dependencies
    ```bash
    npm install

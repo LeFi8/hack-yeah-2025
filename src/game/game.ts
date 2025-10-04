@@ -1,33 +1,124 @@
-import {State} from "./state.ts";
-import type {Possibility} from "./posibilities.ts";
+import { Focus, State } from "./state";
+import { PossibilityManager, type Possibility } from "./possibilities";
+import { EventManager, type Event } from "./events";
+
+export interface GameTickResult {
+  possibilities: Possibility[];
+  event: Event | null;
+  state: State;
+}
 
 export class Game {
   private state: State = new State();
+  private eventManager = new EventManager();
+  private possibilityManager = new PossibilityManager();
+  private currentPossibilities: Possibility[] = [];
+  private gameRunning: boolean = false;
 
-  // private historyOfPossibilities: Possibility[]
-  // private historyOfEvents: Event[]
-  // private historyOfState: State[]
-
-  start() {
-    // init random state
+  getCurrentPossibilities(): Possibility[] {
+    return this.currentPossibilities;
   }
 
-  nextStep() {
-    // change your state according to your focus
-    // change your state according to your items
-    // get random events and apply their effects
-    // get random possibilities and set to this.currentPossibilities
+  start() {
+    if (!this.gameRunning) {
+      this.gameRunning = true;
+    }
+
+    this.state.initialize();
+  }
+
+  tick(): GameTickResult {
+    if (!this.gameRunning) {
+      throw new Error("Game not started");
+    }
+
+    this.state.increaseMonthsElapsed();
+
+    // Apply monthly state changes
+    this.state.applyMonthlyEffects();
+
+    // Age up every 12 months (1 year)
+    if (this.state.getMonthsElapsed() % 12 === 0) {
+      this.state.age += 1;
+    }
+
+    // Generate possibilities every 12 months
+    const possibilities =
+      this.state.getMonthsElapsed() % 12 === 0
+        ? this.generatePossibilities()
+        : [];
+
+    // Generate events every 6 months
+    const event =
+      this.state.getMonthsElapsed() % 6 === 0
+        ? this.processRandomEvents()
+        : null;
+
+    // Check if game should end
+    if (this.state.shouldGameEnd()) {
+      this.finish();
+    }
+
+    return {
+      possibilities,
+      event,
+      state: this.state,
+    };
   }
 
   selectPossibility(possibility: Possibility, selectedOption: number) {
-    possibility.options[selectedOption].applyEffects(this.state)
+    if (selectedOption < 0 || selectedOption >= possibility.options.length) {
+      throw new Error("Invalid option selected");
+    }
+
+    possibility.options[selectedOption].applyEffects(this.state);
+
+    // Remove used possibility
+    this.currentPossibilities = this.currentPossibilities.filter(
+      (p) => p !== possibility,
+    );
   }
 
-  selectFocus() {
+  selectFocus(focus: Focus) {
+    this.state.setFocus(focus);
+  }
 
+  // Updated methods to return data instead of storing internally
+  private processRandomEvents(): Event | null {
+    const event: Event | null = this.eventManager.getRandom(this.state);
+    if (event) {
+      event.applyEffects(this.state);
+      console.log(`Event occurred: ${event.getTitle()}`);
+      console.log(`Description: ${event.getDescription()}`);
+    }
+    return event;
+  }
+
+  private generatePossibilities(): Possibility[] {
+    const possibilities: Possibility[] = this.possibilityManager.getRandom(
+      this.state,
+    );
+    this.currentPossibilities = possibilities;
+    return possibilities;
+  }
+
+  getMonthsElapsed(): number {
+    return this.state.getMonthsElapsed();
+  }
+
+  getYearsElapsed(): number {
+    return Math.floor(this.getMonthsElapsed() / 12);
   }
 
   finish() {
+    this.gameRunning = false;
+  }
 
+  isGameRunning(): boolean {
+    return this.gameRunning;
+  }
+
+  getState(): State {
+    return this.state;
   }
 }
