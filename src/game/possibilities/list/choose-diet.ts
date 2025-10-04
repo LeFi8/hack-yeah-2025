@@ -6,24 +6,26 @@ import { Diet } from "../../items/list/diets/diet";
 
 export class ChooseDiet implements Possibility {
   title = "Decide what will you eat every day";
-  options = [
-    {
-      title: "Vegetarian diet",
-      applyEffects: (state: State) => {
-        state.addItem(new VegetarianDiet());
+  getOptions(_state: State) {
+    return [
+      {
+        title: "Vegetarian diet",
+        applyEffects: (state: State) => {
+          state.addItem(new VegetarianDiet());
+        },
       },
-    },
-    {
-      title: "Fast food diet",
-      applyEffects: (state: State) => {
-        state.addItem(new FastFoodDiet());
+      {
+        title: "Fast food diet",
+        applyEffects: (state: State) => {
+          state.addItem(new FastFoodDiet());
+        },
       },
-    },
-    {
-      title: "Normal diet",
-      applyEffects: (_: State) => {},
-    },
-  ];
+      {
+        title: "Normal diet",
+        applyEffects: (_: State) => {},
+      },
+    ];
+  }
   canActivate = (state: State) => {
     return !state.items.some((i) => i instanceof Diet);
   };

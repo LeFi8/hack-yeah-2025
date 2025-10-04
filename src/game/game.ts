@@ -1,11 +1,13 @@
 import { Focus, State } from "./state";
 import { PossibilityManager, type Possibility } from "./possibilities";
 import { EventManager, type Event } from "./events";
+import type { History } from "./utils/history";
 
 export interface GameTickResult {
   possibilities: Possibility[];
   event: Event | null;
   state: State;
+  isFinished: boolean;
 }
 
 export class Game {
@@ -32,6 +34,8 @@ export class Game {
       throw new Error("Game not started");
     }
 
+    this.state.updateHistory();
+
     this.state.increaseMonthsElapsed();
 
     // Apply monthly state changes
@@ -51,7 +55,7 @@ export class Game {
     // Generate events every 6 months
     const event =
       this.state.getMonthsElapsed() % 6 === 0
-        ? this.processRandomEvents()
+        ? this.processRandomEvent()
         : null;
 
     // Check if game should end
@@ -63,20 +67,19 @@ export class Game {
       possibilities,
       event,
       state: this.state,
+      isFinished: this.state.shouldGameEnd(),
     };
   }
 
   selectPossibility(possibility: Possibility, selectedOption: number) {
-    if (selectedOption < 0 || selectedOption >= possibility.options.length) {
+    if (
+      selectedOption < 0 ||
+      selectedOption >= possibility.getOptions(this.state).length
+    ) {
       throw new Error("Invalid option selected");
     }
 
-    possibility.options[selectedOption].applyEffects(this.state);
-
-    // Remove used possibility
-    this.currentPossibilities = this.currentPossibilities.filter(
-      (p) => p !== possibility,
-    );
+    possibility.getOptions(this.state)[selectedOption].applyEffects(this.state);
   }
 
   selectFocus(focus: Focus) {
@@ -84,13 +87,15 @@ export class Game {
   }
 
   // Updated methods to return data instead of storing internally
-  private processRandomEvents(): Event | null {
+  private processRandomEvent(): Event | null {
     const event: Event | null = this.eventManager.getRandom(this.state);
+
     if (event) {
       event.applyEffects(this.state);
       console.log(`Event occurred: ${event.getTitle()}`);
       console.log(`Description: ${event.getDescription()}`);
     }
+
     return event;
   }
 
@@ -120,5 +125,9 @@ export class Game {
 
   getState(): State {
     return this.state;
+  }
+
+  getHistory(): History[] {
+    return this.state.getHistory();
   }
 }

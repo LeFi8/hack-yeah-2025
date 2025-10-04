@@ -1,7 +1,9 @@
+import { DeathCalculator } from "./death/deathCalculator";
 import type { Item } from "./items";
 import type { Possibility } from "./possibilities";
 import { BooleanFocus } from "./utils";
 import { RangeCounter } from "./utils";
+import type { History } from "./utils/history";
 import { JobContract } from "./work";
 
 export class CharacterCondition {
@@ -15,6 +17,22 @@ export class CharacterCondition {
 
   // TODO: dynamically change max health with age
   maxHealth = new RangeCounter(100, 0, 100);
+
+  clone(): CharacterCondition {
+    const clone = new CharacterCondition();
+    clone.balance = this.balance;
+    clone.additionalMonthlyIncome = this.additionalMonthlyIncome;
+    clone.monthlyExpenses = new RangeCounter(
+      this.monthlyExpenses.get(),
+      0,
+      null,
+    );
+    clone.mentalHealth = new RangeCounter(this.mentalHealth.get(), 0, 100);
+    clone.physicalHealth = new RangeCounter(this.physicalHealth.get(), 0, 100);
+    clone.happiness = new RangeCounter(this.happiness.get(), 0, 100);
+    clone.maxHealth = new RangeCounter(this.maxHealth.get(), 0, 100);
+    return clone;
+  }
 }
 
 export class Focus {
@@ -22,6 +40,18 @@ export class Focus {
   health = new BooleanFocus();
   relation = new BooleanFocus();
   work = new BooleanFocus();
+
+  constructor(
+    hobby: boolean,
+    health: boolean,
+    relation: boolean,
+    work: boolean,
+  ) {
+    this.hobby.set(hobby);
+    this.health.set(health);
+    this.relation.set(relation);
+    this.work.set(work);
+  }
 
   private chance(probability: number): boolean {
     return Math.random() < probability;
@@ -76,6 +106,7 @@ export class Education {
   level = new RangeCounter(0, 0, 4);
   fieldOfStudy: string = "";
   isStudying: boolean = false;
+  studyingSinceMonth: number = 0;
 
   applyMonthlyEffects(state: State) {}
 }
@@ -98,10 +129,14 @@ export class State {
   public items: Item[] = [];
   public focus: Focus;
   public currentPossibilities: Possibility[] = [];
+  private stateHistory: History[] = [];
+
+  public deathReason: string | null = null;
+  public isGameEnded: boolean = false;
 
   constructor() {
     this.character = new CharacterCondition();
-    this.focus = new Focus();
+    this.focus = new Focus(false, true, false, true);
   }
 
   initialize() {
@@ -134,6 +169,14 @@ export class State {
   }
 
   shouldGameEnd(): boolean {
+    const deathResult = DeathCalculator.shouldGameEnd(this);
+
+    if (deathResult.isDead) {
+      this.isGameEnded = true;
+      this.deathReason = deathResult.reason || "Unknown cause";
+      return true;
+    }
+
     return false;
   }
 
@@ -141,7 +184,6 @@ export class State {
     this.focus = focus;
   }
 
-  // TODO: handle items, focuses, monthly income and spent
   applyMonthlyEffects() {
     console.log("Applying monthly effects...");
 
@@ -171,5 +213,17 @@ export class State {
       this.character.monthlyExpenses.add(-item.monthlyCost);
     }
     this.items = this.items.filter((i) => i !== item);
+  }
+
+  updateHistory() {
+    this.stateHistory.push({
+      age: this.age,
+      month: (this.getMonthsElapsed() % 12) + 1,
+      characterCondition: this.character.clone(),
+    });
+  }
+
+  getHistory(): History[] {
+    return this.stateHistory;
   }
 }

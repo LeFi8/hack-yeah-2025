@@ -3,8 +3,8 @@ import type { State } from "../../state";
 
 export class Engineer extends JobContract {
   constructor(
-    contractType: "UOP" | "UZ" | "B2B" | "UNREGISTERED" = "UOP",
-    private readonly lvl: number,
+    contractType: "UOP" | "UZ" | "B2B" | "UNREGISTERED",
+    private lvl: number,
   ) {
     super(contractType);
   }
@@ -14,10 +14,28 @@ export class Engineer extends JobContract {
   }
 
   getPosition(): string {
-    return "Engineer";
+    return [this.getLvlName(this.lvl), "Engineer"].join(" ");
   }
 
   applyMonthlyEffects(state: State) {
     super.applyMonthlyEffects(state);
+  }
+
+  canUpgrade() {
+    return this.lvl < 3;
+  }
+
+  upgrade(): void {
+    if (this.canUpgrade()) {
+      this.lvl += 1;
+    }
+  }
+
+  getLvl(): number {
+    return this.lvl;
+  }
+
+  getNextLvlContract() {
+    return new Engineer(this.contractType, this.lvl + 1);
   }
 }

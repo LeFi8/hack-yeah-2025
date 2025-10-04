@@ -7,26 +7,30 @@ import { VideoGamesHobby } from "../../items/list/hobbys/video-games-hobby";
 
 export class NewHobby implements Possibility {
   title = "You decided to start a new hobby";
-  options = [
-    {
-      title: "Reading books",
-      applyEffects: (state: State) => {
-        state.addItem(new ReadingBooksHobby());
+
+  getOptions(_state: State) {
+    return [
+      {
+        title: "Reading books",
+        applyEffects: (state: State) => {
+          state.addItem(new ReadingBooksHobby());
+        },
       },
-    },
-    {
-      title: "Jogging",
-      applyEffects: (state: State) => {
-        state.addItem(new JoggingHobby());
+      {
+        title: "Jogging",
+        applyEffects: (state: State) => {
+          state.addItem(new JoggingHobby());
+        },
       },
-    },
-    {
-      title: "Playing video games",
-      applyEffects: (state: State) => {
-        state.addItem(new VideoGamesHobby());
+      {
+        title: "Playing video games",
+        applyEffects: (state: State) => {
+          state.addItem(new VideoGamesHobby());
+        },
       },
-    },
-  ];
+    ];
+  }
+
   canActivate = (state: State) => {
     return !state.items.some((i) => i instanceof Hobby);
   };

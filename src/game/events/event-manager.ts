@@ -5,6 +5,11 @@ import { Theft } from "./list/theft";
 import { FoundMoney } from "./list/found-money";
 import { VegateblesGetMoreExpensive } from "./list/vegatebles-get-more-expensive";
 import { FriendsByReading } from "./list/friends-by-reading";
+import { HelpedNeighbor } from "./list/helped-neighbour";
+import { CarIsBroken } from "./list/car-is-broken";
+import { TravelingDueToCar } from "./list/traveling-due-to-car";
+import { EducationLvlUpgrade } from "./list/education-lvl-upgrade";
+import { WorkLvlUpgrade } from "./list/work-lvl-upgrade";
 
 export class EventManager {
   private events: Event[];
@@ -16,6 +21,11 @@ export class EventManager {
       new FoundMoney(),
       new VegateblesGetMoreExpensive(),
       new FriendsByReading(),
+      new EducationLvlUpgrade(),
+      new WorkLvlUpgrade(),
+      new HelpedNeighbor(),
+      new CarIsBroken(),
+      new TravelingDueToCar(),
     ];
   }
 

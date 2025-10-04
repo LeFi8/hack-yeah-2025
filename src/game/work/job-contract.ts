@@ -3,6 +3,10 @@ import { State } from "../state";
 export abstract class JobContract {
   abstract getBruttoIncome(): number;
   abstract getPosition(): string;
+  abstract canUpgrade(): boolean;
+  abstract getLvl(): number;
+  abstract upgrade(): void;
+  abstract getNextLvlContract();
 
   private zusPercent = {
     UOP: 12,
@@ -18,11 +22,7 @@ export abstract class JobContract {
   };
 
   constructor(
-    protected readonly contractType:
-      | "UOP"
-      | "UZ"
-      | "B2B"
-      | "UNREGISTERED" = "UOP",
+    protected readonly contractType: "UOP" | "UZ" | "B2B" | "UNREGISTERED",
   ) {}
 
   applyMonthlyEffects(state: State) {
@@ -45,6 +45,10 @@ export abstract class JobContract {
 
   getContractType(): string {
     return this.contractType;
+  }
+
+  getLvlName(lvl: number): string {
+    return ["Junior", "Middle", "Senior"][lvl] ?? "";
   }
 }
 

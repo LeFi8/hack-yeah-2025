@@ -4,6 +4,10 @@ import { CatInNeed } from "./list/cat-in-need";
 import { GymMembershipEvent } from "./list/gym-membership-event";
 import { NewHobby } from "./list/new-hobby";
 import { ChooseDiet } from "./list/choose-diet";
+import { WorkWaiter } from "./list/work-waiter";
+import { WorkEngineer } from "./list/work-engineer";
+import { University } from "./list/university";
+import { GetNewCar } from "./list/get-new-car";
 
 export class PossibilityManager {
   private possibilities: Possibility[];
@@ -14,6 +18,10 @@ export class PossibilityManager {
       new GymMembershipEvent(),
       new NewHobby(),
       new ChooseDiet(),
+      new WorkWaiter(),
+      new WorkEngineer(),
+      new University(),
+      new GetNewCar(),
     ];
   }
 

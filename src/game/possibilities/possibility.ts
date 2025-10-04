@@ -9,5 +9,5 @@ export interface Possibility {
   title: string;
   getWeight: (state: State) => number;
   canActivate: (state: State) => boolean;
-  options: PossibilityOption[];
+  getOptions(state: State): PossibilityOption[];
 }
