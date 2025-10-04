@@ -3,15 +3,19 @@ import type {State} from "../state.ts";
 import {Illness} from "./list/illness.ts";
 import {Theft} from "./list/theft.ts";
 import {FoundMoney} from "./list/found-money.ts";
+import {VegateblesGetMoreExpensive} from "./list/vegatebles-get-more-expensive.ts";
+import {FriendsByReading} from "./list/friends-by-reading.ts";
 
 export class EventManager {
   private events: Event[]
 
   constructor() {
     this.events = [
-      new Illness(),
-      new Theft(),
-      new FoundMoney(),
+        new Illness(),
+        new Theft(),
+        new FoundMoney(),
+        new VegateblesGetMoreExpensive(),
+        new FriendsByReading(),
     ]
   }
 
