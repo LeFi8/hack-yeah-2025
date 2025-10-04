@@ -13,6 +13,10 @@ export class Game {
   // private historyOfEvents: Event[]
   // private historyOfState: State[]
 
+  getCurrentPossibilities(): Possibility[] {
+    return this.currentPossibilities
+  }
+
   start() {
     if (!this.gameRunning) {
       this.gameRunning = true;
@@ -40,7 +44,7 @@ export class Game {
   }
 
   selectPossibility(possibility: Possibility, selectedOption: number) {
-    if (selectedOption <= 0 || selectedOption >= possibility.options.length) {
+    if (selectedOption < 0 || selectedOption > possibility.options.length) {
       throw new Error("Invalid option selected");
     }
 
