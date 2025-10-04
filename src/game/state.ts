@@ -7,13 +7,9 @@ import {RangeCounter} from "./utils";
 
 export class CharacterCondition {
   balance = 0
+  additionalMonthlyIncome: number = 0
   monthlyExpenses = new RangeCounter(0, 0, null)
-  monthlyIncomeNetto  = new RangeCounter(0, 0, null)
-  monthlyIncomeBrutto = new RangeCounter(0, 0, null)
-  zusAccountAccumulated = new RangeCounter(0, 0, null)
 
-  // 0-podstawowe 1-średnie 2-licencjat/inż 3-magister 4-doktorat
-  educationLevel = new RangeCounter(0, 0, 4)
   mentalHealth = new RangeCounter(0, 0, 100)
   physicalHealth = new RangeCounter(0, 0, 100)
   happiness = new RangeCounter(0, 0, 100)
@@ -76,10 +72,47 @@ export class Focus {
   }
 }
 
+export class Education {
+  // 0-podstawowe 1-średnie 2-licencjat/inż 3-magister 4-doktorat
+  level = new RangeCounter(0, 0, 4)
+  fieldOfStudy: string = ""
+  isStudying: boolean = false
+
+  applyMonthlyEffects(state: State) {
+    
+  }
+}
+
+export class ZUS {
+  isAlreadyRetired: boolean = false
+  alreadyAccummulated: number = 0
+  // It needs to be caluclated each month based on job income and type
+  // It tells you how much you will get when retired
+  predictedPension: number = 0
+}
+
+export class JobContract {
+  monthlyIncomeNetto  = new RangeCounter(0, 0, null)
+  monthlyIncomeBrutto = new RangeCounter(0, 0, null)
+  contractType: "UOP" | "UZ" | "B2B" | "UNREGISTERED"  = "UOP" 
+  position: string = ""
+  // It has impact on ZUS contributions
+  // TODO: Whats type of work you choose
+  
+  applyMonthlyEffects(state: State) {
+    // Handle zus update here
+    // Handle character ballance
+    // Handle side effects of job like stress, health impact etc
+  }
+}
+
 export class State {
   public age: number = 0;
   private monthsElapsed: number = 0; // Track months since game start
   public character: CharacterCondition
+  public job: JobContract | null = null;
+  public education: Education = new Education();
+  public zus: ZUS = new ZUS();
   public items: Item[] = [];
   public focus: Focus;
   public currentPossibilities: Possibility[] = []
@@ -93,13 +126,12 @@ export class State {
     this.age = 18;
     this.monthsElapsed = 0;
 
-    this.character.balance = 5000;
-    this.character.monthlyExpenses.add(1500);
-    this.character.monthlyIncomeNetto.add(4000);
-    this.character.monthlyIncomeBrutto.add(5000);
+    this.character.balance = 10000;
+    this.character.monthlyExpenses.add(1000);
+    this.job = null;
+    // 0-podstawowe 1-średnie 2-licencjat/inż 3-magister 4-doktorat
+    this.education.level.add(1);
 
-    // // // 0-podstawowe 1-średnie 2-licencjat/inż 3-magister 4-doktorat
-    this.character.educationLevel.add(1);
     this.character.mentalHealth.add(80);
     this.character.physicalHealth.add(80);
     this.character.happiness.add(80);
@@ -140,12 +172,7 @@ export class State {
     // Handle focuses
     this.focus.applyEffects(this);
 
-    // Handle income from job
-    this.character.balance += this.character.monthlyIncomeNetto.get();
-
-    // Handle ZUS account
-    const zusContribution = Math.floor(this.character.monthlyIncomeBrutto.get() - this.character.monthlyIncomeNetto.get());
-    this.character.zusAccountAccumulated.add(zusContribution);
+    this.job?.applyMonthlyEffects(this);
 
     // Handle expences
     this.character.balance -= this.character.monthlyExpenses.get();
