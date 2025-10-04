@@ -2,7 +2,7 @@ import type { Item } from "./items";
 import type {Possibility} from "./possibilities";
 import {BooleanFocus} from "./utils";
 import {RangeCounter} from "./utils";
-
+import {JobContract} from "./work";
 
 
 export class CharacterCondition {
@@ -89,21 +89,6 @@ export class ZUS {
   // It needs to be caluclated each month based on job income and type
   // It tells you how much you will get when retired
   predictedPension: number = 0
-}
-
-export class JobContract {
-  monthlyIncomeNetto  = new RangeCounter(0, 0, null)
-  monthlyIncomeBrutto = new RangeCounter(0, 0, null)
-  contractType: "UOP" | "UZ" | "B2B" | "UNREGISTERED"  = "UOP" 
-  position: string = ""
-  // It has impact on ZUS contributions
-  // TODO: Whats type of work you choose
-  
-  applyMonthlyEffects(state: State) {
-    // Handle zus update here
-    // Handle character ballance
-    // Handle side effects of job like stress, health impact etc
-  }
 }
 
 export class State {

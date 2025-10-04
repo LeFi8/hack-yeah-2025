@@ -1,4 +1,4 @@
-import {State} from "../../state.ts";
+import {State} from "../../state";
 import type {Possibility} from "../possibility.ts";
 import {Cat} from "../../items";
 
