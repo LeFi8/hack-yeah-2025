@@ -19,7 +19,26 @@ function askQuestion(question: string): Promise<string> {
 
 function displayGameState(result: GameTickResult, monthsElapsed: number) {
   console.log(`\n=== Month ${monthsElapsed} (Age: ${result.state.age}) ===`);
-  
+
+  console.log(`\n📊 Current State:`);
+  console.log(`   Balance: ${result.state.character.balance}`);
+  console.log(`   Monthly Expenses: ${result.state.character.monthlyExpenses.get()}`);
+  console.log(`   Income (Netto): ${result.state.character.monthlyIncomeNetto.get()}`);
+  console.log(`   Income (Brutto): ${result.state.character.monthlyIncomeBrutto.get()}`);
+  console.log(`   ZUS Account: ${result.state.character.zusAccountAccumulated.get()}`);
+
+  console.log(`   Education Level: ${result.state.character.educationLevel.get()}`);
+  console.log(`   Mental Health: ${result.state.character.mentalHealth.get()}`);
+  console.log(`   Physical Health: ${result.state.character.physicalHealth.get()}`);
+  console.log(`   Happiness: ${result.state.character.happiness.get()}`);
+
+  console.log(`   Health: ${result.state.focus.health}`);
+
+  console.log(`   Focuses:`);
+  console.log(`       Work: ${result.state.focus.work}`);
+  console.log(`       Relation: ${result.state.focus.relation}`);
+  console.log(`       Health: ${result.state.focus.health}`);
+
   if (result.events.length > 0) {
     console.log("\n📅 Events this month:");
     result.events.forEach((event, index) => {
@@ -37,11 +56,6 @@ function displayGameState(result: GameTickResult, monthsElapsed: number) {
     });
   }
 
-  console.log(`\n📊 Current State:`);
-  console.log(`   Health: ${result.state.character.physicalHealth}`);
-  console.log(`   Happiness: ${result.state.character.mentalHealth}`);
-  console.log(`   Money: ${result.state.character.balance}`);
-  console.log(`   Focus: ${result.state.focus || "None"}`);
 }
 
 async function handlePossibilitySelection(game: Game, possibilities: Possibility[]) {
@@ -99,13 +113,13 @@ async function testGameLoop() {
     
     // Display current state
     displayGameState(result, game.getMonthsElapsed());
-    
+
     // Handle possibilities if any
     if (result.possibilities.length > 0) {
       await handlePossibilitySelection(game, result.possibilities);
-    }
-  
-    await delay(500);
+    } 
+
+    await delay(2000);
   }
   
   console.log(`\nGame ended after ${game.getYearsElapsed()} years and ${game.getMonthsElapsed() % 12} months.`);
