@@ -6,7 +6,7 @@ interface ItemsTabProps {
 
 export function Items({ items }: ItemsTabProps) {
   return (
-    <div className="bg-white shadow-md p-5 border-2 rounded-2xl flex mt-2">
+    <>
       {items.map((item: Item, index) => (
         <span
           key={index}
@@ -23,6 +23,6 @@ export function Items({ items }: ItemsTabProps) {
           />
         </span>
       ))}
-    </div>
+    </>
   );
 }

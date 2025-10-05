@@ -35,31 +35,36 @@ function State({ tickResult }: StateProps) {
 
   return (
     <>
-      <Title text={"State"} />
-      <StateBar
-        title={"Health"}
-        icon={<AiOutlineHeart size={35} />}
-        value={Math.round(character.physicalHealth.get())}
-      />
-      <StateBar
-        title={"Happiness"}
-        icon={<AiOutlineSmile size={35} />}
-        value={Math.round(character.happiness.get())}
-      />
-      <StateInfo
-        icon={<IoSchoolOutline size={35} />}
-        text={educationToString(tickResult.state.education.level.get())}
-        className="pt-4"
-      />
-      <StateInfo
-        icon={<IoBriefcaseOutline size={35} />}
-        text={job != null ? job.getPosition() : "Unemployed"}
-        className="pt-4"
-      />
-      <MoneyTab state={tickResult.state} />
-      {!!tickResult.state.items.length && (
-        <Items items={tickResult.state.items} />
-      )}
+      <div className="h-full">
+        <Title text={"State"} />
+        <StateBar
+          title={"Health"}
+          icon={<AiOutlineHeart size={35} />}
+          value={Math.round(character.physicalHealth.get())}
+        />
+        <StateBar
+          title={"Happiness"}
+          icon={<AiOutlineSmile size={35} />}
+          value={Math.round(character.happiness.get())}
+        />
+        <StateInfo
+          icon={<IoSchoolOutline size={35} />}
+          text={educationToString(tickResult.state.education.level.get())}
+          className="pt-4"
+        />
+        <StateInfo
+          icon={<IoBriefcaseOutline size={35} />}
+          text={job != null ? job.getPosition() : "Unemployed"}
+          className="pt-4"
+        />
+        <MoneyTab state={tickResult.state} />
+        <p className="mt-4 ml-2 text-lg">Items</p>
+        <div className="bg-white shadow-md p-5 border-2 rounded-2xl mt-2 h-auto">
+          {!!tickResult.state.items.length && (
+            <Items items={tickResult.state.items} />
+          )}
+        </div>
+      </div>
     </>
   );
 }
