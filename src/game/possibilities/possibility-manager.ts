@@ -10,6 +10,8 @@ import { University } from "./list/university";
 import { GetNewCar } from "./list/get-new-car.ts";
 import {FindLifePartner} from "./list/find-life-partner.ts";
 import {ProposeToGirlfriend} from "./list/propose-to-girlfriend.ts";
+import {Wedding} from "./list/wedding.ts";
+import {GetCredit} from "./list/get-credit.ts";
 
 export class PossibilityManager {
   private possibilities: Possibility[];
@@ -25,7 +27,9 @@ export class PossibilityManager {
       new University(),
       new GetNewCar(),
       new FindLifePartner(),
-      new ProposeToGirlfriend()
+      new ProposeToGirlfriend(),
+      new Wedding(),
+      new GetCredit(),
     ];
   }
 
