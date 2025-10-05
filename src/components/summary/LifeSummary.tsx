@@ -3,12 +3,13 @@ import Title from "../common/Title.tsx";
 import QueryBuilder from "../../utils/QueryBuilder.ts";
 import GeminiClient from "../../google/GeminiClient.ts";
 import Spinner from "../common/Spinner.tsx";
+import type { Game } from "../../game/game.ts";
 
-// FIXME: mock data remove and replace with real data
-const stats =
-  "Age: 81, Savings: 500 000PLN, Happiness: 40%, Focus areas: Health 61%, Hobby 90%, Work 80%, Relationships 70%, Pension: 2000PLN";
+interface LifeSummaryProps {
+  game: Game;
+}
 
-function LifeSummary() {
+function LifeSummary({ game }: LifeSummaryProps) {
   const [summary, setSummary] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -26,7 +27,7 @@ function LifeSummary() {
     setHasError(false);
 
     try {
-      const query = QueryBuilder.build(stats);
+      const query = QueryBuilder.build(game);
       const result = await geminiClient.generate(query);
 
       setSummary(result);
@@ -37,6 +38,10 @@ function LifeSummary() {
       setIsLoading(false);
     }
   };
+
+  if (hasError) {
+    console.error("Error generating life summary.");
+  }
 
   useEffect(() => {
     fetchSummary();
@@ -53,17 +58,7 @@ function LifeSummary() {
           <Spinner className="absolute left-0 right-0 bottom-[50%]" />
         </div>
       ) : hasError ? (
-        <div className="text-red-600 py-4">
-          <p className="mb-2">
-            Failed to generate life summary. Please try again.
-          </p>
-          <button
-            onClick={fetchSummary}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Retry
-          </button>
-        </div>
+        <p className="text-black text-md">Failed to generate summary.</p>
       ) : (
         <p className="text-black text-md">{summary}</p>
       )}

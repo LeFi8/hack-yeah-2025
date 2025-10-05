@@ -5,6 +5,7 @@ import LifeSummary from "../components/summary/LifeSummary.tsx";
 import { Game } from "../game/game.ts";
 import SummaryItems from "../components/summary/SummaryItems.tsx";
 import Title from "../components/common/Title.tsx";
+import ChoicesSummaryChart from "../components/summary/ChoicesSummaryChart.tsx";
 
 interface SummaryProps {
   game: Game;
@@ -52,11 +53,11 @@ function Summary({ game }: SummaryProps) {
                 </div>
               </div>
               <div className="bg-white shadow-md py-5 px-8 border-2 rounded-2xl flex-1">
-                TODO: Choices
+                <ChoicesSummaryChart />
               </div>
             </div>
             <div className="border-2 rounded-2xl bg-white shadow-md flex-3 p-5">
-              <LifeSummary />
+              <LifeSummary game={game} />
             </div>
           </div>
         </div>
