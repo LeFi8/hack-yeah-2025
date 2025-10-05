@@ -1,0 +1,59 @@
+import { Possibility } from "../possibility";
+import { Credit } from "../../items/list/credit.ts";
+import { calculateCreditPayment } from "../../utils/calculate-credit-payment.ts";
+
+export class GetCredit extends Possibility {
+  title = "Take credit for your financial problems";
+  getOptions() {
+    const moneyToBeOnPlus =
+      Math.floor(Math.abs(this.state.character.balance) / 1000 + 1) * 1000;
+    const interest = 0.08;
+    const monthlyPayment = calculateCreditPayment(
+      moneyToBeOnPlus,
+      interest,
+      60,
+    );
+    const moneyForSecondOption = moneyToBeOnPlus + 5000;
+    const monthlyPaymentForSecondOption = calculateCreditPayment(
+      moneyForSecondOption,
+      interest,
+      60,
+    );
+    const moneyForThirdOption = moneyToBeOnPlus + 20000;
+    const monthlyPaymentForThirdOption = calculateCreditPayment(
+      moneyForThirdOption,
+      interest,
+      60,
+    );
+
+    return [
+      {
+        title: `Take a ${moneyToBeOnPlus} PLN, 8% interest credit for 5 years (${monthlyPayment.toFixed(2)} PLN/month).`,
+        applyEffects: () => {
+          this.state.character.balance += moneyToBeOnPlus;
+          this.state.addItem(new Credit(monthlyPayment, 60));
+        },
+      },
+      {
+        title: `Take a ${moneyForSecondOption} PLN, 8% interest credit for 5 years (${monthlyPaymentForSecondOption.toFixed(2)} PLN/month).`,
+        applyEffects: () => {
+          this.state.character.balance += moneyForSecondOption;
+          this.state.addItem(new Credit(monthlyPaymentForSecondOption, 60));
+        },
+      },
+      {
+        title: `Take a ${moneyForThirdOption} PLN, 8% interest credit for 5 years (${monthlyPaymentForThirdOption.toFixed(2)} PLN/month).`,
+        applyEffects: () => {
+          this.state.character.balance += moneyForThirdOption;
+          this.state.addItem(new Credit(monthlyPaymentForThirdOption, 60));
+        },
+      },
+    ];
+  }
+  canActivate = () => {
+    return this.state.character.balance < 0;
+  };
+  getWeight = () => {
+    return 100;
+  };
+}

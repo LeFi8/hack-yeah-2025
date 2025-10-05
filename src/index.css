@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@theme {
+  --color-custom-yellow: hsla(68, 100%, 96%, 1);
+  --color-zus: #007834;
+  --color-bg-dark: hsla(0, 0%, 85%, 1);
+  --color-button: hsla(359, 100%, 64%, 1);
+
+  --animate-show: show 0.3s ease-in-out;
+  @keyframes show {
+    0% {
+      transform: translateY(-5%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+}
+
+:root {
+  background-color: hsla(68, 100%, 96%, 1);
+}
