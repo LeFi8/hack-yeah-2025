@@ -4,7 +4,7 @@ import type { State } from "../../state";
 export class Worker extends JobContract {
   constructor(
     state: State,
-    contractType:  "UZ" | "UNREGISTERED" | "UOP" | "B2B",
+    contractType: "UZ" | "UNREGISTERED" | "UOP" | "B2B",
     private lvl: number,
   ) {
     super(state, contractType);

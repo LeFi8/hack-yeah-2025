@@ -5,7 +5,7 @@ import {
   IoHeartOutline,
 } from "react-icons/io5";
 import { PiHospital } from "react-icons/pi";
-import {Focus} from "../../game/state.ts";
+import { Focus } from "../../game/state.ts";
 
 interface CharacterFocusProps {
   stateFocus: Focus;

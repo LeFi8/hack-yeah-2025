@@ -16,8 +16,8 @@ import { Wedding } from "./list/wedding.ts";
 import { GetCredit } from "./list/get-credit.ts";
 import { DecideAboutRetirement } from "./list/decide-about-retirement.ts";
 import { CarInLeasing } from "./list/car-in-leasing.ts";
-import {BuyNewHouse} from "./list/buy-new-house.ts";
-import {NextBuyHouseEvent} from "./list/next-buy-house-event.ts";
+import { BuyNewHouse } from "./list/buy-new-house.ts";
+import { NextBuyHouseEvent } from "./list/next-buy-house-event.ts";
 import { ProductionWorker } from "./list/production-worker.ts";
 
 export class PossibilityManager {

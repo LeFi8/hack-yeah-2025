@@ -13,6 +13,7 @@ import { CarIsBroken } from "./list/car-is-broken.ts";
 import { BreakUp } from "./list/break-up.ts";
 import { BigCommunityEvent } from "./list/positive/big-community-event.ts";
 import { DiscoveredHobbyPassion } from "./list/positive/discover-hobby.ts";
+import { IllnessDueToHighHp } from "./list/illness-due-to-high-hp.ts";
 
 export type EventHistory = {
   event: Event;
@@ -46,6 +47,7 @@ export class EventManager {
       new BreakUp(state),
       new BigCommunityEvent(state),
       new DiscoveredHobbyPassion(state),
+      new IllnessDueToHighHp(state),
     ];
   }
 
