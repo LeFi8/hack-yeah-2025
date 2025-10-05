@@ -8,6 +8,10 @@ import characterYoungAdulthood from "../../assets/character/character_male_23_ha
 import characterYoungUnhealthy from "../../assets/character/character_male_18_unhealthy.png";
 import characterYoungFamily from "../../assets/character/character_family_18_happy.png";
 import characterYoungAdulthoodFamily from "../../assets/character/character_family_23_happy.png";
+import characterYoungSad from "../../assets/character/character_family_18_sad.png";
+import characterAdultUnhealthy from "../../assets/character/character_male_36_unhealthy.png";
+import characterOldUnhealthy from "../../assets/character/character_male_50_unhealthy.png";
+import characterVeryOldUnhealthy from "../../assets/character/character_male_65_unhealthy.png";
 import type { Item } from "../../game/items";
 import { Wife } from "../../game/items/list/partners/wife.ts";
 import { Child } from "../../game/items/list/child.ts";
@@ -18,6 +22,9 @@ interface CharacterProps {
 
 function Character({ tickResult }: CharacterProps) {
   let characterImgSrc = characterYoung;
+    if (tickResult.state.character.happiness.get() < 30) {
+    characterImgSrc = characterYoungSad;
+    }
   if (
     tickResult.state.items.some((i: Item) => i instanceof Wife) &&
     tickResult.state.items.some((i: Item) => i instanceof Child) &&
@@ -44,6 +51,18 @@ function Character({ tickResult }: CharacterProps) {
     } else {
       characterImgSrc = characterYoungAdulthood;
     }
+  }
+  if (tickResult.state.character.physicalHealth.get() < 50) {
+    if (tickResult.state.age > 65) {
+        characterImgSrc = characterVeryOldUnhealthy;
+    } else if (tickResult.state.age > 50) {
+        characterImgSrc = characterOldUnhealthy;
+    } else if (tickResult.state.age > 36) {
+        characterImgSrc = characterAdultUnhealthy;
+    } else if (tickResult.state.age > 18) {
+        characterImgSrc = characterYoungUnhealthy;
+    }
+
   }
   return (
     <>
