@@ -1,13 +1,16 @@
 import { Event } from "../event";
+import { getRandomInt } from "../../utils";
+import type { State } from "../../state";
 
 export class Theft extends Event {
-  private amountStolen = 2000;
-  private randomizeAmountStolen() {
-    this.amountStolen = 2000 * (Math.random() + 1);
+  private amountStolen: number;
+
+  constructor(state: State) {
+    super(state);
+    this.amountStolen = getRandomInt(20, 500);
   }
 
   canActivate() {
-    this.randomizeAmountStolen();
     return true;
   }
   applyEffects() {
