@@ -6,7 +6,7 @@ export class Cat implements Item {
   monthlyCost = 20;
   private monthsLeft: number;
   constructor() {
-    this.monthsLeft = Math.random() * 50;
+    this.monthsLeft = (1 + Math.random()) * 60;
   }
 
   applyMonthlyEffects(state: State) {

@@ -32,16 +32,16 @@ export class OnlineDating extends Possibility {
   }
 
   canActivate() {
-    return !this.state.items.some((i) => i instanceof Friend);
+    return (
+      !this.state.items.some((i) => i instanceof Friend) &&
+      (this.state.age < 20 || this.state.age > 50)
+    );
   }
 
   getWeight() {
     if (this.state.focus.relation.get()) {
-      return 10;
+      return 2;
     }
-    if (this.state.age < 20 || this.state.age > 50) {
-      return 5;
-    }
-    return 2;
+    return 1;
   }
 }

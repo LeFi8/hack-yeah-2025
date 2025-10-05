@@ -5,13 +5,30 @@ import { Theft } from "./list/theft";
 import { FoundMoney } from "./list/found-money";
 import { VegateblesGetMoreExpensive } from "./list/vegatebles-get-more-expensive";
 import { FriendsByReading } from "./list/friends-by-reading";
-import { HelpedNeighbor } from "./list/helped-neighbour";
-import { CarIsBroken } from "./list/car-is-broken";
 import { TravelingDueToCar } from "./list/traveling-due-to-car";
 import { EducationLvlUpgrade } from "./list/education-lvl-upgrade";
 import { WorkLvlUpgrade } from "./list/work-lvl-upgrade";
+import { HelpedNeighbor } from "./list/helped-neighbour.ts";
+import { CarIsBroken } from "./list/car-is-broken.ts";
+import { BreakUp } from "./list/break-up.ts";
 
+export type EventHistory = {
+  event: Event;
+  month: number;
+  age: number;
+};
 export class EventManager {
+  private history: EventHistory[] = [];
+  private DEACREASED_CHANCE_IF_HAPPENED = 5;
+
+  addEventToHistory(event: Event, month: number, age: number) {
+    this.history.push({ event, month, age });
+  }
+
+  getHistory() {
+    return this.history;
+  }
+
   getAllEvents(state: State) {
     return [
       new Illness(state),
@@ -24,9 +41,11 @@ export class EventManager {
       new HelpedNeighbor(state),
       new CarIsBroken(state),
       new TravelingDueToCar(state),
+      new BreakUp(state),
     ];
   }
 
+  // If event already happen we reduce chance of it happening again
   getRandom(state: State): Event | null {
     const filteredEvents = this.getAllEvents(state).filter((event) =>
       event.canActivate(),
@@ -37,10 +56,24 @@ export class EventManager {
     }
 
     const weightedEvents = filteredEvents
-      .map((event) => ({
-        event,
-        weight: event.getWeight(),
-      }))
+      .map((event) => {
+        let weight = event.getWeight();
+
+        // Check if this type of event has already happened
+        const hasHappened = this.history.some(
+          (historyEntry) =>
+            historyEntry.event.constructor === event.constructor,
+        );
+
+        if (hasHappened) {
+          weight = weight / this.DEACREASED_CHANCE_IF_HAPPENED;
+        }
+
+        return {
+          event,
+          weight: weight,
+        };
+      })
       .filter((item) => item.weight > 0);
 
     if (weightedEvents.length === 0) {

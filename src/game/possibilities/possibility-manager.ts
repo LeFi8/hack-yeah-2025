@@ -7,8 +7,13 @@ import { ChooseDiet } from "./list/choose-diet";
 import { WorkWaiter } from "./list/work-waiter";
 import { WorkEngineer } from "./list/work-engineer";
 import { University } from "./list/university";
-import { GetNewCar } from "./list/get-new-car";
 import { OnlineDating } from "./list/online-dating";
+import { HealthCheck } from "./list/health-check";
+import { GetNewCar } from "./list/get-new-car.ts";
+import { FindLifePartner } from "./list/find-life-partner.ts";
+import { ProposeToGirlfriend } from "./list/propose-to-girlfriend.ts";
+import { Wedding } from "./list/wedding.ts";
+import { GetCredit } from "./list/get-credit.ts";
 
 export class PossibilityManager {
   getAllPossibilities(state: State): Possibility[] {
@@ -22,6 +27,11 @@ export class PossibilityManager {
       new University(state),
       new GetNewCar(state),
       new OnlineDating(state),
+      new FindLifePartner(state),
+      new ProposeToGirlfriend(state),
+      new Wedding(state),
+      new GetCredit(state),
+      new HealthCheck(state),
     ];
   }
 
