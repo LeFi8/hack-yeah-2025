@@ -79,7 +79,7 @@ function SandboxMode() {
 
   if (isGameFinished) {
     // FIXME: should there be a popup with information that the game has ended?
-    return <Summary />;
+    return <Summary game={game} />;
   }
 
   return (
@@ -108,7 +108,7 @@ function SandboxMode() {
                   onPossibilityHandled={onPossibilityHandled}
                 />
                 {!shouldHandleEvents && !shouldHandlePossibilities && (
-                  <Spinner className={"absolute left-0 right-0 bottom-[30%]"} />
+                  <Spinner className={"absolute left-0 right-0 bottom-[40%]"} />
                 )}
               </div>
             </div>

@@ -2,8 +2,13 @@ import SavingsHappinessChart from "../components/summary/SavingsHappinessChart.t
 import FocusChart from "../components/summary/FocusChart.tsx";
 import InfoTile from "../components/summary/InfoTile.tsx";
 import LifeSummary from "../components/summary/LifeSummary.tsx";
+import { Game } from "../game/game.ts";
 
-function Summary() {
+interface SummaryProps {
+  game: Game;
+}
+
+function Summary({ game }: SummaryProps) {
   return (
     <>
       <div className="h-dvh">
@@ -19,7 +24,10 @@ function Summary() {
           <div className="flex flex-row gap-5 flex-2">
             <div className="flex flex-col gap-5 flex-1">
               <div className="bg-white shadow-md py-5 px-8 border-2 rounded-2xl flex-1">
-                <InfoTile title="Pension" value="5,000 PLN" />
+                <InfoTile
+                  title="Pension"
+                  value={game.getState().zus.getEstimatedPension().toFixed(2)}
+                />
               </div>
               <div className="bg-white shadow-md py-5 px-8 border-2 rounded-2xl flex-6">
                 TODO: Items
@@ -28,10 +36,16 @@ function Summary() {
             <div className="flex flex-col flex-4 gap-5">
               <div className="flex flex-row gap-5">
                 <div className="bg-white shadow-md py-5 px-8 border-2 rounded-2xl flex-1">
-                  <InfoTile title="ZUS Account" value="100,000 PLN" />
+                  <InfoTile
+                    title="ZUS Account"
+                    value={game.getState().zus.alreadyAccummulated.toFixed(2)}
+                  />
                 </div>
                 <div className="bg-white shadow-md py-5 px-8 border-2 rounded-2xl flex-1">
-                  <InfoTile title="Replacement Rate" value="75%" />
+                  <InfoTile
+                    title="Replacement Rate"
+                    value={game.getState().zus.getReplacementRatePercentage()}
+                  />
                 </div>
               </div>
               <div className="bg-white shadow-md py-5 px-8 border-2 rounded-2xl flex-1">

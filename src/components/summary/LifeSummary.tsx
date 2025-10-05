@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Title from "../common/Title.tsx";
 import QueryBuilder from "../../utils/QueryBuilder.ts";
 import GeminiClient from "../../google/GeminiClient.ts";
+import Spinner from "../common/Spinner.tsx";
 
 // FIXME: mock data remove and replace with real data
 const stats =
@@ -45,11 +46,11 @@ function LifeSummary() {
     <>
       <Title text="Your Life" />
       {isLoading ? (
-        <div className="flex items-center justify-center py-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
-          <span className="ml-3 text-gray-600">
+        <div className="flex items-center justify-center py-8 h-full relative">
+          <span className="ml-3 text-2xl text-gray-600 transform translate-y-[-6.5rem]">
             Generating your life summary...
           </span>
+          <Spinner className="absolute left-0 right-0 bottom-[50%]" />
         </div>
       ) : hasError ? (
         <div className="text-red-600 py-4">
