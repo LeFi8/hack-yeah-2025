@@ -9,7 +9,7 @@ function Home() {
       <div className="max-w-6xl mx-auto px-4 py-16 text-center">
         <div className="animate-show">
           <h1 className="text-6xl md:text-8xl font-bold text-zus mb-6">
-            <span className="text-black">Five</span>LifesRun
+            <span className="text-black">Life's</span> Compass
           </h1>
         </div>
         <img src={"/logo-dark.png"} alt="Logo" className="w-42 h-32 mx-auto" />
