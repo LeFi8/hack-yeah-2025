@@ -5,6 +5,7 @@ import { IoSchoolOutline, IoBriefcaseOutline } from "react-icons/io5";
 import StateInfo from "./state/StateInfo.tsx";
 import type { GameTickResult } from "../../game/game.ts";
 import MoneyTab from "./MoneyTab.tsx";
+import { Items } from "./Items.tsx";
 
 interface StateProps {
   tickResult: GameTickResult;
@@ -58,6 +59,7 @@ function State({ tickResult }: StateProps) {
         />
       )}
       <MoneyTab state={tickResult.state} />
+      <Items state={tickResult.state} />
     </>
   );
 }

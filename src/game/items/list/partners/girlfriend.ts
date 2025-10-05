@@ -2,7 +2,8 @@ import { RomanticPartner } from "./romantic-partner.ts";
 import type { State } from "../../../state.ts";
 
 export class Girlfriend extends RomanticPartner {
-  iconUrl = "src/assets/zus_icon.png";
+  name = "Girlfriend";
+  iconUrl = "girlfriend.png";
   resignedFromProposing: boolean;
   monthsToMarriageDecision: number;
   isEngaged: boolean;

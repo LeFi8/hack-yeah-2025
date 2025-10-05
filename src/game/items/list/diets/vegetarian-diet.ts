@@ -2,8 +2,9 @@ import { Diet } from "./diet";
 import type { State } from "../../../state";
 
 export class VegetarianDiet extends Diet {
+  name = "Vegetarian Diet";
   monthlyCost: number;
-  iconUrl = "src/assets/zus_icon.png";
+  iconUrl = "vegetarian_diet.png";
 
   constructor(monthlyCost = 100) {
     super();

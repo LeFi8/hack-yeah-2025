@@ -3,7 +3,8 @@ import type { Item } from "../item";
 import { Depression } from "./depression";
 
 export class Cat implements Item {
-  iconUrl = "src/assets/zus_icon.png";
+  name = "Cat";
+  iconUrl = "cat.png";
   monthlyCost = 20;
   private monthsLeft: number;
   constructor() {

@@ -2,7 +2,8 @@ import { State } from "../../state";
 import type { Item } from "../item";
 
 export class Depression implements Item {
-  iconUrl = "src/assets/zus_icon.png";
+  name = "Depression";
+  iconUrl = "depression.png";
   private monthsLeft: number;
   constructor() {
     this.monthsLeft = Math.random() * 10;
