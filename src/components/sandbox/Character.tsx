@@ -16,7 +16,10 @@ function Character({ tickResult }: CharacterProps) {
   if (tickResult.state.age > 22) {
     characterImgSrc = characterYoungAdulthood;
   }
-  if (tickResult.state.age > 22 && tickResult.state.character.physicalHealth.get() < 50) {
+  if (
+    tickResult.state.age > 22 &&
+    tickResult.state.character.physicalHealth.get() < 50
+  ) {
     characterImgSrc = characterYoungUnhealthy;
   }
   return (

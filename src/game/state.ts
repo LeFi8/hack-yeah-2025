@@ -115,7 +115,7 @@ export class State {
   }
 
   initialize() {
-    this.age = 18;
+    this.age = 44;
     this.monthsElapsed = 0;
 
     this.character.balance = 10000;
