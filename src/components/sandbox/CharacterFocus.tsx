@@ -71,22 +71,21 @@ function CharacterFocus({ stateFocus, setStateFocus }: CharacterFocusProps) {
           </div>
         </div>
 
-        <div className="mt-4 p-2 bg-green-50 rounded text-center text-sm">
-          <span className="text-green-700">
-            {focus.health && "💚 Health boost "}
-            {focus.hobby && "😊 Happiness boost "}
-            {focus.relation && "❤️ Strong happiness boost "}
-            {focus.work && "🛡️ Work protection "}
-          </span>
+        <div className="mt-4 p-2 bg-green-50 rounded text-center text-sm text-green-700 w-full">
+          {focus.health && "💚 Health boost "}
+          {focus.hobby && "😊 Happiness boost "}
+          {focus.relation && "❤️ Strong happiness boost "}
+          {focus.work && "🛡️ Work protection "}
         </div>
-        <div className="mt-2 p-2 bg-red-50 rounded text-center text-sm">
-          <span className="text-red-700">
-            {!focus.health && "💔 Health decay "}
-            {!focus.relation && "😢 Happiness decay "}
-            {!focus.work && "⚠️ Work stress "}
-            {!focus.hobby && "🧠 Mental fatigue "}
-          </span>
+
+        <div className="mt-2 p-2 bg-red-50 rounded text-center text-sm text-red-700 w-full">
+          {!focus.health && "💔 Health decay "}
+          {!focus.relation && "😢 Happiness decay "}
+          {!focus.work && "⚠️ Work stress "}
+          {!focus.hobby && "🧠 Mental fatigue "}
         </div>
+
+
       </div>
     </>
   );
