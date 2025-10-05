@@ -1,18 +1,17 @@
-import type { Event } from "../event";
-import type { State } from "../../state";
+import { Event } from "../event";
 import { ReadingBooksHobby } from "../../items/list/hobbys/reading-books-hobby";
 import type { Item } from "../../items";
 import { Friend } from "../../items/list/friend";
 
-export class FriendsByReading implements Event {
-  canActivate = (state: State) => {
+export class FriendsByReading extends Event {
+  canActivate = () => {
     return (
-      state.items.some((item: Item) => item instanceof ReadingBooksHobby) &&
-      state.focus.relation.get()
+      this.state.items.some((item: Item) => item instanceof ReadingBooksHobby) &&
+      this.state.focus.relation.get()
     );
   };
-  applyEffects = (state: State) => {
-    state.addItem(new Friend());
+  applyEffects = () => {
+    this.state.addItem(new Friend());
   };
   getTitle = () => {
     return "You made a new friend by reading books";
@@ -24,7 +23,7 @@ export class FriendsByReading implements Event {
         enriching your social life and providing you with a new companion to share your love of books with.
     `;
   };
-  getWeight = (_: State) => {
+  getWeight = () => {
     return 1;
   };
 }

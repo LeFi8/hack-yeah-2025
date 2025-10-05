@@ -1,37 +1,36 @@
-import { State } from "../../state";
-import type { Possibility } from "../possibility";
+import { Possibility } from "../possibility";
 import { Engineer } from "../../work";
 
-export class WorkEngineer implements Possibility {
+export class WorkEngineer extends Possibility {
   title = "You decided to become a software engineer";
 
-  getOptions(_state: State) {
+  getOptions() {
     return [
       {
         title: "Software Engineer - B2B",
-        applyEffects: (state: State) => {
-          state.job = new Engineer("B2B", 1);
+        applyEffects: () => {
+          this.state.job = new Engineer("B2B", 1);
         },
       },
       {
         title: "Software Engineer - Civil law contract",
-        applyEffects: (state: State) => {
-          state.job = new Engineer("UZ", 1);
+        applyEffects: () => {
+          this.state.job = new Engineer("UZ", 1);
         },
       },
       {
         title: "Software Engineer - Unregistered work",
-        applyEffects: (state: State) => {
-          state.job = new Engineer("UNREGISTERED", 1);
+        applyEffects: () => {
+          this.state.job = new Engineer("UNREGISTERED", 1);
         },
       },
     ];
   }
 
-  canActivate = (state: State) => {
-    return !state.job && state.education.level.get() >= 2;
+  canActivate = () => {
+    return !this.state.job && this.state.education.level.get() >= 2;
   };
-  getWeight = (_state: State) => {
+  getWeight = () => {
     return 100;
   };
 }

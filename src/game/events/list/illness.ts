@@ -1,26 +1,27 @@
-import type { Event } from "../event";
-import type { State } from "../../state";
+import { Event } from "../event";
+import type {State} from "../../state";
 
-export class Illness implements Event {
+export class Illness extends Event {
   happinessChange: number;
   mentalHealthChange: number;
   physicalHealthChange: number;
   balanceChange: number;
 
-  constructor() {
+  constructor(protected readonly state: State) {
+    super(state)
     this.happinessChange = -15 * (Math.random() + 1);
     this.mentalHealthChange = -15 * (Math.random() + 1);
     this.physicalHealthChange = -15 * (Math.random() + 1);
     this.balanceChange = -1000 * (Math.random() + 1);
   }
-  canActivate = (_: State) => {
+  canActivate = () => {
     return true;
   };
-  applyEffects = (state: State) => {
-    state.character.happiness.add(this.happinessChange);
-    state.character.mentalHealth.add(this.mentalHealthChange);
-    state.character.physicalHealth.add(this.physicalHealthChange);
-    state.character.balance -= this.balanceChange;
+  applyEffects = () => {
+    this.state.character.happiness.add(this.happinessChange);
+    this.state.character.mentalHealth.add(this.mentalHealthChange);
+    this.state.character.physicalHealth.add(this.physicalHealthChange);
+    this.state.character.balance -= this.balanceChange;
   };
   getTitle = () => {
     return "You got seriously ill";
@@ -35,8 +36,8 @@ export class Illness implements Event {
       Balance: ${this.balanceChange.toFixed(0)}
     `;
   };
-  getWeight = (state: State) => {
-    if (state.focus.health.get()) {
+  getWeight = () => {
+    if (this.state.focus.health.get()) {
       return 0;
     }
     return 1;

@@ -1,38 +1,37 @@
-import type { Event } from "./event";
-import type { State } from "../state";
-import { Illness } from "./list/illness";
-import { Theft } from "./list/theft";
-import { FoundMoney } from "./list/found-money";
-import { VegateblesGetMoreExpensive } from "./list/vegatebles-get-more-expensive";
-import { FriendsByReading } from "./list/friends-by-reading";
-import { HelpedNeighbor } from "./list/helped-neighbour";
-import { CarIsBroken } from "./list/car-is-broken";
-import { TravelingDueToCar } from "./list/traveling-due-to-car";
-import { EducationLvlUpgrade } from "./list/education-lvl-upgrade";
-import { WorkLvlUpgrade } from "./list/work-lvl-upgrade";
+import type {Event} from "./event";
+import type {State} from "../state";
+import {Illness} from "./list/illness";
+import {Theft} from "./list/theft";
+import {FoundMoney} from "./list/found-money";
+import {VegateblesGetMoreExpensive} from "./list/vegatebles-get-more-expensive";
+import {FriendsByReading} from "./list/friends-by-reading";
+import {HelpedNeighbor} from "./list/helped-neighbour";
+import {CarIsBroken} from "./list/car-is-broken";
+import {TravelingDueToCar} from "./list/traveling-due-to-car";
+import {EducationLvlUpgrade} from "./list/education-lvl-upgrade";
+import {WorkLvlUpgrade} from "./list/work-lvl-upgrade";
 
 export class EventManager {
-  private events: Event[];
-
-  constructor() {
-    this.events = [
-      new Illness(),
-      new Theft(),
-      new FoundMoney(),
-      new VegateblesGetMoreExpensive(),
-      new FriendsByReading(),
-      new EducationLvlUpgrade(),
-      new WorkLvlUpgrade(),
-      new HelpedNeighbor(),
-      new CarIsBroken(),
-      new TravelingDueToCar(),
+  getAllEvents(state: State) {
+    return [
+      new Illness(state),
+      new Theft(state),
+      new FoundMoney(state),
+      new VegateblesGetMoreExpensive(state),
+      new FriendsByReading(state),
+      new EducationLvlUpgrade(state),
+      new WorkLvlUpgrade(state),
+      new HelpedNeighbor(state),
+      new CarIsBroken(state),
+      new TravelingDueToCar(state),
     ];
   }
 
   getRandom(state: State): Event | null {
-    const filteredEvents = this.events.filter((event) =>
-      event.canActivate(state),
-    );
+    const filteredEvents = this.getAllEvents(state)
+      .filter((event) =>
+        event.canActivate(),
+      );
 
     if (filteredEvents.length === 0) {
       return null;
@@ -41,7 +40,7 @@ export class EventManager {
     const weightedEvents = filteredEvents
       .map((event) => ({
         event,
-        weight: event.getWeight(state),
+        weight: event.getWeight(),
       }))
       .filter((item) => item.weight > 0);
 

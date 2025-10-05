@@ -1,36 +1,35 @@
-import { State } from "../../state";
-import type { Possibility } from "../possibility";
+import { Possibility } from "../possibility";
 import { VegetarianDiet } from "../../items/list/diets/vegetarian-diet";
 import { FastFoodDiet } from "../../items/list/diets/fast-food-diet";
 import { Diet } from "../../items/list/diets/diet";
 
-export class ChooseDiet implements Possibility {
+export class ChooseDiet extends Possibility {
   title = "Decide what will you eat every day";
-  getOptions(_state: State) {
+  getOptions() {
     return [
       {
         title: "Vegetarian diet",
-        applyEffects: (state: State) => {
-          state.addItem(new VegetarianDiet());
+        applyEffects: () => {
+          this.state.addItem(new VegetarianDiet());
         },
       },
       {
         title: "Fast food diet",
-        applyEffects: (state: State) => {
-          state.addItem(new FastFoodDiet());
+        applyEffects: () => {
+          this.state.addItem(new FastFoodDiet());
         },
       },
       {
         title: "Normal diet",
-        applyEffects: (_: State) => {},
+        applyEffects: () => {},
       },
     ];
   }
-  canActivate = (state: State) => {
-    return !state.items.some((i) => i instanceof Diet);
+  canActivate = () => {
+    return !this.state.items.some((i) => i instanceof Diet);
   };
-  getWeight = (state: State) => {
-    if (state.focus.health) {
+  getWeight = () => {
+    if (this.state.focus.health) {
       return 2;
     }
     return 1;

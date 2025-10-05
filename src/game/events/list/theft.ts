@@ -1,20 +1,17 @@
-import type { Event } from "../event";
-import type { State } from "../../state";
+import { Event } from "../event";
 
-export class Theft implements Event {
-  private amountStolen: number;
+export class Theft extends Event {
+  private amountStolen = 2000;
   private randomizeAmountStolen = () => {
     this.amountStolen = 2000 * (Math.random() + 1);
   };
-  constructor() {
-    this.amountStolen = 2000;
-  }
-  canActivate = (_: State) => {
+
+  canActivate = () => {
     this.randomizeAmountStolen();
     return true;
   };
-  applyEffects = (state: State) => {
-    state.character.balance -= this.amountStolen;
+  applyEffects = () => {
+    this.state.character.balance -= this.amountStolen;
   };
   getTitle = () => {
     return "You have been a victim of theft";
@@ -25,7 +22,7 @@ export class Theft implements Event {
         You lost $${this.amountStolen.toFixed(2)}.
     `;
   };
-  getWeight = (_: State) => {
+  getWeight = () => {
     return 1;
   };
 }

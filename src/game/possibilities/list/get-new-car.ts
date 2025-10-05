@@ -1,37 +1,36 @@
-import { State } from "../../state";
-import type { Possibility } from "../possibility";
+import { Possibility } from "../possibility";
 import { Car } from "../../items/list/car";
 
-export class GetNewCar implements Possibility {
+export class GetNewCar extends Possibility {
   title = "You need a new car";
-  getOptions(_state: State) {
+  getOptions() {
     return [
       {
         title: "Buy a new cheap car (10 000 PLN)",
-        applyEffects: (state: State) => {
-          state.character.balance -= 10000;
-          state.addItem(new Car(500, false));
+        applyEffects: () => {
+          this.state.character.balance -= 10000;
+          this.state.addItem(new Car(500, false));
         },
       },
       {
         title: "Buy a new expensive car (100 000 PLN)",
-        applyEffects: (state: State) => {
-          state.character.balance -= 100000;
-          state.addItem(new Car(1500, false));
+        applyEffects: () => {
+          this.state.character.balance -= 100000;
+          this.state.addItem(new Car(1500, false));
         },
       },
       {
         title: "Lease an expensive car",
-        applyEffects: (state: State) => {
-          state.addItem(new Car(3000, true));
+        applyEffects: () => {
+          this.state.addItem(new Car(3000, true));
         },
       },
     ];
   }
-  canActivate = (state: State) => {
-    return !state.items.some((i) => i instanceof Car);
+  canActivate = () => {
+    return !this.state.items.some((i) => i instanceof Car);
   };
-  getWeight = (_: State) => {
+  getWeight = () => {
     return 1;
   };
 }

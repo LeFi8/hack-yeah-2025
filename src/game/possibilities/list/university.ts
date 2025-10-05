@@ -1,29 +1,24 @@
-import { State } from "../../state";
-import type { Possibility } from "../possibility";
-import { Hobby } from "../../items/list/hobbys/hobby";
-import { ReadingBooksHobby } from "../../items/list/hobbys/reading-books-hobby";
-import { JoggingHobby } from "../../items/list/hobbys/jogging-hobby";
-import { VideoGamesHobby } from "../../items/list/hobbys/video-games-hobby";
+import { Possibility } from "../possibility";
 
-export class University implements Possibility {
+export class University extends Possibility {
   title = "You decided to go to university";
 
-  getOptions(_state: State) {
+  getOptions() {
     return [
       {
         title: "Go to your favourite field of study",
-        applyEffects: (state: State) => {
-          state.education.isStudying = true;
+        applyEffects: () => {
+          this.state.education.isStudying = true;
         },
       },
     ];
   }
 
-  canActivate = (state: State) => {
-    return !state.education.isStudying;
+  canActivate = () => {
+    return !this.state.education.isStudying;
   };
-  getWeight = (state: State) => {
-    if (state.age < 20) {
+  getWeight = () => {
+    if (this.state.age < 20) {
       return 100;
     }
     return 5;

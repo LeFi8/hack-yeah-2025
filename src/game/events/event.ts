@@ -1,9 +1,11 @@
 import type { State } from "../state";
 
-export interface Event {
-  getWeight: (state: State) => number;
-  applyEffects: (state: State) => void;
-  canActivate: (state: State) => boolean;
-  getTitle(): string;
-  getDescription(): string;
+export class Event {
+  constructor(protected readonly state: State) {}
+
+  getWeight: () => number;
+  applyEffects: () => void;
+  canActivate: () => boolean;
+  getTitle: () => string;
+  getDescription: () =>  string;
 }

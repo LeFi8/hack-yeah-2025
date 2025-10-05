@@ -1,16 +1,13 @@
-import type { Event } from "../event";
-import type { State } from "../../state";
+import { Event } from "../event";
 
-export class FoundMoney implements Event {
-  private readonly amountFound: number;
-  constructor() {
-    this.amountFound = 100;
-  }
-  canActivate = (_: State) => {
+export class FoundMoney extends Event {
+  private readonly amountFound = 100;
+
+  canActivate = () => {
     return true;
   };
-  applyEffects = (state: State) => {
-    state.character.balance += this.amountFound;
+  applyEffects = () => {
+    this.state.character.balance += this.amountFound;
   };
   getTitle = () => {
     return "You found some money on the street";
@@ -21,7 +18,7 @@ export class FoundMoney implements Event {
         Nobody is around, so you decided to keep it.
     `;
   };
-  getWeight = (_: State) => {
+  getWeight = () => {
     return 1;
   };
 }
