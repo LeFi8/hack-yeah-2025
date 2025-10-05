@@ -5,6 +5,7 @@ import eclipse from "../../assets/eclipse.png";
 // FIXME: should be changed to dynamic character based on user choice
 import characterYoung from "../../assets/character/character_male_18_happy.png";
 import characterYoungAdulthood from "../../assets/character/character_male_23_happy.png";
+import characterYoungUnhealthy from "../../assets/character/character_male_18_unhealthy.png";
 
 interface CharacterProps {
   tickResult: GameTickResult;
@@ -14,6 +15,9 @@ function Character({ tickResult }: CharacterProps) {
   let characterImgSrc = characterYoung;
   if (tickResult.state.age > 22) {
     characterImgSrc = characterYoungAdulthood;
+  }
+  if (tickResult.state.age > 22 && tickResult.state.character.physicalHealth.get() < 50) {
+    characterImgSrc = characterYoungUnhealthy;
   }
   return (
     <div className="flex flex-col items-center w-full max-w-md mx-auto px-4">
