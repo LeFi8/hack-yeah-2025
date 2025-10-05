@@ -3,22 +3,20 @@ import type { State } from "../../state";
 
 export class Engineer extends JobContract {
   constructor(
+    state: State,
     contractType: "UOP" | "UZ" | "B2B" | "UNREGISTERED",
     private lvl: number,
   ) {
-    super(contractType);
+    super(state, contractType);
   }
 
   getBruttoIncome(): number {
-    return 5000 * this.lvl;
+    const multiplier = 1 + this.state.education.level.get() / 5;
+    return 5000 * this.lvl * multiplier;
   }
 
   getPosition(): string {
     return [this.getLvlName(this.lvl), "Engineer"].join(" ");
-  }
-
-  applyMonthlyEffects(state: State) {
-    super.applyMonthlyEffects(state);
   }
 
   canUpgrade() {
@@ -36,6 +34,6 @@ export class Engineer extends JobContract {
   }
 
   getNextLvlContract() {
-    return new Engineer(this.contractType, this.lvl + 1);
+    return new Engineer(this.state, this.contractType, this.lvl + 1);
   }
 }

@@ -1,0 +1,47 @@
+import { Possibility } from "../possibility";
+import { Friend } from "../../items/list/friend";
+
+export class OnlineDating extends Possibility {
+  title = "You decided to try online dating";
+
+  getOptions() {
+    return [
+      {
+        title: "Create a profile and start swiping",
+        applyEffects: () => {
+          if (Math.random() < 0.6) {
+            this.state.addItem(new Friend());
+            this.state.character.happiness.add(3);
+            this.state.character.mentalHealth.add(2);
+          } else {
+            this.state.character.happiness.add(-1);
+          }
+        },
+      },
+      {
+        title: "Just browse without commitment",
+        applyEffects: () => {
+          this.state.character.happiness.add(1);
+        },
+      },
+      {
+        title: "Decide it's not for you",
+        applyEffects: () => {},
+      },
+    ];
+  }
+
+  canActivate() {
+    return !this.state.items.some((i) => i instanceof Friend);
+  }
+
+  getWeight() {
+    if (this.state.focus.relation.get()) {
+      return 10;
+    }
+    if (this.state.age < 20 || this.state.age > 50) {
+      return 5;
+    }
+    return 2;
+  }
+}

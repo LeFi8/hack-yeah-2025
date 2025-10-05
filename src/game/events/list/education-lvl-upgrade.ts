@@ -3,7 +3,7 @@ import { Event } from "../event";
 export class EducationLvlUpgrade extends Event {
   private newLevel: number = 0;
 
-  canActivate(){
+  canActivate() {
     const monthsStudying =
       this.state.getMonthsElapsed() - this.state.education.studyingSinceMonth;
     const lvl2Months = 12 * 4;
@@ -13,28 +13,37 @@ export class EducationLvlUpgrade extends Event {
     if (!this.state.education.isStudying) {
       return false;
     }
-    if (this.state.education.level.get() === 1 && monthsStudying >= lvl2Months) {
+    if (
+      this.state.education.level.get() === 1 &&
+      monthsStudying >= lvl2Months
+    ) {
       this.newLevel = 2;
       return true;
     }
-    if (this.state.education.level.get() === 2 && monthsStudying >= lvl3Months) {
+    if (
+      this.state.education.level.get() === 2 &&
+      monthsStudying >= lvl3Months
+    ) {
       this.newLevel = 3;
       return true;
     }
-    if (this.state.education.level.get() === 3 && monthsStudying >= lvl4Months) {
+    if (
+      this.state.education.level.get() === 3 &&
+      monthsStudying >= lvl4Months
+    ) {
       this.newLevel = 4;
       return true;
     }
 
     return false;
-  };
-  applyEffects(){
+  }
+  applyEffects() {
     this.state.education.level.add(1);
-  };
-  getTitle(){
+  }
+  getTitle() {
     return "You have finished your studies";
-  };
-  getDescription(){
+  }
+  getDescription() {
     if (this.newLevel === 2) {
       return "Bachelor’s degree";
     }
@@ -46,8 +55,8 @@ export class EducationLvlUpgrade extends Event {
     }
 
     return "";
-  };
-  getWeight(){
+  }
+  getWeight() {
     return 1000;
-  };
+  }
 }

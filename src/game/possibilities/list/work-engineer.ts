@@ -9,28 +9,28 @@ export class WorkEngineer extends Possibility {
       {
         title: "Software Engineer - B2B",
         applyEffects: () => {
-          this.state.job = new Engineer("B2B", 1);
+          this.state.job = new Engineer(this.state, "B2B", 1);
         },
       },
       {
         title: "Software Engineer - Civil law contract",
         applyEffects: () => {
-          this.state.job = new Engineer("UZ", 1);
+          this.state.job = new Engineer(this.state, "UZ", 1);
         },
       },
       {
         title: "Software Engineer - Unregistered work",
         applyEffects: () => {
-          this.state.job = new Engineer("UNREGISTERED", 1);
+          this.state.job = new Engineer(this.state, "UNREGISTERED", 1);
         },
       },
     ];
   }
 
-  canActivate(){
-    return !this.state.job && this.state.education.level.get() >= 2;
-  };
-  getWeight(){
-    return 100;
-  };
+  canActivate() {
+    return this.state.education.level.get() >= 2;
+  }
+  getWeight() {
+    return 100 * this.state.education.level.get();
+  }
 }

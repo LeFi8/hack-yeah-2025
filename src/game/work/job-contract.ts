@@ -22,11 +22,12 @@ export abstract class JobContract {
   };
 
   constructor(
+    protected readonly state: State,
     protected readonly contractType: "UOP" | "UZ" | "B2B" | "UNREGISTERED",
   ) {}
 
   applyMonthlyEffects(state: State) {
-    state.zus.alreadyAccummulated += this.getZusContribution();
+    state.zus.contribute(this.getZusContribution());
     state.character.balance += this.getNettoIncome();
   }
 

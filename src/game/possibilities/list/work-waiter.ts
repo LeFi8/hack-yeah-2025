@@ -9,28 +9,28 @@ export class WorkWaiter extends Possibility {
       {
         title: "Waiter - Contract with full contributions",
         applyEffects: () => {
-          this.state.job = new Waiter("UOP");
+          this.state.job = new Waiter(this.state, "UOP");
         },
       },
       {
         title: "Waiter - Civil law contract",
         applyEffects: () => {
-          this.state.job = new Waiter("UZ");
+          this.state.job = new Waiter(this.state, "UZ");
         },
       },
       {
         title: "Waiter - Unregistered work",
         applyEffects: () => {
-          this.state.job = new Waiter("UNREGISTERED");
+          this.state.job = new Waiter(this.state, "UNREGISTERED");
         },
       },
     ];
   }
 
-  canActivate(){
+  canActivate() {
     return !this.state.job;
-  };
-  getWeight(){
+  }
+  getWeight() {
     return 100;
-  };
+  }
 }

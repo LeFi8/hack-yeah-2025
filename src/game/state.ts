@@ -5,6 +5,7 @@ import { BooleanFocus } from "./utils";
 import { RangeCounter } from "./utils";
 import type { History } from "./utils/history";
 import { JobContract } from "./work";
+import { ZUS } from "./zus/zus";
 
 export class CharacterCondition {
   balance = 0;
@@ -111,21 +112,13 @@ export class Education {
   applyMonthlyEffects() {}
 }
 
-export class ZUS {
-  isAlreadyRetired: boolean = false;
-  alreadyAccummulated: number = 0;
-  // It needs to be caluclated each month based on job income and type
-  // It tells you how much you will get when retired
-  predictedPension: number = 0;
-}
-
 export class State {
   public age: number = 0;
   private monthsElapsed: number = 0; // Track months since game start
   public character: CharacterCondition;
   public job: JobContract | null = null;
   public education: Education = new Education();
-  public zus: ZUS = new ZUS();
+  public zus = new ZUS();
   public items: Item[] = [];
   public focus: Focus;
   public currentPossibilities: Possibility[] = [];
@@ -196,6 +189,9 @@ export class State {
     this.focus.applyEffects(this);
 
     this.job?.applyMonthlyEffects(this);
+
+    // ZUS
+    this.zus.applyMonthlyEffects(this);
 
     // Handle expences
     this.character.balance -= this.character.monthlyExpenses.get();
