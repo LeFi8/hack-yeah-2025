@@ -6,30 +6,36 @@ import CharacterFocus from "../components/sandbox/CharacterFocus.tsx";
 import { Game, type GameTickResult } from "../game/game.ts";
 import { useEffect, useState } from "react";
 
-let game = new Game();
-
 function SandboxMode() {
+  const [game, setGame] = useState<Game | null>(null);
   const [tickResult, setTickResult] = useState<GameTickResult | null>(null);
-  const [eventHandled, setEventHandled] = useState(true);
-  const [possibilityHandled, setPossibilityHandled] = useState(true);
+  const [shouldHandleEvents, setShouldHandleEvents] = useState(false);
+  const [shouldHandlePossibilities, setShouldHandlePossibilities] =
+    useState(false);
 
   useEffect(() => {
-    game = new Game();
-    game.start();
+    const newGame = new Game();
+    setGame(newGame);
+    newGame.start();
   }, []);
 
   useEffect(() => {
-    if (!eventHandled || !possibilityHandled) {
+    if (game === null) {
+      return;
+    }
+
+    if (shouldHandleEvents || shouldHandlePossibilities) {
       return;
     }
 
     const intervalId = setInterval(() => {
-      const newTickResult = game.tick();
+      const newTickResult = game!.tick();
+      // TODO: handle finished game newTickResult.state.isGameEnded
       if (newTickResult.event) {
-        setEventHandled(false);
+        setShouldHandleEvents(true);
       }
       if (newTickResult.possibilities.length) {
-        setPossibilityHandled(false);
+        setShouldHandlePossibilities(true);
       }
       setTickResult(newTickResult);
     }, 100);
@@ -39,19 +45,19 @@ function SandboxMode() {
     };
   }, [
     game,
-    setEventHandled,
-    eventHandled,
-    setPossibilityHandled,
-    possibilityHandled,
+    setShouldHandleEvents,
+    shouldHandleEvents,
+    setShouldHandlePossibilities,
+    shouldHandlePossibilities,
     setTickResult,
   ]);
 
-  if (tickResult === null) {
+  if (game === null || tickResult === null) {
     return "";
   }
 
   const onEventHandled = () => {
-    setEventHandled(true);
+    setShouldHandleEvents(false);
   };
 
   const onPossibilityHandled = (
@@ -59,8 +65,8 @@ function SandboxMode() {
     choiceIndex: number,
   ) => {
     const selectedPossibility = tickResult.possibilities[possibilityIndex];
-    game.selectPossibility(selectedPossibility, choiceIndex);
-    setPossibilityHandled(true);
+    game!.selectPossibility(selectedPossibility, choiceIndex);
+    setShouldHandlePossibilities(false);
   };
 
   return (
@@ -83,6 +89,8 @@ function SandboxMode() {
                 <Decisions
                   key={tickResult.state.getMonthsElapsed()}
                   tickResult={tickResult}
+                  shouldHandleEvents={shouldHandleEvents}
+                  shouldHandlePossibilities={shouldHandlePossibilities}
                   onEventHandled={onEventHandled}
                   onPossibilityHandled={onPossibilityHandled}
                 />

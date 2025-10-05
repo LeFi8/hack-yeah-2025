@@ -16,10 +16,12 @@ function Possibilities({
   );
 
   const handlePossibilityClick = (possibilityIndex: number) => {
+    // select first option if there's only one
     if (possibilities[possibilityIndex].getOptions().length === 1) {
       onPossibilityChosen(possibilityIndex, 0);
       return;
     }
+    // allow user to choose
     setSelectedPossibility(possibilityIndex);
   };
 
@@ -38,6 +40,11 @@ function Possibilities({
               className="grow flex flex-col items-center justify-center"
             >
               <p className={"text-lg"}>{possibility.title}</p>
+              {possibility.getOptions().length === 1 && (
+                <p className="text-sm italic">
+                  {possibility.getOptions()[0].title}
+                </p>
+              )}
             </Card>
           ))}
         {selectedPossibility !== null &&
