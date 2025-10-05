@@ -8,6 +8,7 @@ import { WorkWaiter } from "./list/work-waiter";
 import { WorkEngineer } from "./list/work-engineer";
 import { University } from "./list/university";
 import { GetNewCar } from "./list/get-new-car";
+import { OnlineDating } from "./list/online-dating";
 
 export class PossibilityManager {
   getAllPossibilities(state: State): Possibility[] {
@@ -20,6 +21,7 @@ export class PossibilityManager {
       new WorkEngineer(state),
       new University(state),
       new GetNewCar(state),
+      new OnlineDating(state),
     ];
   }
 
