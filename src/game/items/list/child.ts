@@ -1,7 +1,8 @@
 import type { Item } from "../item.ts";
 
 export class Child implements Item {
-  iconUrl = "src/assets/child_icon.png";
+  name = "Child";
+  iconUrl = "child.png";
   monthlyCost = 600;
   private monthsToAdult: number;
   constructor(adult: boolean = false) {

@@ -17,3 +17,13 @@ TODO: add setup instructions
    npm run dev
    ```
 3. Open your browser and navigate to `http://localhost:5173`.
+
+
+
+What have impacts on event possibilities?
+- CharacterCondition (physicalHealth, hapiness)
+- Focus (hobby, health, relation, work)
+- Education (level, isStudying, studyingSinceMonth)
+- JobContract
+- ZUS (isAlreadyRetired, alreadyAccummulated, retirementAge)
+- State (age, monthsElapsed)

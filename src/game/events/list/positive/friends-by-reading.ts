@@ -1,7 +1,7 @@
-import { Event } from "../event";
-import { ReadingBooksHobby } from "../../items/list/hobbys/reading-books-hobby";
-import type { Item } from "../../items";
-import { Friend } from "../../items/list/friend";
+import { Event } from "../../event";
+import { ReadingBooksHobby } from "../../../items/list/hobbys/reading-books-hobby";
+import type { Item } from "../../../items";
+import { Friend } from "../../../items/list/friend";
 
 export class FriendsByReading extends Event {
   canActivate() {

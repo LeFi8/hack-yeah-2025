@@ -3,9 +3,11 @@ import type { State } from "../../../state.ts";
 import { Child } from "../child.ts";
 
 export class Wife extends RomanticPartner {
+  name = "Wife";
+
   isPregnant: boolean = false;
   timeToBirth: number = 0; // in months
-  iconUrl = "src/assets/zus_icon.png";
+  iconUrl = "wife.png";
   applyMonthlyEffects(state: State) {
     state.character.happiness.add(1);
     if (this.isPregnant) {

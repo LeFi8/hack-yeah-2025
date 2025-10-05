@@ -1,7 +1,8 @@
 import type { Item } from "../item";
 
 export class Car implements Item {
-  iconUrl = "src/assets/zus_icon.png";
+  name = "Car";
+  iconUrl = "car.png";
   monthlyCost: number;
   inLeasing: boolean;
   constructor(monthlyCost: number, inLeasing: boolean) {

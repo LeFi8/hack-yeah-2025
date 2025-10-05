@@ -1,4 +1,4 @@
-import { Event } from "../event";
+import { Event } from "../../event";
 
 export class WorkLvlUpgrade extends Event {
   private description: string = "";

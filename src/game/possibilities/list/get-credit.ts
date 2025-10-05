@@ -2,7 +2,7 @@ import { Possibility } from "../possibility";
 import { Credit } from "../../items/list/credit.ts";
 
 export class GetCredit extends Possibility {
-  title = "You're running out of money...";
+  title = "Take credit for your financial problems";
   getOptions() {
     const moneyToBeOnPlus =
       Math.floor(Math.abs(this.state.character.balance) / 1000 + 1) * 1000;

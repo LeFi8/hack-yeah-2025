@@ -1,6 +1,6 @@
-import { Event } from "../event";
-import type { Item } from "../../items";
-import { Car } from "../../items/list/car";
+import type { Item } from "../../../items";
+import { Car } from "../../../items/list/car";
+import { Event } from "../../event";
 
 export class TravelingDueToCar extends Event {
   canActivate() {
