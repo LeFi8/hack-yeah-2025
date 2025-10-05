@@ -91,6 +91,13 @@ export class Game {
     const event: Event | null = this.eventManager.getRandom(this.state);
 
     if (event) {
+      // Update Event Manager history so it won't cause same event again
+      this.eventManager.addEventToHistory(
+        event,
+        (this.state.getMonthsElapsed() % 12) + 1,
+        this.state.age,
+      );
+
       event.applyEffects();
       console.log(`Event occurred: ${event.getTitle()}`);
       console.log(`Description: ${event.getDescription()}`);
