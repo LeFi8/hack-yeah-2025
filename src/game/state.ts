@@ -153,6 +153,12 @@ export class State {
   applyMonthlyEffects() {
     console.log("Applying monthly effects...");
 
+    if (this.getMonthsElapsed() % 12 === 0) {
+      this.character.applyInflation();
+    }
+
+    this.character.applyMonthlyEffects();
+
     // Handle Items
     this.items.forEach((item: Item) => {
       item.applyMonthlyEffects(this);
