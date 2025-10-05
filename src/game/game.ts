@@ -2,6 +2,7 @@ import { Focus, State } from "./state";
 import { PossibilityManager, type Possibility } from "./possibilities";
 import { EventManager, type Event } from "./events";
 import type { History } from "./utils/history";
+import type { FocusStats } from "./utils/focus-tracker";
 
 export interface GameTickResult {
   possibilities: Possibility[];
@@ -138,5 +139,9 @@ export class Game {
 
   getHistory(): History[] {
     return this.state.getHistory();
+  }
+
+  getFocusStatistics(): FocusStats {
+    return this.state.getFocusStatistics();
   }
 }

@@ -1,22 +1,21 @@
 import { JobContract } from "../job-contract";
 import type { State } from "../../state";
 
-export class Engineer extends JobContract {
+export class Worker extends JobContract {
   constructor(
     state: State,
-    contractType: "UOP" | "UZ" | "B2B" | "UNREGISTERED",
+    contractType: "UZ" | "UNREGISTERED" | "UOP" | "B2B",
     private lvl: number,
   ) {
     super(state, contractType);
   }
 
   getBruttoIncome(): number {
-    const multiplier = 1 + this.state.education.level.get() / 5;
-    return 5000 * (1.2 ** this.lvl) * multiplier;
+    return 5000 * (1.2 ** this.lvl) ;
   }
 
   getPosition(): string {
-    return [this.getLvlName(this.lvl), "Engineer"].join(" ");
+    return [this.getLvlName(this.lvl), "Production Worker"].join(" ");
   }
 
   canUpgrade() {
@@ -34,6 +33,6 @@ export class Engineer extends JobContract {
   }
 
   getNextLvlContract() {
-    return new Engineer(this.state, this.contractType, this.lvl + 1);
+    return new Worker(this.state, this.contractType, this.lvl + 1);
   }
 }

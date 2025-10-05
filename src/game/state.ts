@@ -3,6 +3,7 @@ import { DeathCalculator } from "./death/deathCalculator";
 import type { Item } from "./items";
 import type { Possibility } from "./possibilities";
 import { RangeCounter } from "./utils";
+import { FocusTracker, type FocusStats } from "./utils/focus-tracker";
 import type { History } from "./utils/history";
 import { JobContract } from "./work";
 import { ZUS } from "./zus/zus";
@@ -103,6 +104,8 @@ export class State {
   public focus: Focus;
   public currentPossibilities: Possibility[] = [];
   private stateHistory: History[] = [];
+  public focusTracker: FocusTracker = new FocusTracker(); // Add this line
+
 
   public deathReason: string | null = null;
   public isGameEnded: boolean = false;
@@ -117,7 +120,7 @@ export class State {
     this.monthsElapsed = 0;
 
     this.character.balance = 10000;
-    this.character.monthlyExpenses.add(1000);
+    this.character.monthlyExpenses.add(1800);
     this.job = null;
     // 0-podstawowe 1-średnie 2-licencjat/inż 3-magister 4-doktorat
     this.education.level.add(1);
@@ -152,6 +155,15 @@ export class State {
 
   applyMonthlyEffects() {
     console.log("Applying monthly effects...");
+
+    // Track focus before applying effects
+    this.focusTracker.trackFocus(this.focus);
+
+    if (this.getMonthsElapsed() % 12 === 0) {
+      this.character.applyInflation();
+    }
+
+    this.character.applyMonthlyEffects();
 
     // Handle Items
     this.items.forEach((item: Item) => {
@@ -198,5 +210,10 @@ export class State {
 
   finishJob() {
     this.job = null;
+  }
+
+  getFocusStatistics(): FocusStats
+  {
+    return this.focusTracker.getAverages(this.monthsElapsed);
   }
 }
