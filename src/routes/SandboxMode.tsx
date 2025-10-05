@@ -5,6 +5,7 @@ import LifeChart from "../components/sandbox/LifeChart.tsx";
 import CharacterFocus from "../components/sandbox/CharacterFocus.tsx";
 import { Game, type GameTickResult } from "../game/game.ts";
 import { useEffect, useState } from "react";
+import Spinner from "../components/common/Spinner.tsx";
 
 function SandboxMode() {
   const [game, setGame] = useState<Game | null>(null);
@@ -43,7 +44,7 @@ function SandboxMode() {
         setShouldHandlePossibilities(true);
       }
       setTickResult(newTickResult);
-    }, 100);
+    }, 200);
 
     return () => {
       clearInterval(intervalId);
@@ -96,7 +97,7 @@ function SandboxMode() {
                   stateFocus={tickResult.state.focus}
                 />
               </div>
-              <div className="bg-white shadow-md py-5 px-8 border-2 rounded-2xl flex-7">
+              <div className="bg-white shadow-md py-5 px-8 border-2 rounded-2xl flex-7 relative">
                 <Decisions
                   key={tickResult.state.getMonthsElapsed()}
                   tickResult={tickResult}
@@ -105,6 +106,9 @@ function SandboxMode() {
                   onEventHandled={onEventHandled}
                   onPossibilityHandled={onPossibilityHandled}
                 />
+                {!shouldHandleEvents && !shouldHandlePossibilities && (
+                  <Spinner className={"absolute left-0 right-0 bottom-[30%]"} />
+                )}
               </div>
             </div>
           </div>

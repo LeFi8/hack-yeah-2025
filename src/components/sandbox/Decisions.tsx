@@ -25,9 +25,24 @@ function Decisions({
     onPossibilityHandled(possibilityIndex, choiceIndex);
   };
 
+  let title = "Life is going on...";
+  if (shouldHandleEvents) {
+    title = "Events";
+  } else if (shouldHandlePossibilities) {
+    title = "Decisions";
+  }
+
+  if (!shouldHandleEvents && !shouldHandlePossibilities) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <Title text={"Life is going on..."}></Title>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col h-full">
-      <Title text={"Decisions"} />
+      <Title text={title} />
       {shouldHandleEvents && (
         <Events
           allEvents={[tickResult.event!]}
