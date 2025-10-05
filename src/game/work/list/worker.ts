@@ -11,8 +11,7 @@ export class Worker extends JobContract {
   }
 
   getBruttoIncome(): number {
-    const multiplier = 1 + this.state.education.level.get() / 5;
-    return 5000 * this.lvl * multiplier;
+    return 5000 * (1.2 ** this.lvl) ;
   }
 
   getPosition(): string {
