@@ -3,9 +3,9 @@ import StateBar from "./state/StateBar.tsx";
 import { AiOutlineHeart, AiOutlineSmile } from "react-icons/ai";
 import { IoSchoolOutline, IoBriefcaseOutline } from "react-icons/io5";
 import { CiMoneyBill } from "react-icons/ci";
-
 import StateInfo from "./state/StateInfo.tsx";
 import type { GameTickResult } from "../../game/game.ts";
+import MoneyTab from "./MoneyTab.tsx";
 
 interface StateProps {
   tickResult: GameTickResult;
@@ -60,6 +60,7 @@ function State({ tickResult }: StateProps) {
           text={job.getPosition()}
         />
       )}
+      <MoneyTab />
     </>
   );
 }
