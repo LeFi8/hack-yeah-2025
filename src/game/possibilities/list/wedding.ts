@@ -38,7 +38,7 @@ export class Wedding extends Possibility {
     ];
   }
   canActivate = () => {
-    return !this.state.items.some((i) => i instanceof Girlfriend && i.isEngaged);
+    return this.state.items.some((i) => i instanceof Girlfriend && i.isEngaged);
   };
   getWeight = () => {
     return 1;
