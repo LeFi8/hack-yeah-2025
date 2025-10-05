@@ -8,7 +8,7 @@ import characterYoungAdulthood from "../../assets/character/character_male_23_ha
 import characterYoungUnhealthy from "../../assets/character/character_male_18_unhealthy.png";
 import characterYoungFamily from "../../assets/character/character_family_18_happy.png";
 import characterYoungAdulthoodFamily from "../../assets/character/character_family_23_happy.png";
-import characterYoungSad from "../../assets/character/character_family_18_sad.png";
+import characterYoungSad from "../../assets/character/character_male_18_sad.png";
 import characterAdultUnhealthy from "../../assets/character/character_male_36_unhealthy.png";
 import characterOldUnhealthy from "../../assets/character/character_male_50_unhealthy.png";
 import characterVeryOldUnhealthy from "../../assets/character/character_male_65_unhealthy.png";
