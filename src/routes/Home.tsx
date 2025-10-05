@@ -13,12 +13,12 @@ function Home() {
           </h1>
         </div>
         <img src={"/logo-dark.png"} alt="Logo" className="w-32 h-32 mx-auto" />
-        <p className="text-black mt-6 max-w-96 mx-auto flex items-center justify-center text-center">
+        <p className="text-black mt-4 max-w-96 mx-auto flex items-center justify-center text-center">
           Learn about the impact of your lifestyle choices on your health,
           finances, happiness, and many other aspects of life.
         </p>
 
-        <div className="flex flex-col gap-4 mt-24">
+        <div className="flex flex-col gap-4 mt-20">
           <div
             className="cursor-pointer font-medium shadow-lg p-4 rounded-lg border-1 hover:scale-105 transition-transform duration-200 ease-in-out bg-white"
             onClick={() => {
