@@ -1,22 +1,23 @@
 import { Event } from "../event";
 
 export class WorkLvlUpgrade extends Event {
-  private description: string;
+  private description: string = '';
 
-  canActivate = () => {
+  canActivate(){
     this.description = `You are ${this.state.job?.getNextLvlContract()} now!`;
-    return this.state.job?.canUpgrade();
+    return !!this.state.job?.canUpgrade();
   };
-  applyEffects = () => {
+
+  applyEffects(){
     this.state.job?.upgrade();
   };
-  getTitle = () => {
+  getTitle(){
     return "You got a promotion at work";
   };
-  getDescription = () => {
+  getDescription(){
     return this.description;
   };
-  getWeight = () => {
+  getWeight(){
     let weight = 5;
     if (this.state.focus.work) {
       weight = weight * 10;

@@ -21,10 +21,10 @@ export class GymMembershipEvent extends Possibility {
     ];
   }
 
-  canActivate = () => {
+  canActivate(){
     return !this.state.items.some((i) => i instanceof GymMembership);
   };
-  getWeight = () => {
+  getWeight(){
     if (this.state.focus.health || this.state.focus.hobby) {
       return 3;
     }

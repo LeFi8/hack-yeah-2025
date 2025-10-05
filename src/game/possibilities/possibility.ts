@@ -5,12 +5,12 @@ export interface PossibilityOption {
   applyEffects: (state: State) => void;
 }
 
-export class Possibility {
-  title: string;
+export abstract class Possibility {
+  title: string = '';
 
   constructor(protected readonly state: State) {}
 
-  getWeight: () => number;
-  canActivate: () => boolean;
-  getOptions: () => PossibilityOption[];
+  abstract getWeight(): number;
+  abstract canActivate(): boolean;
+  abstract getOptions(): PossibilityOption[];
 }

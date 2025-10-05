@@ -108,7 +108,7 @@ export class Education {
   isStudying: boolean = false;
   studyingSinceMonth: number = 0;
 
-  applyMonthlyEffects(state: State) {}
+  applyMonthlyEffects() {}
 }
 
 export class ZUS {

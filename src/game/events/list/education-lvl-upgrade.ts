@@ -1,9 +1,9 @@
 import { Event } from "../event";
 
 export class EducationLvlUpgrade extends Event {
-  private newLevel: number;
+  private newLevel: number = 0;
 
-  canActivate = () => {
+  canActivate(){
     const monthsStudying =
       this.state.getMonthsElapsed() - this.state.education.studyingSinceMonth;
     const lvl2Months = 12 * 4;
@@ -28,13 +28,13 @@ export class EducationLvlUpgrade extends Event {
 
     return false;
   };
-  applyEffects = () => {
+  applyEffects(){
     this.state.education.level.add(1);
   };
-  getTitle = () => {
+  getTitle(){
     return "You have finished your studies";
   };
-  getDescription = () => {
+  getDescription(){
     if (this.newLevel === 2) {
       return "Bachelor’s degree";
     }
@@ -47,7 +47,7 @@ export class EducationLvlUpgrade extends Event {
 
     return "";
   };
-  getWeight = () => {
+  getWeight(){
     return 1000;
   };
 }

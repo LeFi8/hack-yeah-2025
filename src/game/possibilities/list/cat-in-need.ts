@@ -19,10 +19,10 @@ export class CatInNeed extends Possibility {
       },
     ];
   }
-  canActivate = () => {
+  canActivate(){
     return !this.state.items.some((i) => i instanceof Cat);
   };
-  getWeight = () => {
+  getWeight(){
     return 1;
   };
 }

@@ -27,10 +27,10 @@ export class WorkWaiter extends Possibility {
     ];
   }
 
-  canActivate = () => {
+  canActivate(){
     return !this.state.job;
   };
-  getWeight = () => {
+  getWeight(){
     return 100;
   };
 }
