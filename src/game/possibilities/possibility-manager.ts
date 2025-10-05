@@ -1,5 +1,8 @@
 import { State } from "../state";
 import type { Possibility } from "./possibility";
+import { OnlineDating } from "./list/online-dating";
+import { State } from "../state";
+import type { Possibility } from "./possibility";
 import { CatInNeed } from "./list/cat-in-need";
 import { GymMembershipEvent } from "./list/gym-membership-event";
 import { NewHobby } from "./list/new-hobby";
@@ -14,36 +17,39 @@ import {Wedding} from "./list/wedding.ts";
 import {GetCredit} from "./list/get-credit.ts";
 
 export class PossibilityManager {
-  private possibilities: Possibility[];
-
-  constructor() {
-    this.possibilities = [
-      new CatInNeed(),
-      new GymMembershipEvent(),
-      new NewHobby(),
-      new ChooseDiet(),
-      new WorkWaiter(),
-      new WorkEngineer(),
-      new University(),
-      new GetNewCar(),
-      new FindLifePartner(),
-      new ProposeToGirlfriend(),
-      new Wedding(),
-      new GetCredit(),
+  getAllPossibilities(state: State): Possibility[] {
+    return [
+      new CatInNeed(state),
+      new GymMembershipEvent(state),
+      new NewHobby(state),
+      new ChooseDiet(state),
+      new WorkWaiter(state),
+      new WorkEngineer(state),
+      new University(state),
+      new GetNewCar(state),
+      new OnlineDating(state),
+        new FindLifePartner(state),
+        new ProposeToGirlfriend(state),
+        new Wedding(state),
+        new GetCredit(state),
     ];
   }
 
   getRandom(state: State): Possibility[] {
-    const filteredPossibilities = this.possibilities.filter((possibility) => possibility.canActivate(state));
+    const filteredPossibilities = this.getAllPossibilities(state).filter(
+      (possibility) => possibility.canActivate(),
+    );
 
     if (filteredPossibilities.length === 0) {
       return [];
     }
 
-    const weightedPossibilities = filteredPossibilities.map(possibility => ({
-      possibility,
-      weight: possibility.getWeight(state)
-    })).filter(item => item.weight > 0);
+    const weightedPossibilities = filteredPossibilities
+      .map((possibility) => ({
+        possibility,
+        weight: possibility.getWeight(),
+      }))
+      .filter((item) => item.weight > 0);
 
     if (weightedPossibilities.length === 0) {
       return [];
@@ -53,7 +59,10 @@ export class PossibilityManager {
     const availablePossibilities = [...weightedPossibilities];
 
     for (let i = 0; i < 3 && availablePossibilities.length > 0; i++) {
-      const totalWeight = availablePossibilities.reduce((sum, item) => sum + item.weight, 0);
+      const totalWeight = availablePossibilities.reduce(
+        (sum, item) => sum + item.weight,
+        0,
+      );
 
       if (totalWeight === 0) break;
 
@@ -76,5 +85,4 @@ export class PossibilityManager {
 
     return selectedPossibilities;
   }
-
 }

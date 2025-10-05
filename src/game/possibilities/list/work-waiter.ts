@@ -1,37 +1,36 @@
-import {State} from "../../state";
-import type {Possibility} from "../possibility";
-import {Waiter} from "../../work";
+import { Possibility } from "../possibility";
+import { Waiter } from "../../work";
 
-export class WorkWaiter implements Possibility {
+export class WorkWaiter extends Possibility {
   title = "You decided to become a waiter";
 
-  getOptions(_state: State) {
+  getOptions() {
     return [
       {
-        title: 'Waiter - Contract with full contributions',
-        applyEffects: (state: State) => {
-          state.job = new Waiter('UOP')
-        }
+        title: "Waiter - Contract with full contributions",
+        applyEffects: () => {
+          this.state.job = new Waiter(this.state, "UOP");
+        },
       },
       {
-        title: 'Waiter - Civil law contract',
-        applyEffects: (state: State) => {
-          state.job = new Waiter('UZ')
-        }
+        title: "Waiter - Civil law contract",
+        applyEffects: () => {
+          this.state.job = new Waiter(this.state, "UZ");
+        },
       },
       {
-        title: 'Waiter - Unregistered work',
-        applyEffects: (state: State) => {
-          state.job = new Waiter('UNREGISTERED')
-        }
+        title: "Waiter - Unregistered work",
+        applyEffects: () => {
+          this.state.job = new Waiter(this.state, "UNREGISTERED");
+        },
       },
     ];
   }
 
-  canActivate = (state: State) => {
-    return !state.job
-  };
-  getWeight = (_state: State) => {
-    return 100
+  canActivate() {
+    return !this.state.job;
+  }
+  getWeight() {
+    return 100;
   }
 }
