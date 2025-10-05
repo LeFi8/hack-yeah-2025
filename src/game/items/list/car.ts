@@ -9,7 +9,5 @@ export class Car implements Item {
     this.monthlyCost = monthlyCost;
     this.inLeasing = inLeasing;
   }
-  applyMonthlyEffects(_state: any): void {
-    // No monthly effects for the car
-  }
+  applyMonthlyEffects(_state: any): void {}
 }
