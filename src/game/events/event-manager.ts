@@ -8,15 +8,15 @@ import { FriendsByReading } from "./list/friends-by-reading";
 import { TravelingDueToCar } from "./list/traveling-due-to-car";
 import { EducationLvlUpgrade } from "./list/education-lvl-upgrade";
 import { WorkLvlUpgrade } from "./list/work-lvl-upgrade";
-import {HelpedNeighbor} from "./list/helped-neighbour.ts";
-import {CarIsBroken} from "./list/car-is-broken.ts";
-import {BreakUp} from "./list/break-up.ts";
+import { HelpedNeighbor } from "./list/helped-neighbour.ts";
+import { CarIsBroken } from "./list/car-is-broken.ts";
+import { BreakUp } from "./list/break-up.ts";
 
 export type EventHistory = {
   event: Event;
   month: number;
   age: number;
-}
+};
 export class EventManager {
   private history: EventHistory[] = [];
   private DEACREASED_CHANCE_IF_HAPPENED = 5;
@@ -45,7 +45,6 @@ export class EventManager {
     ];
   }
 
-
   // If event already happen we reduce chance of it happening again
   getRandom(state: State): Event | null {
     const filteredEvents = this.getAllEvents(state).filter((event) =>
@@ -58,22 +57,23 @@ export class EventManager {
 
     const weightedEvents = filteredEvents
       .map((event) => {
-      let weight = event.getWeight();
-      
-      // Check if this type of event has already happened
-      const hasHappened = this.history.some(historyEntry => 
-        historyEntry.event.constructor === event.constructor
-      );
-      
-      if (hasHappened) {
-        weight = weight / this.DEACREASED_CHANCE_IF_HAPPENED;
-      }
-      
-      return {
-        event,
-        weight: weight
-      };
-    })
+        let weight = event.getWeight();
+
+        // Check if this type of event has already happened
+        const hasHappened = this.history.some(
+          (historyEntry) =>
+            historyEntry.event.constructor === event.constructor,
+        );
+
+        if (hasHappened) {
+          weight = weight / this.DEACREASED_CHANCE_IF_HAPPENED;
+        }
+
+        return {
+          event,
+          weight: weight,
+        };
+      })
       .filter((item) => item.weight > 0);
 
     if (weightedEvents.length === 0) {
