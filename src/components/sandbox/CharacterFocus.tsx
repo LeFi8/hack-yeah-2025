@@ -36,8 +36,8 @@ function CharacterFocus({ stateFocus, setStateFocus }: CharacterFocusProps) {
 
   return (
     <>
-      <div className="flex flex-col items-center">
-        <p className="text-sm text-gray-600 mb-2">
+      <div className="mt-6 flex flex-col items-center">
+        <p className="text-sm text-gray-600">
           Active focuses: {focus.countActiveFocus()}/2
         </p>
         <div className="flex flex-row items-center justify-center gap-8 mt-4">
@@ -84,8 +84,6 @@ function CharacterFocus({ stateFocus, setStateFocus }: CharacterFocusProps) {
           {!focus.work && "⚠️ Work stress "}
           {!focus.hobby && "🧠 Mental fatigue "}
         </div>
-
-
       </div>
     </>
   );
