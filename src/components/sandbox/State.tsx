@@ -1,21 +1,26 @@
 import Title from "../common/Title.tsx";
 import StateBar from "./state/StateBar.tsx";
 import { AiOutlineHeart, AiOutlineSmile } from "react-icons/ai";
-import { IoSchoolOutline, IoBriefcaseOutline, IoAirplane } from "react-icons/io5";
+import {
+  IoSchoolOutline,
+  IoBriefcaseOutline,
+  IoAirplane,
+} from "react-icons/io5";
 import StateInfo from "./state/StateInfo.tsx";
 import type { GameTickResult } from "../../game/game.ts";
 import MoneyTab from "./MoneyTab.tsx";
 import { Items } from "./Items.tsx";
-import {Hobby} from "../../game/items/list/hobbys/hobby.ts";
+import { Hobby } from "../../game/items/list/hobbys/hobby.ts";
 
 interface StateProps {
   tickResult: GameTickResult;
+  s;
 }
 
 function State({ tickResult }: StateProps) {
   const character = tickResult.state.character;
   const job = tickResult.state.job;
-  const hobbies = tickResult.state.items.filter(el => el instanceof Hobby)
+  const hobbies = tickResult.state.items.filter((el) => el instanceof Hobby);
 
   function educationToString(level: number): string {
     // 0-podstawowe 1-średnie 2-licencjat/inż 3-magister 4-doktorat
@@ -53,22 +58,18 @@ function State({ tickResult }: StateProps) {
         text={educationToString(tickResult.state.education.level.get())}
         className="pt-4"
       />
-      {job !== null && (
+      <StateInfo
+        icon={<IoBriefcaseOutline size={35} />}
+        text={job != null ? job.getPosition() : "Unemployed"}
+        className="pt-4"
+      />
+      {!!hobbies.length && (
         <StateInfo
-          icon={<IoBriefcaseOutline size={35} />}
-          text={job.getPosition()}
+          icon={<IoAirplane size={35} />}
+          text={`Hobbies: ${hobbies.map((el) => (el as Hobby).name).join(", ")}`}
           className="pt-4"
         />
       )}
-      {
-        !!hobbies.length && (
-          <StateInfo
-            icon={<IoAirplane size={35} />}
-            text={`Hobbies: ${hobbies.map(el => (el as Hobby).name).join(', ')}`}
-            className="pt-4"
-          />
-        )
-      }
       <MoneyTab state={tickResult.state} />
       {!!tickResult.state.items.length && (
         <Items items={tickResult.state.items} />
