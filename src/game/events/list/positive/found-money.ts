@@ -1,4 +1,4 @@
-import { Event } from "../event";
+import { Event } from "../../event";
 
 export class FoundMoney extends Event {
   private readonly amountFound = 100;

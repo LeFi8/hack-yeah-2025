@@ -2,15 +2,17 @@ import type { Event } from "./event";
 import type { State } from "../state";
 import { Illness } from "./list/illness";
 import { Theft } from "./list/theft";
-import { FoundMoney } from "./list/found-money";
+import { FoundMoney } from "./list/positive/found-money";
 import { VegateblesGetMoreExpensive } from "./list/vegatebles-get-more-expensive";
-import { FriendsByReading } from "./list/friends-by-reading";
-import { TravelingDueToCar } from "./list/traveling-due-to-car";
-import { EducationLvlUpgrade } from "./list/education-lvl-upgrade";
-import { WorkLvlUpgrade } from "./list/work-lvl-upgrade";
-import { HelpedNeighbor } from "./list/helped-neighbour.ts";
+import { FriendsByReading } from "./list/positive/friends-by-reading.ts";
+import { TravelingDueToCar } from "./list/positive/traveling-due-to-car";
+import { EducationLvlUpgrade } from "./list/positive/education-lvl-upgrade.ts";
+import { WorkLvlUpgrade } from "./list/positive/work-lvl-upgrade";
+import { HelpedNeighbor } from "./list/positive/helped-neighbour.ts";
 import { CarIsBroken } from "./list/car-is-broken.ts";
 import { BreakUp } from "./list/break-up.ts";
+import { BigCommunityEvent } from "./list/positive/big-community-event.ts";
+import { DiscoveredHobbyPassion } from "./list/positive/discover-hobby.ts";
 
 export type EventHistory = {
   event: Event;
@@ -42,6 +44,8 @@ export class EventManager {
       new CarIsBroken(state),
       new TravelingDueToCar(state),
       new BreakUp(state),
+      new BigCommunityEvent(state),
+      new DiscoveredHobbyPassion(state),
     ];
   }
 
