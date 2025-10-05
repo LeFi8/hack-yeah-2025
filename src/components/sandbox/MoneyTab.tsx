@@ -84,7 +84,7 @@ function MoneyTab({ state }: MoneyTabProps) {
               <p className="text-lg">Replacement Rate</p>
               <StateInfo
                 icon={<MdOutlinePercent size={20} />}
-                text={"TODO: add monthly pension to calculate"}
+                text={state.zus.getReplacementRatePercentage()}
               />
             </div>
           </div>
