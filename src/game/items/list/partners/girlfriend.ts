@@ -15,7 +15,6 @@ export class Girlfriend extends RomanticPartner {
   monthlyCost = 200;
   applyMonthlyEffects(state: State) {
     state.character.happiness.add(1);
-    state.character.mentalHealth.add(1);
     this.monthsToMarriageDecision--;
   }
 }

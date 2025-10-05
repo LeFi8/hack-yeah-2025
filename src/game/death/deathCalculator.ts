@@ -21,8 +21,7 @@ export class DeathCalculator {
       };
     }
 
-    // Severe mental health crisis leading to inability to continue
-    if (state.character.mentalHealth.get() <= 0 && state.age > 25) {
+    if (state.character.happiness.get() <= 0 && state.age > 25) {
       return {
         isDead: true,
         reason: "Severe mental health crisis",
@@ -63,15 +62,15 @@ export class DeathCalculator {
 
   private static getDeathReasonByCondition(state: State): string {
     const health = state.character.physicalHealth.get();
-    const mentalHealth = state.character.mentalHealth.get();
+    const happiness = state.character.happiness.get();
     const age = state.age;
 
     // Determine death reason based on conditions
-    if (health <= 10 && mentalHealth <= 10) {
+    if (health <= 10 && happiness <= 10) {
       return "Complete physical and mental breakdown";
     } else if (health <= 10) {
       return "Severe illness and physical deterioration";
-    } else if (mentalHealth <= 10) {
+    } else if (happiness <= 10) {
       return "Mental health crisis leading to fatal complications";
     } else if (age >= 90) {
       return "Natural death from advanced age";
@@ -88,7 +87,7 @@ export class DeathCalculator {
 
   static calculateDeathProbability(state: State): number {
     const health = state.character.physicalHealth.get();
-    const mentalHealth = state.character.mentalHealth.get();
+    const happiness = state.character.happiness.get();
 
     // Base death probability by age (per month)
     let baseProbability = 0;
@@ -123,26 +122,26 @@ export class DeathCalculator {
     }
 
     // Mental health impact
-    let mentalHealthMultiplier = 1;
+    let happinessMultiplier = 1;
 
-    if (mentalHealth <= 10) {
-      mentalHealthMultiplier = 2;
-    } else if (mentalHealth <= 25) {
-      mentalHealthMultiplier = 1.5;
-    } else if (mentalHealth >= 80) {
-      mentalHealthMultiplier = 0.8;
+    if (happiness <= 10) {
+      happinessMultiplier = 2;
+    } else if (happiness <= 25) {
+      happinessMultiplier = 1.5;
+    } else if (happiness >= 80) {
+      happinessMultiplier = 0.8;
     }
 
     // Combined health effects
     let combinedHealthPenalty = 1;
-    if (health <= 25 && mentalHealth <= 25) {
+    if (health <= 25 && happiness <= 25) {
       combinedHealthPenalty = 1.5;
     }
 
     return (
       baseProbability *
       healthMultiplier *
-      mentalHealthMultiplier *
+      happinessMultiplier *
       combinedHealthPenalty
     );
   }

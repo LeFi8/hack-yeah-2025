@@ -12,7 +12,6 @@ export class OnlineDating extends Possibility {
           if (Math.random() < 0.6) {
             this.state.addItem(new Friend());
             this.state.character.happiness.add(3);
-            this.state.character.mentalHealth.add(2);
           } else {
             this.state.character.happiness.add(-1);
           }

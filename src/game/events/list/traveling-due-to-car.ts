@@ -7,8 +7,7 @@ export class TravelingDueToCar extends Event {
     return this.state.items.some((item: Item) => item instanceof Car);
   }
   applyEffects() {
-    this.state.character.happiness.add(5);
-    this.state.character.mentalHealth.add(3);
+    this.state.character.happiness.add(7);
     this.state.character.balance -= 200;
   }
   getTitle() {
