@@ -15,6 +15,7 @@ import { ProposeToGirlfriend } from "./list/propose-to-girlfriend.ts";
 import { Wedding } from "./list/wedding.ts";
 import { GetCredit } from "./list/get-credit.ts";
 import { DecideAboutRetirement } from "./list/decide-about-retirement.ts";
+import { CarInLeasing } from "./list/car-in-leasing.ts";
 
 export class PossibilityManager {
   getAllPossibilities(state: State): Possibility[] {
@@ -34,6 +35,7 @@ export class PossibilityManager {
       new GetCredit(state),
       new HealthCheck(state),
       new DecideAboutRetirement(state),
+      new CarInLeasing(state),
     ];
   }
 

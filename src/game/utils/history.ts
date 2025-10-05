@@ -1,4 +1,4 @@
-import type { CharacterCondition } from "../state";
+import type { CharacterCondition } from "../character/character";
 
 export type History = {
   age: number;

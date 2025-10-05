@@ -1,3 +1,4 @@
+import { CharacterCondition } from "./character/character";
 import { DeathCalculator } from "./death/deathCalculator";
 import type { Item } from "./items";
 import type { Possibility } from "./possibilities";
@@ -5,29 +6,6 @@ import { RangeCounter } from "./utils";
 import type { History } from "./utils/history";
 import { JobContract } from "./work";
 import { ZUS } from "./zus/zus";
-
-export class CharacterCondition {
-  balance = 0;
-  additionalMonthlyIncome: number = 0;
-  monthlyExpenses = new RangeCounter(0, 0, null);
-
-  physicalHealth = new RangeCounter(0, 0, 100);
-  happiness = new RangeCounter(0, 0, 100);
-
-  clone(): CharacterCondition {
-    const clone = new CharacterCondition();
-    clone.balance = this.balance;
-    clone.additionalMonthlyIncome = this.additionalMonthlyIncome;
-    clone.monthlyExpenses = new RangeCounter(
-      this.monthlyExpenses.get(),
-      0,
-      null,
-    );
-    clone.physicalHealth = new RangeCounter(this.physicalHealth.get(), 0, 100);
-    clone.happiness = new RangeCounter(this.happiness.get(), 0, 100);
-    return clone;
-  }
-}
 
 export class Focus {
   MAX_FOCUS_COUNT = 2;
