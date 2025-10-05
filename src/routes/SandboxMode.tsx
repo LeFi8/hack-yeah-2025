@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 
 function SandboxMode() {
   const [game, setGame] = useState<Game | null>(null);
+  const [isGameFinished, setIsGameFinished] = useState(false);
   const [tickResult, setTickResult] = useState<GameTickResult | null>(null);
   const [shouldHandleEvents, setShouldHandleEvents] = useState(false);
   const [shouldHandlePossibilities, setShouldHandlePossibilities] =
@@ -24,13 +25,17 @@ function SandboxMode() {
       return;
     }
 
-    if (shouldHandleEvents || shouldHandlePossibilities) {
+    if (shouldHandleEvents || shouldHandlePossibilities || isGameFinished) {
       return;
     }
 
     const intervalId = setInterval(() => {
       const newTickResult = game!.tick();
-      // TODO: handle finished game newTickResult.state.isGameEnded
+      if (newTickResult.state.isGameEnded) {
+        setIsGameFinished(true);
+        return;
+      }
+
       if (newTickResult.event) {
         setShouldHandleEvents(true);
       }
@@ -45,16 +50,13 @@ function SandboxMode() {
     };
   }, [
     game,
+    isGameFinished,
     setShouldHandleEvents,
     shouldHandleEvents,
     setShouldHandlePossibilities,
     shouldHandlePossibilities,
     setTickResult,
   ]);
-
-  if (game === null || tickResult === null) {
-    return "";
-  }
 
   const onEventHandled = () => {
     setShouldHandleEvents(false);
@@ -64,10 +66,19 @@ function SandboxMode() {
     possibilityIndex: number,
     choiceIndex: number,
   ) => {
-    const selectedPossibility = tickResult.possibilities[possibilityIndex];
+    const selectedPossibility = tickResult!.possibilities[possibilityIndex];
     game!.selectPossibility(selectedPossibility, choiceIndex);
     setShouldHandlePossibilities(false);
   };
+
+  if (game === null || tickResult === null) {
+    return "";
+  }
+
+  if (isGameFinished) {
+    // TODO: ogarnąć ekran końcowy
+    return "Gra się skończyła";
+  }
 
   return (
     <>
