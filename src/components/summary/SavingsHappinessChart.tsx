@@ -1,29 +1,52 @@
 import Title from "../common/Title.tsx";
 import { ResponsiveLine } from "@nivo/line";
+import type { History } from "../../game/utils/history.ts";
 
-// FIXME: mocked data
-const data = [
-  {
-    id: "savings",
-    data: [
-      { x: "18", y: 3000 },
-      { x: "19", y: 3800 },
-      { x: "20", y: 3200 },
-      { x: "21", y: 5000 },
-    ],
-  },
-  {
-    id: "happiness",
-    data: [
-      { x: "18", y: 5000 },
-      { x: "19", y: 2500 },
-      { x: "20", y: 4000 },
-      { x: "21", y: 1000 },
-    ],
-  },
-];
+interface SavingsHappinessChartProps {
+  lifeHistory: History[];
+}
 
-function SavingsHappinessChart() {
+function SavingsHappinessChart({ lifeHistory }: SavingsHappinessChartProps) {
+  const transformedData = () => {
+    const ageGroups = lifeHistory.reduce(
+      (acc, history) => {
+        const age = history.age;
+        if (!acc[age] || history.month > acc[age].month) {
+          acc[age] = history;
+        }
+        return acc;
+      },
+      {} as Record<number, History>,
+    );
+
+    const ages = Object.keys(ageGroups).sort((a, b) => Number(a) - Number(b));
+
+    const savingsData = ages.map((age) => ({
+      x: age,
+      y: ageGroups[Number(age)].characterCondition.balance,
+    }));
+
+    // FIXME: happiness data should be normalized with balance data
+    const happinessData = ages.map((age) => ({
+      x: age,
+      y: ageGroups[Number(age)].characterCondition.happiness.get(),
+    }));
+
+    return [
+      {
+        id: "savings",
+        data: savingsData,
+      },
+      {
+        id: "happiness",
+        data: happinessData,
+      },
+    ];
+  };
+
+  const data = transformedData();
+
+  // FIXME: add legend properties
   return (
     <>
       <Title text={"Savings & Happiness"} />

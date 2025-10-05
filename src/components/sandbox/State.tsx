@@ -14,6 +14,7 @@ import { Hobby } from "../../game/items/list/hobbys/hobby.ts";
 
 interface StateProps {
   tickResult: GameTickResult;
+  s;
 }
 
 function State({ tickResult }: StateProps) {
@@ -57,10 +58,15 @@ function State({ tickResult }: StateProps) {
         text={educationToString(tickResult.state.education.level.get())}
         className="pt-4"
       />
-      {job !== null && (
+      <StateInfo
+        icon={<IoBriefcaseOutline size={35} />}
+        text={job != null ? job.getPosition() : "Unemployed"}
+        className="pt-4"
+      />
+      {!!hobbies.length && (
         <StateInfo
-          icon={<IoBriefcaseOutline size={35} />}
-          text={job.getPosition()}
+          icon={<IoAirplane size={35} />}
+          text={`Hobbies: ${hobbies.map((el) => (el as Hobby).name).join(", ")}`}
           className="pt-4"
         />
       )}
@@ -72,7 +78,9 @@ function State({ tickResult }: StateProps) {
         />
       )}
       <MoneyTab state={tickResult.state} />
-      <Items state={tickResult.state} />
+      {!!tickResult.state.items.length && (
+        <Items items={tickResult.state.items} />
+      )}
     </>
   );
 }

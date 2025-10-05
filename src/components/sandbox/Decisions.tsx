@@ -34,7 +34,7 @@ function Decisions({
 
   if (!shouldHandleEvents && !shouldHandlePossibilities) {
     return (
-      <div className="flex items-center justify-center h-full">
+      <div className="flex items-center justify-center transform translate-y-[-4rem] h-full">
         <Title text={"Life is going on..."}></Title>
       </div>
     );

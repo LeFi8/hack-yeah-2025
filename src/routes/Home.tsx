@@ -12,7 +12,7 @@ function Home() {
             <span className="text-black">Five</span>LifesRun
           </h1>
         </div>
-        <img src={"/logo-dark.png"} alt="Logo" className="w-32 h-32 mx-auto" />
+        <img src={"/logo-dark.png"} alt="Logo" className="w-42 h-32 mx-auto" />
         <p className="text-black mt-4 max-w-96 mx-auto flex items-center justify-center text-center">
           Learn about the impact of your lifestyle choices on your health,
           finances, happiness, and many other aspects of life.

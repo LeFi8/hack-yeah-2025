@@ -18,6 +18,7 @@ import { DecideAboutRetirement } from "./list/decide-about-retirement.ts";
 import { CarInLeasing } from "./list/car-in-leasing.ts";
 import {BuyNewHouse} from "./list/buy-new-house.ts";
 import {NextBuyHouseEvent} from "./list/next-buy-house-event.ts";
+import { ProductionWorker } from "./list/production-worker.ts";
 
 export class PossibilityManager {
   getAllPossibilities(state: State): Possibility[] {
@@ -28,6 +29,7 @@ export class PossibilityManager {
       new ChooseDiet(state),
       new WorkWaiter(state),
       new WorkEngineer(state),
+      new ProductionWorker(state),
       new University(state),
       new GetNewCar(state),
       new OnlineDating(state),

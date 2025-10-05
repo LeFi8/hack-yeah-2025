@@ -6,6 +6,7 @@ import CharacterFocus from "../components/sandbox/CharacterFocus.tsx";
 import { Game, type GameTickResult } from "../game/game.ts";
 import { useEffect, useState } from "react";
 import Spinner from "../components/common/Spinner.tsx";
+import Summary from "./Summary.tsx";
 
 function SandboxMode() {
   const [game, setGame] = useState<Game | null>(null);
@@ -81,8 +82,8 @@ function SandboxMode() {
   }
 
   if (isGameFinished) {
-    // TODO: ogarnąć ekran końcowy
-    return "Gra się skończyła";
+    // FIXME: should there be a popup with information that the game has ended?
+    return <Summary game={game} />;
   }
 
   return (
@@ -112,12 +113,12 @@ function SandboxMode() {
                   onPossibilityHandled={onPossibilityHandled}
                 />
                 {!shouldHandleEvents && !shouldHandlePossibilities && (
-                  <Spinner className={"absolute left-0 right-0 bottom-[30%]"} />
+                  <Spinner className={"absolute left-0 right-0 bottom-[40%]"} />
                 )}
               </div>
             </div>
           </div>
-          <div className="bg-white shadow-md py-5 px-8 border-2 rounded-2xl flex-1">
+          <div className="bg-white shadow-md py-5 px-8 border-2 rounded-2xl flex-1 overflow-scroll">
             <State tickResult={tickResult} />
           </div>
         </div>
