@@ -113,7 +113,7 @@ function SandboxMode() {
               </div>
             </div>
           </div>
-          <div className="bg-white shadow-md py-5 px-8 border-2 rounded-2xl flex-1">
+          <div className="bg-white shadow-md py-5 px-8 border-2 rounded-2xl flex-1 overflow-scroll">
             <State tickResult={tickResult} />
           </div>
         </div>
