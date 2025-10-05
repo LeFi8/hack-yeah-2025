@@ -38,7 +38,7 @@ export class OnlineDating extends Possibility {
   }
 
   getWeight() {
-    if (this.state.focus.relation.get()) {
+    if (this.state.focus.relation) {
       return 2;
     }
     return 1;
