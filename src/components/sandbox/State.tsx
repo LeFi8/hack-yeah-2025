@@ -39,12 +39,12 @@ function State({ tickResult }: StateProps) {
       <StateBar
         title={"Health"}
         icon={<AiOutlineHeart size={35} />}
-        value={character.physicalHealth.get()}
+        value={Math.round(character.physicalHealth.get())}
       />
       <StateBar
         title={"Happiness"}
         icon={<AiOutlineSmile size={35} />}
-        value={character.happiness.get()}
+        value={Math.round(character.happiness.get())}
       />
       <StateInfo
         icon={<IoSchoolOutline size={35} />}
