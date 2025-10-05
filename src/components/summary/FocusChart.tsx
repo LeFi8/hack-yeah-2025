@@ -1,20 +1,23 @@
 import Title from "../common/Title.tsx";
 import { ResponsiveRadar } from "@nivo/radar";
+import type { Focus } from "../../game/state.ts";
 
-// Focus areas data: each area is a separate data point
-const data = [
-  { area: "Health", focus: 61 },
-  { area: "Hobby", focus: 90 },
-  { area: "Work", focus: 80 },
-  { area: "Relationships", focus: 70 },
-];
+interface FocusChartProps {
+  focus: Focus;
+}
 
-function FocusChart() {
+function FocusChart({ focus }: FocusChartProps) {
+  const focusData = [
+    { area: "Health", focus: focus.health },
+    { area: "Hobby", focus: focus.hobby },
+    { area: "Work", focus: focus.work },
+    { area: "Relationships", focus: focus.relation },
+  ];
   return (
     <>
       <Title text="Focus Chart" />
       <ResponsiveRadar
-        data={data}
+        data={focusData}
         keys={["focus"]}
         indexBy="area"
         curve={"linearClosed"}
