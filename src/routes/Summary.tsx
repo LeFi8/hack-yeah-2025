@@ -15,7 +15,7 @@ function Summary({ game }: SummaryProps) {
         <div className="flex flex-col gap-5 p-4 h-full">
           <div className="flex flex-row gap-5 flex-1">
             <div className="bg-white shadow-md py-5 px-8 border-2 rounded-2xl flex-4">
-              <SavingsHappinessChart />
+              <SavingsHappinessChart lifeHistory={game.getHistory()} />
             </div>
             <div className="bg-white shadow-md py-5 px-8 border-2 rounded-2xl flex-1">
               <FocusChart focus={game.getState().focus} />
