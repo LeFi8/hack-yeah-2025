@@ -6,7 +6,7 @@ interface ItemsTabProps {
 
 const SummaryItems = ({ items }: ItemsTabProps) => {
   return (
-    <div className="bg-white shadow-md p-5 border-2 rounded-2xl grid grid-cols-2 gap-2 mt-2">
+    <div className="bg-white p-5 rounded-2xl grid grid-cols-2 gap-2 mt-2">
       {items.map((item: Item, index) => (
         <span
           key={index}
