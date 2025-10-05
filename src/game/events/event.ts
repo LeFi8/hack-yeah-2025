@@ -1,11 +1,11 @@
 import type { State } from "../state";
 
-export class Event {
+export abstract class Event {
   constructor(protected readonly state: State) {}
 
-  getWeight: () => number;
-  applyEffects: () => void;
-  canActivate: () => boolean;
-  getTitle: () => string;
-  getDescription: () =>  string;
+  abstract getWeight(): number;
+  abstract applyEffects(): void;
+  abstract canActivate(): boolean;
+  abstract getTitle(): string;
+  abstract getDescription(): string;
 }

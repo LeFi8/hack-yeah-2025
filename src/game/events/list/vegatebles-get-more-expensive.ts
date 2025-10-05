@@ -6,7 +6,7 @@ export class VegateblesGetMoreExpensive extends Event {
   private readonly priceRising = 50;
   private vegetaraianDiet!: Item;
 
-  canActivate = () => {
+  canActivate(){
     const diet = this.state.items.find(
       (item: Item) => item instanceof VegetarianDiet,
     );
@@ -16,22 +16,22 @@ export class VegateblesGetMoreExpensive extends Event {
     }
     return false;
   };
-  applyEffects = () => {
+  applyEffects(){
     // We have to add new instance to trigger monthly expenses recalculation
     this.state.removeItem(this.vegetaraianDiet);
     const moreExpensiveDiet = new VegetarianDiet();
     moreExpensiveDiet.monthlyCost += this.priceRising;
     this.state.addItem(moreExpensiveDiet);
   };
-  getTitle = () => {
+  getTitle(){
     return "Prices of vegetables have risen";
   };
-  getDescription = () => {
+  getDescription(){
     return `Due to global warming and poor harvests, the prices of vegetables have risen significantly.
         As a result, your vegetarian diet has become more expensive, increasing your monthly expenses by $${this.priceRising}.
     `;
   };
-  getWeight = () => {
+  getWeight(){
     return 1;
   };
 }

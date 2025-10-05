@@ -25,10 +25,10 @@ export class ChooseDiet extends Possibility {
       },
     ];
   }
-  canActivate = () => {
+  canActivate(){
     return !this.state.items.some((i) => i instanceof Diet);
   };
-  getWeight = () => {
+  getWeight(){
     if (this.state.focus.health) {
       return 2;
     }

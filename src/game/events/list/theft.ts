@@ -2,27 +2,27 @@ import { Event } from "../event";
 
 export class Theft extends Event {
   private amountStolen = 2000;
-  private randomizeAmountStolen = () => {
+  private randomizeAmountStolen(){
     this.amountStolen = 2000 * (Math.random() + 1);
   };
 
-  canActivate = () => {
+  canActivate(){
     this.randomizeAmountStolen();
     return true;
   };
-  applyEffects = () => {
+  applyEffects(){
     this.state.character.balance -= this.amountStolen;
   };
-  getTitle = () => {
+  getTitle(){
     return "You have been a victim of theft";
   };
-  getDescription = () => {
+  getDescription(){
     return `After you returned home, you discovered that your wallet was missing.
         Someone must have stolen it while you were out.
         You lost $${this.amountStolen.toFixed(2)}.
     `;
   };
-  getWeight = () => {
+  getWeight(){
     return 1;
   };
 }

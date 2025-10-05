@@ -1,6 +1,6 @@
 import { Game, type GameTickResult } from "./game/game.ts";
 import * as readline from "readline";
-import type { Possibility } from "./game/possibilities/possibility.ts";
+import type { Possibility } from "./game/possibilities/possibility";
 
 console.log("scripts loaded");
 
@@ -76,7 +76,7 @@ function displayGameState(result: GameTickResult, game: Game) {
     console.log("\n🎯 New Possibilities Available:");
     result.possibilities.forEach((possibility, index) => {
       console.log(`  ${index + 1}. ${possibility.title}`);
-      possibility.getOptions(game.getState()).forEach((option, optionIndex) => {
+      possibility.getOptions().forEach((option, optionIndex) => {
         console.log(`     ${optionIndex + 1}) ${option.title}`);
       });
     });
@@ -110,13 +110,13 @@ async function handlePossibilitySelection(
   const selectedPossibility = possibilities[possibilityIndex];
 
   const optionChoice = await askQuestion(
-    `\nSelect an option (1-${selectedPossibility.getOptions(game.getState()).length}): `,
+    `\nSelect an option (1-${selectedPossibility.getOptions().length}): `,
   );
   const optionIndex = parseInt(optionChoice) - 1;
 
   if (
     optionIndex < 0 ||
-    optionIndex >= selectedPossibility.getOptions(game.getState()).length
+    optionIndex >= selectedPossibility.getOptions().length
   ) {
     console.log("Invalid option selection.");
     return;
@@ -125,7 +125,7 @@ async function handlePossibilitySelection(
   try {
     game.selectPossibility(selectedPossibility, optionIndex);
     console.log(
-      `\nYou chose: ${selectedPossibility.getOptions(game.getState())[optionIndex].title}`,
+      `\nYou chose: ${selectedPossibility.getOptions()[optionIndex].title}`,
     );
     console.log("Effects applied!");
   } catch (error) {

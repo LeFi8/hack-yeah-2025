@@ -6,7 +6,7 @@ export abstract class JobContract {
   abstract canUpgrade(): boolean;
   abstract getLvl(): number;
   abstract upgrade(): void;
-  abstract getNextLvlContract();
+  abstract getNextLvlContract(): JobContract;
 
   private zusPercent = {
     UOP: 12,

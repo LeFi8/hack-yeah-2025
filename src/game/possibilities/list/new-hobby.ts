@@ -30,10 +30,10 @@ export class NewHobby extends Possibility {
     ];
   }
 
-  canActivate = () => {
+  canActivate(){
     return !this.state.items.some((i) => i instanceof Hobby);
   };
-  getWeight = () => {
+  getWeight(){
     if (this.state.focus.hobby) {
       return 3;
     }
