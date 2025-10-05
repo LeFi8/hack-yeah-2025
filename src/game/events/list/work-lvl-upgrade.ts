@@ -4,7 +4,7 @@ export class WorkLvlUpgrade extends Event {
   private description: string = "";
 
   canActivate() {
-    this.description = `You are ${this.state.job?.getNextLvlContract()} now!`;
+    this.description = `You are ${this.state.job?.getNextLvlContract().getPosition()} now!`;
     return !!this.state.job?.canUpgrade();
   }
 
