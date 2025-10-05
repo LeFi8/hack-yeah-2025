@@ -5,16 +5,15 @@ import {
   IoHeartOutline,
 } from "react-icons/io5";
 import { PiHospital } from "react-icons/pi";
-import { useState } from "react";
-import { Focus } from "../../game/state.ts";
+import {Focus} from "../../game/state.ts";
 
 interface CharacterFocusProps {
   stateFocus: Focus;
+  setStateFocus: (focus: Focus) => void;
 }
 
-function CharacterFocus({ stateFocus }: CharacterFocusProps) {
-  const [focus, setFocus] = useState(stateFocus);
-
+function CharacterFocus({ stateFocus, setStateFocus }: CharacterFocusProps) {
+  const focus = stateFocus;
   const handleToggle = (
     focusType: "health" | "hobby" | "work" | "relation",
   ) => {
@@ -32,7 +31,7 @@ function CharacterFocus({ stateFocus }: CharacterFocusProps) {
       focus.work,
     );
 
-    setFocus(newFocus);
+    setStateFocus(newFocus);
   };
 
   return (

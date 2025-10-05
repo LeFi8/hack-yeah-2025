@@ -14,6 +14,7 @@ function SandboxMode() {
   const [shouldHandleEvents, setShouldHandleEvents] = useState(false);
   const [shouldHandlePossibilities, setShouldHandlePossibilities] =
     useState(false);
+  const [focus, setFocus] = useState(tickResult?.state.focus);
 
   useEffect(() => {
     const newGame = new Game();
@@ -42,6 +43,9 @@ function SandboxMode() {
       }
       if (newTickResult.possibilities.length) {
         setShouldHandlePossibilities(true);
+      }
+      if (focus) {
+        newTickResult.state.focus = focus;
       }
       setTickResult(newTickResult);
     }, 200);
@@ -95,6 +99,7 @@ function SandboxMode() {
                 <CharacterFocus
                   key={tickResult.state.getMonthsElapsed()}
                   stateFocus={tickResult.state.focus}
+                  setStateFocus={setFocus}
                 />
               </div>
               <div className="bg-white shadow-md py-5 px-8 border-2 rounded-2xl flex-7 relative">
