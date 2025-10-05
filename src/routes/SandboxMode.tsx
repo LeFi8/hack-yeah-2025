@@ -43,7 +43,7 @@ function SandboxMode() {
         setShouldHandlePossibilities(true);
       }
       setTickResult(newTickResult);
-    }, 100);
+    }, 1000);
 
     return () => {
       clearInterval(intervalId);

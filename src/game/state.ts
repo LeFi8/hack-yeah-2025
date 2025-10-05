@@ -212,4 +212,8 @@ export class State {
   getHistory(): History[] {
     return this.stateHistory;
   }
+
+  finishJob() {
+    this.job = null;
+  }
 }
