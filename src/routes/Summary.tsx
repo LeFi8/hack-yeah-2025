@@ -3,6 +3,7 @@ import FocusChart from "../components/summary/FocusChart.tsx";
 import InfoTile from "../components/summary/InfoTile.tsx";
 import LifeSummary from "../components/summary/LifeSummary.tsx";
 import { Game } from "../game/game.ts";
+import SummaryItems from "../components/summary/SummaryItems.tsx";
 
 interface SummaryProps {
   game: Game;
@@ -18,7 +19,7 @@ function Summary({ game }: SummaryProps) {
               <SavingsHappinessChart lifeHistory={game.getHistory()} />
             </div>
             <div className="bg-white shadow-md py-5 px-8 border-2 rounded-2xl flex-1">
-              <FocusChart focus={game.getState().focus} />
+              <FocusChart focus={game.getFocusStatistics()} />
             </div>
           </div>
           <div className="flex flex-row gap-5 flex-2">
@@ -30,7 +31,8 @@ function Summary({ game }: SummaryProps) {
                 />
               </div>
               <div className="bg-white shadow-md py-5 px-8 border-2 rounded-2xl flex-6">
-                TODO: Items
+                <h3 className="text-center text-xl">Items</h3>
+                <SummaryItems items={game.getState().items} />
               </div>
             </div>
             <div className="flex flex-col flex-4 gap-5">

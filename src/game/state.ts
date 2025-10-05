@@ -106,7 +106,6 @@ export class State {
   private stateHistory: History[] = [];
   public focusTracker: FocusTracker = new FocusTracker(); // Add this line
 
-
   public deathReason: string | null = null;
   public isGameEnded: boolean = false;
 
@@ -116,7 +115,7 @@ export class State {
   }
 
   initialize() {
-    this.age = 18;
+    this.age = 44;
     this.monthsElapsed = 0;
 
     this.character.balance = 10000;
@@ -212,8 +211,7 @@ export class State {
     this.job = null;
   }
 
-  getFocusStatistics(): FocusStats
-  {
+  getFocusStatistics(): FocusStats {
     return this.focusTracker.getAverages(this.monthsElapsed);
   }
 }
