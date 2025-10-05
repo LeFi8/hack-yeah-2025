@@ -28,7 +28,7 @@ export class WorkEngineer extends Possibility {
   }
 
   canActivate() {
-    return this.state.education.level.get() >= 2;
+    return this.state.education.level.get() >= 2 && !(this.state.job instanceof Engineer) ;
   }
   getWeight() {
     return 100 * this.state.education.level.get();
