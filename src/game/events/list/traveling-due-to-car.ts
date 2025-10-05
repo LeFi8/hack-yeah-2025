@@ -17,7 +17,6 @@ export class TravelingDueToCar extends Event {
     return `You decided to take a trip around the country using your car. 
         This adventure allowed you to explore new places and enjoy the freedom of the open road.
         Happiness: +5
-        Mental Health: +3
     `;
   }
   getWeight() {
