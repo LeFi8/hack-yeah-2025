@@ -18,23 +18,49 @@ function LifeChart() {
   return (
     <>
       <Title text={"Life progress"} />
-      <div style={{ height: "120px" }}>
+      <div style={{ height: "90px" }}>
         <ResponsiveScatterPlot
           data={mockedData}
-          margin={{ top: 20, right: 40, bottom: 50, left: 60 }}
-          xScale={{ type: "linear", min: 18, max: 45 }}
+          margin={{ top: 20, right: 40, bottom: 20, left: 60 }}
+          xScale={{ type: "linear", min: 18, max: 40 }}
           yScale={{
             type: "linear",
             min: 0,
             max: 3,
           }}
+          layers={[
+            ({ xScale, innerHeight }) => (
+              <g>
+                <rect
+                  x={xScale(18)}
+                  y={0}
+                  width={xScale(35) - xScale(18)}
+                  height={innerHeight}
+                  fill="#e8f5e8"
+                  opacity={1}
+                />
+                <rect
+                  x={xScale(35)}
+                  y={0}
+                  width={xScale(55) - xScale(35)}
+                  height={innerHeight}
+                  fill="#fff0e6"
+                  opacity={1}
+                />
+              </g>
+            ),
+            "grid",
+            "axes",
+            "nodes",
+            "mesh",
+          ]}
           axisBottom={{
             legend: "Age",
             legendOffset: 36,
             tickValues: [18, 25, 30, 35, 40, 45],
           }}
           axisLeft={{
-            legend: "Important Events",
+            legend: "Events",
             legendOffset: -40,
             tickValues: [],
           }}
@@ -61,6 +87,38 @@ function LifeChart() {
             </g>
           )}
         />
+      </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "right",
+          gap: "20px",
+          marginTop: "10px",
+          fontSize: "12px",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+          <div
+            style={{
+              width: "16px",
+              height: "16px",
+              backgroundColor: "#e8f5e8",
+              border: "1px solid #ccc",
+            }}
+          ></div>
+          <span>Young Adulthood (18-35)</span>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+          <div
+            style={{
+              width: "16px",
+              height: "16px",
+              backgroundColor: "#fff0e6",
+              border: "1px solid #ccc",
+            }}
+          ></div>
+          <span>Late Adulthood (35+)</span>
+        </div>
       </div>
     </>
   );
