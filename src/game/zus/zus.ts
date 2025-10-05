@@ -2,102 +2,98 @@ import type { State } from "../state";
 
 export class ZUS {
   isAlreadyRetired: boolean = false;
-  alreadyAccummulated: number = 0; // suma składek z pracy
-  monthlyRetirementIncome: number = 0; // miesięczne świadczenie emerytalne
-  retirementAge: number = 65; // tylko mężczyźni
-  yearlyIndexation: number = 0.025; // np. 2.5% rocznie
-  replacementRate: number = 0; // wskaźnik zastąpienia - obliczany co miesiąc
+  alreadyAccummulated: number = 0;
+  monthlyRetirementIncome: number = 0;
+  retirementAge: number = 65;
+  yearlyIndexation: number = 0.025;
+  replacementRate: number = 0;
 
-  // dodawanie składki co miesiąc (wywoływane z JobContract)
+  totalContributionYears: number = 0;
+  REQUIRED_YEARS_FOR_MIN_PENSION: number = 20; // men
+  TARGET_REPLACEMENT_RATE: number = 0.4; // 40%
+  MIN_PENSION: number = 1600; // example minimal pension
+
   contribute(amount: number) {
     this.alreadyAccummulated += amount;
+    this.totalContributionYears += 1 / 12; // monthly contribution
   }
 
-  // waloryzacja raz w roku
-  applyYearlyIndexation() {
-    this.alreadyAccummulated *= 1 + this.yearlyIndexation;
-  }
-
-  // obliczenie emerytury - zawsze przelicza
   calculateMonthlyRetirementIncome(state: State) {
-    // Stały wskaźnik zastąpienia dla obliczenia bazowej emerytury
-    const TARGET_REPLACEMENT_RATE = 0.4; // 40% ostatniego wynagrodzenia
+    const pensionFromAccumulated = this.alreadyAccummulated / (20 * 12); // 20 years expected retirement
 
-    if (!state.job) {
-      // Jeśli nie ma pracy, emerytura tylko z składek
-      const expectedLifeYears = 20;
-      const months = expectedLifeYears * 12;
-      this.monthlyRetirementIncome = this.alreadyAccummulated / months;
-      return;
+    let pensionFromTargetRate = 0;
+    if (state.job) {
+      const lastSalary = state.job.getBruttoIncome();
+      // Scale the replacement rate by contribution years
+      const contributionRatio = Math.min(
+        this.totalContributionYears / this.REQUIRED_YEARS_FOR_MIN_PENSION,
+        1,
+      );
+      pensionFromTargetRate =
+        lastSalary * this.TARGET_REPLACEMENT_RATE * contributionRatio;
     }
 
-    const lastSalary = state.job.getBruttoIncome();
-
-    // Metoda 1: Na podstawie TARGET_REPLACEMENT_RATE od ostatniego wynagrodzenia
-    const pensionFromTargetRate = lastSalary * TARGET_REPLACEMENT_RATE;
-
-    // Metoda 2: Na podstawie zgromadzonych składek
-    const expectedLifeYears = 20;
-    const months = expectedLifeYears * 12;
-    const pensionFromAccumulated = this.alreadyAccummulated / months;
-
-    // Bierzemy wyższą wartość (bardziej korzystną dla gracza)
-    this.monthlyRetirementIncome = Math.max(
-      pensionFromTargetRate,
+    // Take higher of the two
+    let calculatedPension = Math.max(
       pensionFromAccumulated,
+      pensionFromTargetRate,
     );
+
+    // Apply minimal pension only if enough contribution years
+    if (this.totalContributionYears >= this.REQUIRED_YEARS_FOR_MIN_PENSION) {
+      calculatedPension = Math.max(calculatedPension, this.MIN_PENSION);
+    }
+
+    this.monthlyRetirementIncome = calculatedPension;
   }
 
-  // obliczenie aktualnego wskaźnika zastąpienia
   calculateReplacementRate(state: State) {
     if (!state.job || state.job.getBruttoIncome() === 0) {
       this.replacementRate = 0;
       return;
     }
-
-    const currentSalary = state.job.getBruttoIncome();
-    this.replacementRate = this.monthlyRetirementIncome / currentSalary;
+    this.replacementRate =
+      this.monthlyRetirementIncome / state.job.getBruttoIncome();
   }
 
   applyMonthlyEffects(state: State) {
-    // co 12 miesięcy waloryzacja
     if (state.getMonthsElapsed() % 12 === 0 && state.getMonthsElapsed() > 0) {
-      this.applyYearlyIndexation();
+      this.alreadyAccummulated *= 1 + this.yearlyIndexation;
     }
 
-    // zawsze przeliczaj miesięczną emeryturę
     this.calculateMonthlyRetirementIncome(state);
-
-    // zawsze przeliczaj wskaźnik zastąpienia
     this.calculateReplacementRate(state);
 
-    // sprawdzanie czy emerytura się zaczyna
-    if (!this.isAlreadyRetired && state.age >= this.retirementAge) {
-      this.isAlreadyRetired = true;
-    }
-
-    // jeżeli już na emeryturze → dodajemy co miesiąc świadczenie do salda
-    if (this.isAlreadyRetired) {
+    if (this.isRetired()) {
       state.character.balance += this.monthlyRetirementIncome;
 
-      // Opcjonalnie: coroczna waloryzacja już wypłacanej emerytury
       if (state.getMonthsElapsed() % 12 === 0 && state.getMonthsElapsed() > 0) {
-        this.monthlyRetirementIncome *= 1 + this.yearlyIndexation * 0.8; // 80% waloryzacji
+        this.monthlyRetirementIncome *= 1 + this.yearlyIndexation * 0.8;
       }
     }
   }
 
-  // Pomocnicza metoda do sprawdzenia przewidywanej emerytury (dla UI)
+  delayRetirement(years: number) {
+    this.retirementAge += years;
+  }
+
+  retire(age: number) {
+    this.isAlreadyRetired = true;
+    this.retirementAge = age;
+  }
+
+  isRetired(): boolean {
+    return this.isAlreadyRetired;
+  }
+
   getEstimatedPension(): number {
     return this.monthlyRetirementIncome;
   }
 
-  // Pomocnicza metoda do sprawdzenia wskaźnika zastąpienia (dla UI)
   getReplacementRate(): number {
     return this.replacementRate;
   }
 
-  // Pomocnicza metoda do sprawdzenia wskaźnika zastąpienia w procentach (dla UI)
   getReplacementRatePercentage(): string {
     return `${(this.replacementRate * 100).toFixed(1)}%`;
   }

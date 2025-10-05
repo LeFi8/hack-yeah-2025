@@ -17,6 +17,9 @@ export class Game {
   private currentPossibilities: Possibility[] = [];
   private gameRunning: boolean = false;
 
+  private EVENT_FREQUENCY_MONTHS = 16;
+  private POSSIBILITY_FREQUENCY_MONTHS = 12;
+
   getCurrentPossibilities(): Possibility[] {
     return this.currentPossibilities;
   }
@@ -48,13 +51,12 @@ export class Game {
 
     // Generate possibilities every 12 months
     const possibilities =
-      this.state.getMonthsElapsed() % 12 === 0
+      this.state.getMonthsElapsed() % this.POSSIBILITY_FREQUENCY_MONTHS === 0
         ? this.generatePossibilities()
         : [];
 
-    // Generate events every 6 months
     const event =
-      this.state.getMonthsElapsed() % 6 === 0
+      this.state.getMonthsElapsed() % this.EVENT_FREQUENCY_MONTHS === 0
         ? this.processRandomEvent()
         : null;
 

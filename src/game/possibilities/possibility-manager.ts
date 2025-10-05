@@ -14,6 +14,7 @@ import { FindLifePartner } from "./list/find-life-partner.ts";
 import { ProposeToGirlfriend } from "./list/propose-to-girlfriend.ts";
 import { Wedding } from "./list/wedding.ts";
 import { GetCredit } from "./list/get-credit.ts";
+import { DecideAboutRetirement } from "./list/decide-about-retirement.ts";
 
 export class PossibilityManager {
   getAllPossibilities(state: State): Possibility[] {
@@ -32,6 +33,7 @@ export class PossibilityManager {
       new Wedding(state),
       new GetCredit(state),
       new HealthCheck(state),
+      new DecideAboutRetirement(state),
     ];
   }
 
@@ -42,6 +44,13 @@ export class PossibilityManager {
 
     if (filteredPossibilities.length === 0) {
       return [];
+    }
+
+    // Powinismy zawsze zwracac decide-about-retirement jezeli ktos osiaga wiek emerytury
+    if (filteredPossibilities.some((p) => p instanceof DecideAboutRetirement)) {
+      return [
+        filteredPossibilities.find((p) => p instanceof DecideAboutRetirement)!,
+      ];
     }
 
     const weightedPossibilities = filteredPossibilities

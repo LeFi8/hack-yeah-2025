@@ -124,7 +124,7 @@ export class State {
   }
 
   initialize() {
-    this.age = 18;
+    this.age = 63;
     this.monthsElapsed = 0;
 
     this.character.balance = 10000;
@@ -211,5 +211,9 @@ export class State {
 
   getHistory(): History[] {
     return this.stateHistory;
+  }
+
+  finishJob() {
+    this.job = null;
   }
 }
