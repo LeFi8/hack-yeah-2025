@@ -41,7 +41,7 @@ function MoneyTab({ state }: MoneyTabProps) {
         <TabPanel>
           <div className="flex flex-col gap-3 px-6 py-2">
             <div>
-              <p className="text-lg">Savings</p>
+              <p className="text-lg">Balance</p>
               <StateInfo
                 icon={<AiOutlineDollarCircle size={20} />}
                 text={state.character.balance.toFixed(2)}

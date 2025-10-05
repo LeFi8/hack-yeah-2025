@@ -14,7 +14,8 @@ function Card({ className, children, onClick }: CardProps) {
       className={classNames(
         "rounded-2xl border-2 p-4 shadow-md animate-show",
         {
-          "hover:scale-[1.02] transition-transform cursor-pointer": !!onClick,
+          "hover:scale-[1.02] hover:rotate-[0.5deg] transition-transform cursor-pointer":
+            !!onClick,
         },
         className,
       )}

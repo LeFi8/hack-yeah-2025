@@ -58,7 +58,10 @@ function State({ tickResult }: StateProps) {
       />
       <MoneyTab state={tickResult.state} />
       {!!tickResult.state.items.length && (
-        <Items items={tickResult.state.items} />
+        <>
+          <p className="mt-4 ml-2 text-lg">Items</p>
+          <Items items={tickResult.state.items} />
+        </>
       )}
     </>
   );
