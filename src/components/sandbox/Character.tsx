@@ -6,6 +6,11 @@ import eclipse from "../../assets/eclipse.png";
 import characterYoung from "../../assets/character/character_male_18_happy.png";
 import characterYoungAdulthood from "../../assets/character/character_male_23_happy.png";
 import characterYoungUnhealthy from "../../assets/character/character_male_18_unhealthy.png";
+import characterYoungFamily from "../../assets/character/character_family_18_happy.png";
+import characterYoungAdulthoodFamily from "../../assets/character/character_family_23_happy.png";
+import type { Item } from "../../game/items";
+import { Wife } from "../../game/items/list/partners/wife.ts";
+import { Child } from "../../game/items/list/child.ts";
 
 interface CharacterProps {
   tickResult: GameTickResult;
@@ -13,11 +18,32 @@ interface CharacterProps {
 
 function Character({ tickResult }: CharacterProps) {
   let characterImgSrc = characterYoung;
-  if (tickResult.state.age > 22) {
-    characterImgSrc = characterYoungAdulthood;
-  }
-  if (tickResult.state.age > 22 && tickResult.state.character.physicalHealth.get() < 50) {
+  if (
+    tickResult.state.items.some((i: Item) => i instanceof Wife) &&
+    tickResult.state.items.some((i: Item) => i instanceof Child) &&
+    tickResult.state.age <= 22
+  ) {
+    characterImgSrc = characterYoungFamily;
+  } else if (
+    tickResult.state.age < 22 &&
+    tickResult.state.character.physicalHealth.get() < 50
+  ) {
     characterImgSrc = characterYoungUnhealthy;
+  }
+  if (tickResult.state.age > 22) {
+    if (
+      tickResult.state.items.some((i: Item) => i instanceof Wife) &&
+      tickResult.state.items.some((i: Item) => i instanceof Child)
+    ) {
+      characterImgSrc = characterYoungAdulthoodFamily;
+    } else if (
+      tickResult.state.age > 22 &&
+      tickResult.state.character.physicalHealth.get() < 50
+    ) {
+      characterImgSrc = characterYoungUnhealthy;
+    } else {
+      characterImgSrc = characterYoungAdulthood;
+    }
   }
   return (
     <>
