@@ -109,10 +109,7 @@ function SandboxMode() {
             </div>
           </div>
           <div className="bg-white shadow-md py-5 px-8 border-2 rounded-2xl flex-1">
-            <State
-              key={tickResult.state.getMonthsElapsed()}
-              tickResult={tickResult}
-            />
+            <State tickResult={tickResult} />
           </div>
         </div>
       </div>
