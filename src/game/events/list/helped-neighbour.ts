@@ -5,8 +5,7 @@ export class HelpedNeighbor extends Event {
     return this.state.focus.relation.get();
   }
   applyEffects() {
-    this.state.character.happiness.add(3);
-    this.state.character.mentalHealth.add(2);
+    this.state.character.happiness.add(4);
   }
   getTitle() {
     return "You helped a neighbor";

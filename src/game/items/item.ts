@@ -4,7 +4,7 @@ import { State } from "../state";
 export interface Item {
   // type: 'person' | 'car' | 'house' | 'work'
   // applyEffects: (state: State) => void,
-  // TODO: add icon url
+  iconUrl?: string;
   monthlyCost?: number;
   applyMonthlyEffects: (state: State) => void;
 }

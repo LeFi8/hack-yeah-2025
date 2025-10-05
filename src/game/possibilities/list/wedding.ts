@@ -1,5 +1,5 @@
 import { Possibility } from "../possibility";
-import { Cat, type Item } from "../../items";
+import type { Item } from "../../items";
 import { Girlfriend } from "../../items/list/partners/girlfriend.ts";
 import { Wife } from "../../items/list/partners/wife.ts";
 
@@ -38,7 +38,7 @@ export class Wedding extends Possibility {
     ];
   }
   canActivate = () => {
-    return !this.state.items.some((i) => i instanceof Cat);
+    return !this.state.items.some((i) => i instanceof Girlfriend && i.isEngaged);
   };
   getWeight = () => {
     return 1;

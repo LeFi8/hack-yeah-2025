@@ -31,14 +31,18 @@ export class ProposeToGirlfriend extends Possibility {
     ];
   }
   canActivate = () => {
-    return !this.state.items.some(
-      (item: Item) =>
-        item instanceof Girlfriend &&
-        item.monthsToMarriageDecision <= 0 &&
-        !item.resignedFromProposing &&
-        !item.isEngaged,
-    );
+    const girlfriend = this.state.items.find(
+      (item: Item) => item instanceof Girlfriend,
+    ) as Girlfriend;
+    if (!girlfriend) {
+      return false;
+    }
+    if (girlfriend.isEngaged || girlfriend.resignedFromProposing) {
+      return false;
+    }
+    return girlfriend.monthsToMarriageDecision < 0;
   };
+
   getWeight = () => {
     return 3;
   };

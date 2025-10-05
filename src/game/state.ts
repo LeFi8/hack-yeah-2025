@@ -12,7 +12,6 @@ export class CharacterCondition {
   additionalMonthlyIncome: number = 0;
   monthlyExpenses = new RangeCounter(0, 0, null);
 
-  mentalHealth = new RangeCounter(0, 0, 100);
   physicalHealth = new RangeCounter(0, 0, 100);
   happiness = new RangeCounter(0, 0, 100);
 
@@ -28,7 +27,6 @@ export class CharacterCondition {
       0,
       null,
     );
-    clone.mentalHealth = new RangeCounter(this.mentalHealth.get(), 0, 100);
     clone.physicalHealth = new RangeCounter(this.physicalHealth.get(), 0, 100);
     clone.happiness = new RangeCounter(this.happiness.get(), 0, 100);
     clone.maxHealth = new RangeCounter(this.maxHealth.get(), 0, 100);
@@ -74,20 +72,13 @@ export class Focus {
       if (this.chance(0.8)) {
         _state.character.happiness.add(1);
       }
-      if (this.chance(0.6)) {
-        _state.character.mentalHealth.add(1);
-      }
     } else if (this.chance(0.5)) {
       _state.character.happiness.add(-1);
-      _state.character.mentalHealth.add(-1);
     }
 
     // If we focus on work we have like 15% chance
     // of decrasing mental health, physical health and happiness
     if (!this.work.get()) {
-      if (this.chance(0.15)) {
-        _state.character.mentalHealth.add(-1);
-      }
       if (this.chance(0.15)) {
         _state.character.physicalHealth.add(-1);
       }
@@ -142,7 +133,6 @@ export class State {
     // 0-podstawowe 1-średnie 2-licencjat/inż 3-magister 4-doktorat
     this.education.level.add(1);
 
-    this.character.mentalHealth.add(80);
     this.character.physicalHealth.add(80);
     this.character.happiness.add(80);
     this.character.maxHealth.add(100);

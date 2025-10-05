@@ -13,16 +13,14 @@ export class HealthCheck extends Possibility {
             // Full check-up: 90% chance to detect and treat issues
             if (Math.random() < 0.9) {
               this.state.character.physicalHealth.add(15);
-              this.state.character.mentalHealth.add(5);
               this.state.character.happiness.add(3);
             } else {
               // 10% chance of false alarm or minor issue
-              this.state.character.mentalHealth.add(-2);
+              this.state.character.happiness.add(-2);
             }
           } else {
             // Can't afford it
             this.state.character.happiness.add(-2);
-            this.state.character.mentalHealth.add(-1);
           }
         },
       },
@@ -34,11 +32,10 @@ export class HealthCheck extends Possibility {
             // Basic check: 70% chance to detect and treat issues
             if (Math.random() < 0.7) {
               this.state.character.physicalHealth.add(8);
-              this.state.character.mentalHealth.add(2);
-              this.state.character.happiness.add(2);
+              this.state.character.happiness.add(3);
             } else {
               // 30% chance of missing something or false alarm
-              this.state.character.mentalHealth.add(-1);
+              this.state.character.happiness.add(-2);
             }
           } else {
             // Can't afford it
@@ -53,13 +50,11 @@ export class HealthCheck extends Possibility {
           if (Math.random() < 0.4) {
             // Correct self-diagnosis
             this.state.character.physicalHealth.add(5);
-            this.state.character.mentalHealth.add(1);
-            this.state.character.happiness.add(1);
+            this.state.character.happiness.add(2);
           } else {
             // Wrong self-diagnosis or health anxiety
             this.state.character.physicalHealth.add(-3);
-            this.state.character.mentalHealth.add(-5);
-            this.state.character.happiness.add(-2);
+            this.state.character.happiness.add(-10);
           }
         },
       },
