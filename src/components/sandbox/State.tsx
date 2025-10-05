@@ -1,10 +1,7 @@
 import Title from "../common/Title.tsx";
 import StateBar from "./state/StateBar.tsx";
 import { AiOutlineHeart, AiOutlineSmile } from "react-icons/ai";
-import {
-  IoSchoolOutline,
-  IoBriefcaseOutline,
-} from "react-icons/io5";
+import { IoSchoolOutline, IoBriefcaseOutline } from "react-icons/io5";
 import StateInfo from "./state/StateInfo.tsx";
 import type { GameTickResult } from "../../game/game.ts";
 import MoneyTab from "./MoneyTab.tsx";
