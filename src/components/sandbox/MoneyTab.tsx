@@ -15,7 +15,7 @@ function MoneyTab({ state }: MoneyTabProps) {
   const [tabIndex, setTabIndex] = React.useState(0);
 
   return (
-    <div className="bg-white rounded-xl shadow-lg border-2 overflow-hidden max-w-full">
+    <div className="mt-4 bg-white rounded-xl shadow-lg border-2 overflow-hidden max-w-full">
       <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
         <TabList className="flex list-none bg-gray-50">
           <Tab

@@ -2,7 +2,6 @@ import Title from "../common/Title.tsx";
 import StateBar from "./state/StateBar.tsx";
 import { AiOutlineHeart, AiOutlineSmile } from "react-icons/ai";
 import { IoSchoolOutline, IoBriefcaseOutline } from "react-icons/io5";
-import { CiMoneyBill } from "react-icons/ci";
 import StateInfo from "./state/StateInfo.tsx";
 import type { GameTickResult } from "../../game/game.ts";
 import MoneyTab from "./MoneyTab.tsx";
@@ -49,15 +48,13 @@ function State({ tickResult }: StateProps) {
       <StateInfo
         icon={<IoSchoolOutline size={35} />}
         text={educationToString(tickResult.state.education.level.get())}
-      />
-      <StateInfo
-        icon={<CiMoneyBill size={35} />}
-        text={character.balance.toFixed(2)}
+        className="pt-4"
       />
       {job !== null && (
         <StateInfo
           icon={<IoBriefcaseOutline size={35} />}
           text={job.getPosition()}
+          className="pt-4"
         />
       )}
       <MoneyTab state={tickResult.state} />
