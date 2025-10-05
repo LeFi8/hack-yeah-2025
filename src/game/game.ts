@@ -51,7 +51,7 @@ export class Game {
 
     // Generate possibilities every 12 months
     const possibilities =
-      this.state.getMonthsElapsed() % this.POSSIBILITY_FREQUENCY_MONTHS === 0
+      this.state.getMonthsElapsed() % this.POSSIBILITY_FREQUENCY_MONTHS === 1
         ? this.generatePossibilities()
         : [];
 
