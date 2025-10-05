@@ -7,7 +7,7 @@ interface StateBarProps {
   value: number;
 }
 
-function StateBar({ title, icon, value, className }: StateBarProps) {
+function StateBar({ title, icon, value }: StateBarProps) {
   const width = Math.min(100, value);
 
   const r = Math.max(0, 255 - value * 2.55);

@@ -16,7 +16,7 @@ function Possibilities({
   );
 
   const handlePossibilityClick = (possibilityIndex: number) => {
-    if (possibilities[possibilityIndex].options.length === 1) {
+    if (possibilities[possibilityIndex].getOptions().length === 1) {
       onPossibilityChosen(possibilityIndex, 0);
       return;
     }
@@ -41,15 +41,17 @@ function Possibilities({
             </Card>
           ))}
         {selectedPossibility !== null &&
-          possibilities[selectedPossibility].options.map((option, index) => (
-            <Card
-              key={index}
-              onClick={() => handleChoiceClick(index)}
-              className="grow flex flex-col items-center justify-center"
-            >
-              <p className={"text-lg"}>{option.title}</p>
-            </Card>
-          ))}
+          possibilities[selectedPossibility]
+            .getOptions()
+            .map((option, index) => (
+              <Card
+                key={index}
+                onClick={() => handleChoiceClick(index)}
+                className="grow flex flex-col items-center justify-center"
+              >
+                <p className={"text-lg"}>{option.title}</p>
+              </Card>
+            ))}
       </div>
     </>
   );

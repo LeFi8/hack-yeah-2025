@@ -39,7 +39,7 @@ function Decisions({
     onPossibilityHandled(possibilityIndex, choiceIndex);
     const selectedOne = tickResult.possibilities[possibilityIndex];
     console.log(
-      `${selectedOne.title}: ${selectedOne.options[choiceIndex].title}`,
+      `${selectedOne.title}: ${selectedOne.getOptions()[choiceIndex].title}`,
     );
   };
 
