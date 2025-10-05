@@ -2,6 +2,7 @@ import { State } from "../../state";
 import type { Item } from "../item";
 
 export class GymMembership implements Item {
+  iconUrl = "src/assets/zus_icon.png";
   monthlyCost = 100;
   private monthsLeft: number;
 

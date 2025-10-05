@@ -3,6 +3,7 @@ import { State } from "../../../state";
 
 export class VideoGamesHobby extends Hobby {
   monthlyCost = 50;
+  iconUrl = "src/assets/zus_icon.png";
 
   applyMonthlyEffects(state: State) {
     state.character.happiness.add(state.focus.hobby ? 2 : 4);
