@@ -2,7 +2,7 @@ import { Possibility } from "../possibility";
 import { GymMembership } from "../../items/list/gym-membership";
 
 export class GymMembershipEvent extends Possibility {
-  title = "Buy gim membership";
+  title = "Buy gym membership";
 
   getOptions() {
     return [
