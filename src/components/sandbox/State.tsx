@@ -14,7 +14,6 @@ import { Hobby } from "../../game/items/list/hobbys/hobby.ts";
 
 interface StateProps {
   tickResult: GameTickResult;
-  s;
 }
 
 function State({ tickResult }: StateProps) {
