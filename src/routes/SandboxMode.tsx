@@ -79,11 +79,11 @@ function SandboxMode() {
             </div>
             <div className="flex flex-4 gap-5">
               <div className="bg-white shadow-md py-5 px-8 border-2 rounded-2xl flex-3">
-                <Character
+                <Character tickResult={tickResult} />
+                <CharacterFocus
                   key={tickResult.state.getMonthsElapsed()}
-                  tickResult={tickResult}
+                  stateFocus={tickResult.state.focus}
                 />
-                <CharacterFocus />
               </div>
               <div className="bg-white shadow-md py-5 px-8 border-2 rounded-2xl flex-7">
                 <Decisions

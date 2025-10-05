@@ -1,4 +1,3 @@
-import { useState } from "react";
 import FocusItem from "./FocusItem.tsx";
 import {
   IoBookOutline,
@@ -6,23 +5,15 @@ import {
   IoHeartOutline,
 } from "react-icons/io5";
 import { PiHospital } from "react-icons/pi";
+import type { Focus } from "../../game/state.ts";
+import { useState } from "react";
 
-function CharacterFocus() {
-  // FIXME: mock for integration, connect to global state
-  const [focusStates, setFocusStates] = useState({
-    health: false,
-    hobby: false,
-    work: false,
-    relationships: false,
-  });
+interface CharacterFocusProps {
+  stateFocus: Focus;
+}
 
-  const handleToggle =
-    (key: keyof typeof focusStates) => (checked: boolean) => {
-      setFocusStates((prev) => ({
-        ...prev,
-        [key]: checked,
-      }));
-    };
+function CharacterFocus({ stateFocus }: CharacterFocusProps) {
+  const [focus, _] = useState(stateFocus);
 
   return (
     <>
@@ -31,28 +22,24 @@ function CharacterFocus() {
           <FocusItem
             title={"Health"}
             icon={<PiHospital size={30} />}
-            isChecked={focusStates.health}
-            onToggle={handleToggle("health")}
+            isChecked={focus.health.get()}
           />
           <FocusItem
             title={"Hobby"}
             icon={<IoBookOutline size={30} />}
-            isChecked={focusStates.hobby}
-            onToggle={handleToggle("hobby")}
+            isChecked={focus.hobby.get()}
           />
         </div>
         <div className="flex flex-col gap-2">
           <FocusItem
             title={"Work"}
             icon={<IoBusinessOutline size={30} />}
-            isChecked={focusStates.work}
-            onToggle={handleToggle("work")}
+            isChecked={focus.work.get()}
           />
           <FocusItem
             title={"Relationships"}
             icon={<IoHeartOutline size={30} />}
-            isChecked={focusStates.relationships}
-            onToggle={handleToggle("relationships")}
+            isChecked={focus.relation.get()}
           />
         </div>
       </div>
