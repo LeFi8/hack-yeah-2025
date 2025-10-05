@@ -11,7 +11,7 @@ export class Engineer extends JobContract {
   }
 
   getBruttoIncome(): number {
-    const multiplier = 1 + this.state.education.level.get() / 5
+    const multiplier = 1 + this.state.education.level.get() / 5;
     return 5000 * this.lvl * multiplier;
   }
 

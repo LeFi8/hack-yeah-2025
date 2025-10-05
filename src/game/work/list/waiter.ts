@@ -4,7 +4,7 @@ import type { State } from "../../state";
 export class Waiter extends JobContract {
   constructor(
     protected readonly state: State,
-    protected readonly contractType: "UOP" | "UZ" | "B2B" | "UNREGISTERED"
+    protected readonly contractType: "UOP" | "UZ" | "B2B" | "UNREGISTERED",
   ) {
     super(state, contractType);
   }

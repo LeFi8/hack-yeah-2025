@@ -24,10 +24,9 @@ export class PossibilityManager {
   }
 
   getRandom(state: State): Possibility[] {
-    const filteredPossibilities = this.getAllPossibilities(state)
-      .filter((possibility) =>
-        possibility.canActivate(),
-      );
+    const filteredPossibilities = this.getAllPossibilities(state).filter(
+      (possibility) => possibility.canActivate(),
+    );
 
     if (filteredPossibilities.length === 0) {
       return [];

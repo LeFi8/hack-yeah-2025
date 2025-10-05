@@ -6,7 +6,7 @@ export interface PossibilityOption {
 }
 
 export abstract class Possibility {
-  title: string = '';
+  title: string = "";
 
   constructor(protected readonly state: State) {}
 

@@ -27,10 +27,10 @@ export class WorkEngineer extends Possibility {
     ];
   }
 
-  canActivate(){
+  canActivate() {
     return this.state.education.level.get() >= 2;
-  };
-  getWeight(){
+  }
+  getWeight() {
     return 100 * this.state.education.level.get();
-  };
+  }
 }

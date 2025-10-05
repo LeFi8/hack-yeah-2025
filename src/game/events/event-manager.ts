@@ -1,15 +1,15 @@
-import type {Event} from "./event";
-import type {State} from "../state";
-import {Illness} from "./list/illness";
-import {Theft} from "./list/theft";
-import {FoundMoney} from "./list/found-money";
-import {VegateblesGetMoreExpensive} from "./list/vegatebles-get-more-expensive";
-import {FriendsByReading} from "./list/friends-by-reading";
-import {HelpedNeighbor} from "./list/helped-neighbour";
-import {CarIsBroken} from "./list/car-is-broken";
-import {TravelingDueToCar} from "./list/traveling-due-to-car";
-import {EducationLvlUpgrade} from "./list/education-lvl-upgrade";
-import {WorkLvlUpgrade} from "./list/work-lvl-upgrade";
+import type { Event } from "./event";
+import type { State } from "../state";
+import { Illness } from "./list/illness";
+import { Theft } from "./list/theft";
+import { FoundMoney } from "./list/found-money";
+import { VegateblesGetMoreExpensive } from "./list/vegatebles-get-more-expensive";
+import { FriendsByReading } from "./list/friends-by-reading";
+import { HelpedNeighbor } from "./list/helped-neighbour";
+import { CarIsBroken } from "./list/car-is-broken";
+import { TravelingDueToCar } from "./list/traveling-due-to-car";
+import { EducationLvlUpgrade } from "./list/education-lvl-upgrade";
+import { WorkLvlUpgrade } from "./list/work-lvl-upgrade";
 
 export class EventManager {
   getAllEvents(state: State) {
@@ -28,10 +28,9 @@ export class EventManager {
   }
 
   getRandom(state: State): Event | null {
-    const filteredEvents = this.getAllEvents(state)
-      .filter((event) =>
-        event.canActivate(),
-      );
+    const filteredEvents = this.getAllEvents(state).filter((event) =>
+      event.canActivate(),
+    );
 
     if (filteredEvents.length === 0) {
       return null;

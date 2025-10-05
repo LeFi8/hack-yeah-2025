@@ -14,13 +14,13 @@ export class University extends Possibility {
     ];
   }
 
-  canActivate(){
+  canActivate() {
     return !this.state.education.isStudying;
-  };
-  getWeight(){
+  }
+  getWeight() {
     if (this.state.age < 20) {
       return 100;
     }
     return 5;
-  };
+  }
 }

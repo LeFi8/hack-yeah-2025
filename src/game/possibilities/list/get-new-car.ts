@@ -27,10 +27,10 @@ export class GetNewCar extends Possibility {
       },
     ];
   }
-  canActivate(){
+  canActivate() {
     return !this.state.items.some((i) => i instanceof Car);
-  };
-  getWeight(){
+  }
+  getWeight() {
     return 1;
-  };
+  }
 }
