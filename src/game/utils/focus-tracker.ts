@@ -9,7 +9,6 @@ export type FocusStats = {
   work: number;
 };
 
-
 export class FocusTracker {
   private hobbyMonths: number = 0;
   private healthMonths: number = 0;
@@ -23,8 +22,7 @@ export class FocusTracker {
     if (focus.work) this.workMonths++;
   }
 
-  public getAverages(totalMonths: number): FocusStats 
-  {
+  public getAverages(totalMonths: number): FocusStats {
     if (totalMonths === 0) {
       return { hobby: 0, health: 0, relation: 0, work: 0 };
     }
@@ -36,5 +34,4 @@ export class FocusTracker {
       work: this.workMonths / totalMonths,
     };
   }
-
 }

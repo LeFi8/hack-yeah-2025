@@ -84,8 +84,6 @@ function CharacterFocus({ stateFocus, setStateFocus }: CharacterFocusProps) {
           {!focus.work && "⚠️ Work stress "}
           {!focus.hobby && "🧠 Mental fatigue "}
         </div>
-
-
       </div>
     </>
   );
