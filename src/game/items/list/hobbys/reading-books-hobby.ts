@@ -7,6 +7,5 @@ export class ReadingBooksHobby extends Hobby {
 
   applyMonthlyEffects(state: State) {
     state.character.happiness.add(state.focus.hobby ? 1 : 2);
-    state.character.mentalHealth.add(state.focus.hobby ? 1 : 2);
   }
 }

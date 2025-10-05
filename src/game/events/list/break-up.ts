@@ -13,7 +13,6 @@ export class BreakUp extends Event {
       (item: Item) => item instanceof Girlfriend,
     ) as Girlfriend;
     if (girlfriend) {
-      this.state.character.mentalHealth.add(-20);
       this.state.character.happiness.add(-20);
       this.state.removeItem(girlfriend);
     }
