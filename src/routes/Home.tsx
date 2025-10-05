@@ -44,7 +44,9 @@ function Home() {
             className="cursor-pointer font-bold shadow-lg p-4 rounded-lg border-1 hover:scale-105 transition-transform duration-200 ease-in-out bg-zus/60"
             onClick={() => {
               // @ts-ignore
-              window.open('https://github.com/LeFi8/hack-yeah-2025', '_blank').focus();
+              window
+                .open("https://github.com/LeFi8/hack-yeah-2025", "_blank")
+                .focus();
             }}
           >
             About the Game

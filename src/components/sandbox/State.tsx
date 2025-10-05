@@ -70,6 +70,13 @@ function State({ tickResult }: StateProps) {
           className="pt-4"
         />
       )}
+      {!!hobbies.length && (
+        <StateInfo
+          icon={<IoAirplane size={35} />}
+          text={`Hobbies: ${hobbies.map((el) => (el as Hobby).name).join(", ")}`}
+          className="pt-4"
+        />
+      )}
       <MoneyTab state={tickResult.state} />
       {!!tickResult.state.items.length && (
         <Items items={tickResult.state.items} />

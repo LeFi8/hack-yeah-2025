@@ -7,5 +7,6 @@ export interface Item {
   name: string;
   iconUrl?: string;
   monthlyCost?: number;
+  monthlyIncome?: number;
   applyMonthlyEffects: (state: State) => void;
 }
