@@ -77,7 +77,7 @@ function MoneyTab({ state }: MoneyTabProps) {
               <p className="text-lg">Expected Pension</p>
               <StateInfo
                 icon={<RiExchangeFundsFill size={20} />}
-                text={state.zus.predictedPension.toFixed(2)}
+                text={state.zus.monthlyRetirementIncome.toFixed(2)}
               />
             </div>
             <div>
