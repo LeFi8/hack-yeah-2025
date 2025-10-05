@@ -1,18 +1,17 @@
-import type { Event } from "../event";
-import type { State } from "../../state";
+import { Event } from "../event";
 import type { Item } from "../../items";
 import {Girlfriend} from "../../items/list/partners/girlfriend.ts";
 
-export class BreakUp implements Event {
-    canActivate = (state: State) => {
-        return state.items.some((item: Item) => item instanceof Girlfriend && item.resignedFromProposing)
+export class BreakUp extends Event {
+    canActivate = () => {
+        return this.state.items.some((item: Item) => item instanceof Girlfriend && item.resignedFromProposing)
     };
-    applyEffects = (state: State) => {
-        const girlfriend = state.items.find((item: Item) => item instanceof Girlfriend ) as Girlfriend;
+    applyEffects = () => {
+        const girlfriend = this.state.items.find((item: Item) => item instanceof Girlfriend ) as Girlfriend;
         if (girlfriend) {
-            state.character.mentalHealth.add(-20);
-            state.character.happiness.add(-20);
-            state.removeItem(girlfriend);
+            this.state.character.mentalHealth.add(-20);
+            this.state.character.happiness.add(-20);
+            this.state.removeItem(girlfriend);
         }
     };
     getTitle = () => {
@@ -21,7 +20,7 @@ export class BreakUp implements Event {
     getDescription = () => {
         return `Your girlfriend decided to end the relationship. This breakup has been tough on you, leading to a significant drop in your mental health and happiness. It's a challenging time, but with time and self-care, you can heal and move forward.`;
     };
-    getWeight = (_: State) => {
+    getWeight = () => {
         return 1;
     };
 }

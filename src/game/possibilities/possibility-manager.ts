@@ -1,8 +1,6 @@
 import { State } from "../state";
 import type { Possibility } from "./possibility";
 import { OnlineDating } from "./list/online-dating";
-import { State } from "../state";
-import type { Possibility } from "./possibility";
 import { CatInNeed } from "./list/cat-in-need";
 import { GymMembershipEvent } from "./list/gym-membership-event";
 import { NewHobby } from "./list/new-hobby";

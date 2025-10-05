@@ -25,7 +25,7 @@ export class EventManager {
       new HelpedNeighbor(state),
       new CarIsBroken(state),
       new TravelingDueToCar(state),
-        new BreakUp(state),
+      new BreakUp(state),
     ];
   }
 

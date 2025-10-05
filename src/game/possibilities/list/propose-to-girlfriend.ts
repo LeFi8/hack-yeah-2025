@@ -1,16 +1,15 @@
-import { State } from "../../state";
-import type { Possibility } from "../possibility";
+import { Possibility } from "../possibility";
 import {Girlfriend} from "../../items/list/partners/girlfriend.ts";
 import type {Item} from "../../items";
 
-export class ProposeToGirlfriend implements Possibility {
+export class ProposeToGirlfriend extends Possibility {
     title = "About your relationship";
-    getOptions(_state: State) {
+    getOptions() {
         return [
             {
                 title: "Propose to your girlfriend",
-                applyEffects: (state: State) => {
-                    const girlfriend = state.items.find((item: Item) => item instanceof Girlfriend ) as Girlfriend;
+                applyEffects: () => {
+                    const girlfriend = this.state.items.find((item: Item) => item instanceof Girlfriend ) as Girlfriend;
                     if (girlfriend) {
                         girlfriend.isEngaged = true;
                     }
@@ -18,8 +17,8 @@ export class ProposeToGirlfriend implements Possibility {
             },
             {
                 title: "Maybe later...",
-                applyEffects: (state: State) => {
-                    const girlfriend = state.items.find((item: Item) => item instanceof Girlfriend ) as Girlfriend;
+                applyEffects: () => {
+                    const girlfriend = this.state.items.find((item: Item) => item instanceof Girlfriend ) as Girlfriend;
                     if (girlfriend) {
                         girlfriend.resignedFromProposing = true;
                     }
@@ -27,10 +26,10 @@ export class ProposeToGirlfriend implements Possibility {
             },
         ];
     }
-    canActivate = (state: State) => {
-        return !state.items.some((item: Item) => (item instanceof Girlfriend && item.monthsToMarriageDecision <= 0 && !item.resignedFromProposing && !item.isEngaged) );
+    canActivate = () => {
+        return !this.state.items.some((item: Item) => (item instanceof Girlfriend && item.monthsToMarriageDecision <= 0 && !item.resignedFromProposing && !item.isEngaged) );
     };
-    getWeight = (_: State) => {
+    getWeight = () => {
         return 3;
     };
 }

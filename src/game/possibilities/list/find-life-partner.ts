@@ -1,31 +1,30 @@
-import { State } from "../../state";
-import type { Possibility } from "../possibility";
+import { Possibility } from "../possibility";
 import {RomanticPartner} from "../../items/list/partners/romantic-partner.ts";
 import {Girlfriend} from "../../items/list/partners/girlfriend.ts";
 import {Friend} from "../../items/list/friend.ts";
 
-export class FindLifePartner implements Possibility {
+export class FindLifePartner extends Possibility {
     title = "New person in your life";
-    getOptions(_state: State) {
+    getOptions() {
         return [
             {
                 title: "Become romantic partners",
-                applyEffects: (state: State) => {
-                    state.addItem(new Girlfriend());
+                applyEffects: () => {
+                    this.state.addItem(new Girlfriend());
                 },
             },
             {
                 title: "Not interested in relationship",
-                applyEffects: (state: State) => {
-                    state.addItem(new Friend());
+                applyEffects: () => {
+                    this.state.addItem(new Friend());
                 },
             },
         ];
     }
-    canActivate = (state: State) => {
-        return !state.items.some((i) => i instanceof RomanticPartner) && state.focus.relation.get();
+    canActivate = () => {
+        return !this.state.items.some((i) => i instanceof RomanticPartner) && this.state.focus.relation.get();
     };
-    getWeight = (_: State) => {
+    getWeight = () => {
         return 3;
     };
 }
