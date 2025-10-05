@@ -27,7 +27,7 @@ export abstract class JobContract {
   ) {}
 
   applyMonthlyEffects(state: State) {
-    state.zus.alreadyAccummulated += this.getZusContribution();
+    state.zus.contribute(this.getZusContribution());
     state.character.balance += this.getNettoIncome();
   }
 
