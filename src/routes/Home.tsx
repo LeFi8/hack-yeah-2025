@@ -19,20 +19,20 @@ function Home() {
 
         <div className="flex flex-col gap-4 mt-24">
           <div
-            className="cursor-pointer shadow-lg p-4 rounded-lg border-1 hover:scale-105 transition-transform duration-200 ease-in-out bg-white"
+            className="cursor-pointer font-medium shadow-lg p-4 rounded-lg border-1 hover:scale-105 transition-transform duration-200 ease-in-out bg-white"
             onClick={() => {
               navigate(Paths.SandboxMode);
             }}
           >
             Sandbox Mode
           </div>
-          <div className="relative shadow-lg p-4 rounded-lg border-1 hover:scale-105 transition-transform duration-200 ease-in-out bg-white">
+          <div className="relative font-medium shadow-lg p-4 rounded-lg border-1 hover:scale-105 transition-transform duration-200 ease-in-out bg-white">
             Challenges Mode
             <span className="absolute top-2 right-2 transform translate-x-6 bg-red-400 text-xs text-black px-2 py-0.5 rounded font-semibold italic pointer-events-none select-none">
               Coming Soon
             </span>
           </div>
-          <div className="relative shadow-lg p-4 rounded-lg border-1 hover:scale-105 transition-transform duration-200 ease-in-out bg-white">
+          <div className="relative font-medium shadow-lg p-4 rounded-lg border-1 hover:scale-105 transition-transform duration-200 ease-in-out bg-white">
             Story Mode
             <span className="absolute top-2 right-2 transform translate-x-6 bg-red-400 text-xs text-black px-2 py-0.5 rounded font-semibold italic pointer-events-none select-none">
               Coming Soon
@@ -40,7 +40,7 @@ function Home() {
           </div>
           {/* TODO: on click it navigates to the github repository README file */}
           <div
-            className="cursor-pointer shadow-lg p-4 rounded-lg border-1 hover:scale-105 transition-transform duration-200 ease-in-out bg-zus/60"
+            className="cursor-pointer font-bold shadow-lg p-4 rounded-lg border-1 hover:scale-105 transition-transform duration-200 ease-in-out bg-zus/60"
             onClick={() => {}}
           >
             About the Game
