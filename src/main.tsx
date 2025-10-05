@@ -6,6 +6,7 @@ import Home from "./routes/Home.tsx";
 import SandboxMode from "./routes/SandboxMode.tsx";
 import { Paths } from "./constants/paths.ts";
 import Layout from "./routes/Layout.tsx";
+import Summary from "./routes/Summary.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -14,6 +15,8 @@ createRoot(document.getElementById("root")!).render(
         <Route path={Paths.Home} element={<Layout />}>
           <Route index element={<Home />} />
           <Route path={Paths.SandboxMode} element={<SandboxMode />} />
+          {/* FIXME: should be subpath from modes */}
+          <Route path={"/summary"} element={<Summary />} />
         </Route>
       </Routes>
     </BrowserRouter>
