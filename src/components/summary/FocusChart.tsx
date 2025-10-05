@@ -1,17 +1,17 @@
+import type { FocusStats } from "../../game/utils/focus-tracker.ts";
 import Title from "../common/Title.tsx";
 import { ResponsiveRadar } from "@nivo/radar";
-import type { Focus } from "../../game/state.ts";
 
 interface FocusChartProps {
-  focus: Focus;
+  focus: FocusStats;
 }
 
 function FocusChart({ focus }: FocusChartProps) {
   const focusData = [
-    { area: "Health", focus: focus.health },
-    { area: "Hobby", focus: focus.hobby },
-    { area: "Work", focus: focus.work },
-    { area: "Relationships", focus: focus.relation },
+    { area: "Health", focus: Math.floor(focus.health * 100) },
+    { area: "Hobby", focus: Math.floor(focus.hobby * 100) },
+    { area: "Work", focus: Math.floor(focus.work * 100) },
+    { area: "Relationships", focus: Math.floor(focus.relation * 100) },
   ];
   return (
     <>
