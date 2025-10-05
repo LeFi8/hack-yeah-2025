@@ -15,6 +15,7 @@ import { BigCommunityEvent } from "./list/positive/big-community-event.ts";
 import { DiscoveredHobbyPassion } from "./list/positive/discover-hobby.ts";
 import { IllnessDueToHighHp } from "./list/illness-due-to-high-hp.ts";
 import { PoliceCaughtYou } from "./list/police-caught-you.ts";
+import {UnexpectedChild} from "./list/unexpected-child.ts";
 
 export type EventHistory = {
   event: Event;
@@ -50,6 +51,7 @@ export class EventManager {
       new DiscoveredHobbyPassion(state),
       new IllnessDueToHighHp(state),
       new PoliceCaughtYou(state),
+      new UnexpectedChild(state),
     ];
   }
 
