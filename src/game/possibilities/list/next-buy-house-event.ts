@@ -36,7 +36,7 @@ export class NextBuyHouseEvent extends Possibility {
         ];
     }
     canActivate() {
-        return !this.state.items.some((i) => i instanceof FlatRent) && this.state.age > 30;
+        return this.state.items.some((i) => i instanceof FlatRent) && this.state.age > 30;
     }
     getWeight() {
         return 2;
