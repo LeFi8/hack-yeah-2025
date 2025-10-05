@@ -21,16 +21,29 @@ function SavingsHappinessChart({ lifeHistory }: SavingsHappinessChartProps) {
 
     const ages = Object.keys(ageGroups).sort((a, b) => Number(a) - Number(b));
 
-    const savingsData = ages.map((age) => ({
-      x: age,
-      y: ageGroups[Number(age)].characterCondition.balance,
-    }));
+    const savingsData = ages.map((age) => {
+      const originalBalance = ageGroups[Number(age)].characterCondition.balance;
+      return {
+        x: age,
+        y: Math.max(originalBalance, 0),
+        originalValue: originalBalance,
+      };
+    });
 
-    // FIXME: happiness data should be normalized with balance data
-    const happinessData = ages.map((age) => ({
-      x: age,
-      y: ageGroups[Number(age)].characterCondition.happiness.get(),
-    }));
+    // Normalize happiness to the same scale as balance for better comparison
+    const maxBalance = Math.max(
+      ...ages.map((age) => ageGroups[Number(age)].characterCondition.balance),
+      1,
+    );
+    const happinessData = ages.map((age) => {
+      const originalHappiness =
+        ageGroups[Number(age)].characterCondition.happiness.get();
+      return {
+        x: age,
+        y: (originalHappiness / 100) * maxBalance,
+        originalValue: originalHappiness,
+      };
+    });
 
     return [
       {
@@ -44,15 +57,34 @@ function SavingsHappinessChart({ lifeHistory }: SavingsHappinessChartProps) {
     ];
   };
 
+  const customTooltip = ({ point }: { point: any }) => {
+    const isHappiness = point.seriesId === "happiness";
+    const value = point.data.originalValue;
+    const formattedValue = isHappiness
+      ? `${Math.round(value)}%`
+      : `${Math.round(value)}PLN`;
+
+    return (
+      <div className="bg-white p-2 border border-gray-300 rounded shadow-lg">
+        <div className="text-sm font-medium">
+          {isHappiness ? "Happiness" : "Savings"}
+        </div>
+        <div className="text-sm">Age: {point.data.x}</div>
+        <div className="text-sm font-bold" style={{ color: point.seriesColor }}>
+          {formattedValue}
+        </div>
+      </div>
+    );
+  };
+
   const data = transformedData();
 
-  // FIXME: add legend properties
   return (
     <>
       <Title text={"Savings & Happiness"} />
       <ResponsiveLine
         data={data}
-        margin={{ top: 20, right: 10, bottom: 60, left: 10 }}
+        margin={{ top: 25, right: 10, bottom: 60, left: 10 }}
         yScale={{
           type: "linear",
           min: 0,
@@ -66,7 +98,7 @@ function SavingsHappinessChart({ lifeHistory }: SavingsHappinessChartProps) {
         axisLeft={null}
         axisBottom={{
           legend: "Age",
-          legendOffset: 20,
+          legendOffset: 10,
           legendPosition: "middle",
         }}
         pointSize={10}
@@ -76,6 +108,22 @@ function SavingsHappinessChart({ lifeHistory }: SavingsHappinessChartProps) {
         enableGridX={false}
         enableGridY={false}
         useMesh={true}
+        tooltip={customTooltip}
+        legends={[
+          {
+            anchor: "top-right",
+            direction: "row",
+            justify: false,
+            translateX: 0,
+            translateY: -25,
+            itemWidth: 100,
+            itemHeight: 20,
+            itemsSpacing: 10,
+            symbolSize: 12,
+            symbolShape: "circle",
+            itemDirection: "left-to-right",
+          },
+        ]}
       />
     </>
   );
