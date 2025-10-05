@@ -5,9 +5,12 @@ export interface PossibilityOption {
   applyEffects: (state: State) => void;
 }
 
-export interface Possibility {
+export class Possibility {
   title: string;
-  getWeight: (state: State) => number;
-  canActivate: (state: State) => boolean;
-  getOptions(state: State): PossibilityOption[];
+
+  constructor(protected readonly state: State) {}
+
+  getWeight: () => number;
+  canActivate: () => boolean;
+  getOptions: () => PossibilityOption[];
 }

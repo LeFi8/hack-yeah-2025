@@ -10,25 +10,24 @@ import { University } from "./list/university";
 import { GetNewCar } from "./list/get-new-car";
 
 export class PossibilityManager {
-  private possibilities: Possibility[];
-
-  constructor() {
-    this.possibilities = [
-      new CatInNeed(),
-      new GymMembershipEvent(),
-      new NewHobby(),
-      new ChooseDiet(),
-      new WorkWaiter(),
-      new WorkEngineer(),
-      new University(),
-      new GetNewCar(),
+  getAllPossibilities(state: State): Possibility[] {
+    return [
+      new CatInNeed(state),
+      new GymMembershipEvent(state),
+      new NewHobby(state),
+      new ChooseDiet(state),
+      new WorkWaiter(state),
+      new WorkEngineer(state),
+      new University(state),
+      new GetNewCar(state),
     ];
   }
 
   getRandom(state: State): Possibility[] {
-    const filteredPossibilities = this.possibilities.filter((possibility) =>
-      possibility.canActivate(state),
-    );
+    const filteredPossibilities = this.getAllPossibilities(state)
+      .filter((possibility) =>
+        possibility.canActivate(),
+      );
 
     if (filteredPossibilities.length === 0) {
       return [];
@@ -37,7 +36,7 @@ export class PossibilityManager {
     const weightedPossibilities = filteredPossibilities
       .map((possibility) => ({
         possibility,
-        weight: possibility.getWeight(state),
+        weight: possibility.getWeight(),
       }))
       .filter((item) => item.weight > 0);
 

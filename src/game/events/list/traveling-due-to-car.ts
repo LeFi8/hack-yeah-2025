@@ -1,16 +1,16 @@
-import type { Event } from "../event";
+import { Event } from "../event";
 import type { State } from "../../state";
 import type { Item } from "../../items";
 import { Car } from "../../items/list/car";
 
-export class TravelingDueToCar implements Event {
-  canActivate = (state: State) => {
-    return state.items.some((item: Item) => item instanceof Car);
+export class TravelingDueToCar extends Event {
+  canActivate = () => {
+    return this.state.items.some((item: Item) => item instanceof Car);
   };
-  applyEffects = (state: State) => {
-    state.character.happiness.add(5);
-    state.character.mentalHealth.add(3);
-    state.character.balance -= 200;
+  applyEffects = () => {
+    this.state.character.happiness.add(5);
+    this.state.character.mentalHealth.add(3);
+    this.state.character.balance -= 200;
   };
   getTitle = () => {
     return "Trip around the country";
@@ -22,7 +22,7 @@ export class TravelingDueToCar implements Event {
         Mental Health: +3
     `;
   };
-  getWeight = (_: State) => {
+  getWeight = () => {
     return 1;
   };
 }

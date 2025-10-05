@@ -74,12 +74,12 @@ export class Game {
   selectPossibility(possibility: Possibility, selectedOption: number) {
     if (
       selectedOption < 0 ||
-      selectedOption >= possibility.getOptions(this.state).length
+      selectedOption >= possibility.getOptions().length
     ) {
       throw new Error("Invalid option selected");
     }
 
-    possibility.getOptions(this.state)[selectedOption].applyEffects(this.state);
+    possibility.getOptions()[selectedOption].applyEffects(this.state);
   }
 
   selectFocus(focus: Focus) {
@@ -91,7 +91,7 @@ export class Game {
     const event: Event | null = this.eventManager.getRandom(this.state);
 
     if (event) {
-      event.applyEffects(this.state);
+      event.applyEffects();
       console.log(`Event occurred: ${event.getTitle()}`);
       console.log(`Description: ${event.getDescription()}`);
     }
