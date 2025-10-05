@@ -2,8 +2,11 @@ import { JobContract } from "../job-contract";
 import type { State } from "../../state";
 
 export class Waiter extends JobContract {
-  constructor(contractType: "UOP" | "UZ" | "B2B" | "UNREGISTERED") {
-    super(contractType);
+  constructor(
+    protected readonly state: State,
+    protected readonly contractType: "UOP" | "UZ" | "B2B" | "UNREGISTERED"
+  ) {
+    super(state, contractType);
   }
 
   getBruttoIncome(): number {
@@ -30,6 +33,6 @@ export class Waiter extends JobContract {
   }
 
   getNextLvlContract() {
-    return new Waiter(this.contractType);
+    return new Waiter(this.state, this.contractType);
   }
 }

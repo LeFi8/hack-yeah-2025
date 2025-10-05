@@ -22,6 +22,7 @@ export abstract class JobContract {
   };
 
   constructor(
+    protected readonly state: State,
     protected readonly contractType: "UOP" | "UZ" | "B2B" | "UNREGISTERED",
   ) {}
 
