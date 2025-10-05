@@ -6,6 +6,7 @@ import CharacterFocus from "../components/sandbox/CharacterFocus.tsx";
 import { Game, type GameTickResult } from "../game/game.ts";
 import { useEffect, useState } from "react";
 import Spinner from "../components/common/Spinner.tsx";
+import Summary from "./Summary.tsx";
 
 function SandboxMode() {
   const [game, setGame] = useState<Game | null>(null);
@@ -77,8 +78,8 @@ function SandboxMode() {
   }
 
   if (isGameFinished) {
-    // TODO: ogarnąć ekran końcowy
-    return "Gra się skończyła";
+    // FIXME: should there be a popup with information that the game has ended?
+    return <Summary />;
   }
 
   return (
