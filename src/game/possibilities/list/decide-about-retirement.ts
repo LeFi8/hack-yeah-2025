@@ -23,8 +23,8 @@ export class DecideAboutRetirement extends Possibility {
           this.state.character.happiness.add(15);
 
           // Set focus to health and hobbies (no more work focus)
-          this.state.focus.work.set(false);
-          this.state.focus.health.set(true);
+          this.state.focus.work = false;
+          this.state.focus.health = true;
         },
       },
       {

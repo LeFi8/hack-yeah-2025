@@ -33,7 +33,7 @@ export class Illness extends Event {
     `;
   }
   getWeight() {
-    if (this.state.focus.health.get()) {
+    if (this.state.focus.health) {
       return 0;
     }
     return 1;

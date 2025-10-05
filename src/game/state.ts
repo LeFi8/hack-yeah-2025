@@ -136,7 +136,7 @@ export class State {
 
   constructor() {
     this.character = new CharacterCondition();
-    this.focus = new Focus(false, false, false, false);
+    this.focus = new Focus(true, false, false, true);
   }
 
   initialize() {
