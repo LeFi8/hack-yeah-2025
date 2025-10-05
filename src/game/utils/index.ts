@@ -24,26 +24,6 @@ export class RangeCounter {
   }
 }
 
-export class BooleanFocus {
-  private isActive: boolean;
-
-  constructor(initVal: boolean = false) {
-    this.isActive = initVal;
-  }
-
-  set(value: boolean) {
-    this.isActive = value;
-  }
-
-  get(): boolean {
-    return this.isActive;
-  }
-
-  toggle() {
-    this.isActive = !this.isActive;
-  }
-}
-
 export const getRandomInt = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };

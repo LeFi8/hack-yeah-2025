@@ -24,7 +24,7 @@ export class FindLifePartner extends Possibility {
   canActivate = () => {
     return (
       !this.state.items.some((i) => i instanceof RomanticPartner) &&
-      this.state.focus.relation.get()
+      this.state.focus.relation
     );
   };
   getWeight = () => {

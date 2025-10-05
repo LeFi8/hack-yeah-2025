@@ -1,4 +1,3 @@
-import { useState } from "react";
 import FocusItem from "./FocusItem.tsx";
 import {
   IoBookOutline,
@@ -6,54 +5,71 @@ import {
   IoHeartOutline,
 } from "react-icons/io5";
 import { PiHospital } from "react-icons/pi";
+import { useState } from "react";
+import { Focus } from "../../game/state.ts";
 
-function CharacterFocus() {
-  // FIXME: mock for integration, connect to global state
-  const [focusStates, setFocusStates] = useState({
-    health: false,
-    hobby: false,
-    work: false,
-    relationships: false,
-  });
+interface CharacterFocusProps {
+  stateFocus: Focus;
+}
 
-  const handleToggle =
-    (key: keyof typeof focusStates) => (checked: boolean) => {
-      setFocusStates((prev) => ({
-        ...prev,
-        [key]: checked,
-      }));
-    };
+function CharacterFocus({ stateFocus }: CharacterFocusProps) {
+  const [focus, setFocus] = useState(stateFocus);
+
+  const handleToggle = (
+    focusType: "health" | "hobby" | "work" | "relation",
+  ) => {
+    // Try to toggle the focus (this will respect the MAX_FOCUS_COUNT constraint)
+    const result = focus.toggle(focusType);
+
+    if (!result) {
+      return; // If the toggle was not successful, do not update state
+    }
+
+    const newFocus = new Focus(
+      focus.hobby,
+      focus.health,
+      focus.relation,
+      focus.work,
+    );
+
+    setFocus(newFocus);
+  };
 
   return (
     <>
-      <div className="flex flex-row items-center justify-center gap-8 mt-4">
-        <div className="flex flex-col gap-2">
-          <FocusItem
-            title={"Health"}
-            icon={<PiHospital size={30} />}
-            isChecked={focusStates.health}
-            onToggle={handleToggle("health")}
-          />
-          <FocusItem
-            title={"Hobby"}
-            icon={<IoBookOutline size={30} />}
-            isChecked={focusStates.hobby}
-            onToggle={handleToggle("hobby")}
-          />
-        </div>
-        <div className="flex flex-col gap-2">
-          <FocusItem
-            title={"Work"}
-            icon={<IoBusinessOutline size={30} />}
-            isChecked={focusStates.work}
-            onToggle={handleToggle("work")}
-          />
-          <FocusItem
-            title={"Relationships"}
-            icon={<IoHeartOutline size={30} />}
-            isChecked={focusStates.relationships}
-            onToggle={handleToggle("relationships")}
-          />
+      <div className="flex flex-col items-center">
+        <p className="text-sm text-gray-600 mb-2">
+          Active focuses: {focus.countActiveFocus()}/2
+        </p>
+        <div className="flex flex-row items-center justify-center gap-8 mt-4">
+          <div className="flex flex-col gap-2">
+            <FocusItem
+              title={"Health"}
+              icon={<PiHospital size={30} />}
+              isChecked={focus.health}
+              onToggle={() => handleToggle("health")}
+            />
+            <FocusItem
+              title={"Hobby"}
+              icon={<IoBookOutline size={30} />}
+              isChecked={focus.hobby}
+              onToggle={() => handleToggle("hobby")}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <FocusItem
+              title={"Work"}
+              icon={<IoBusinessOutline size={30} />}
+              isChecked={focus.work}
+              onToggle={() => handleToggle("work")}
+            />
+            <FocusItem
+              title={"Relationships"}
+              icon={<IoHeartOutline size={30} />}
+              isChecked={focus.relation}
+              onToggle={() => handleToggle("relation")}
+            />
+          </div>
         </div>
       </div>
     </>

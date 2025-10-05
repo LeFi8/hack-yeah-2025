@@ -4,14 +4,10 @@ interface FocusItemProps {
   title: string;
   icon: ReactNode;
   isChecked: boolean;
-  onToggle?: (checked: boolean) => void;
+  onToggle?: () => void;
 }
 
 function FocusItem({ title, icon, isChecked, onToggle }: FocusItemProps) {
-  const handleToggle = () => {
-    onToggle?.(!isChecked);
-  };
-
   return (
     <>
       <div className="flex flex-col">
@@ -21,7 +17,7 @@ function FocusItem({ title, icon, isChecked, onToggle }: FocusItemProps) {
             {icon}
             <div className="mx-4">
               <button
-                onClick={handleToggle}
+                onClick={onToggle}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-zus focus:ring-offset-2 ${
                   isChecked ? "bg-zus" : "bg-gray-300"
                 }`}
