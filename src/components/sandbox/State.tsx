@@ -70,7 +70,9 @@ function State({ tickResult }: StateProps) {
         )
       }
       <MoneyTab state={tickResult.state} />
-      <Items state={tickResult.state} />
+      {!!tickResult.state.items.length && (
+        <Items items={tickResult.state.items} />
+      )}
     </>
   );
 }

@@ -1,14 +1,13 @@
-import type { State } from "../../game/state.ts";
 import type { Item } from "../../game/items";
 
 interface ItemsTabProps {
-  state: State;
+  items: Item[];
 }
 
-export function Items({ state }: ItemsTabProps) {
+export function Items({ items }: ItemsTabProps) {
   return (
-    <div className="bg-white shadow-md p-5 border-2 rounded-2xl flex mt-2 min-h-[100px]">
-      {state.items.map((item: Item, index) => (
+    <div className="bg-white shadow-md p-5 border-2 rounded-2xl flex mt-2">
+      {items.map((item: Item, index) => (
         <span
           key={index}
           // @ts-ignore
