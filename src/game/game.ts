@@ -18,8 +18,8 @@ export class Game {
   private currentPossibilities: Possibility[] = [];
   private gameRunning: boolean = false;
 
-  private EVENT_FREQUENCY_MONTHS = 48;
-  private POSSIBILITY_FREQUENCY_MONTHS = 38;
+  private EVENT_FREQUENCY_MONTHS = 40;
+  private POSSIBILITY_FREQUENCY_MONTHS = 24;
 
   getCurrentPossibilities(): Possibility[] {
     return this.currentPossibilities;
