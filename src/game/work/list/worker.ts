@@ -11,7 +11,7 @@ export class Worker extends JobContract {
   }
 
   getBruttoIncome(): number {
-    return 5000 * (1.2 ** this.lvl) ;
+    return 5000 * 1.2 ** this.lvl;
   }
 
   getPosition(): string {
