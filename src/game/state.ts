@@ -14,9 +14,6 @@ export class CharacterCondition {
   physicalHealth = new RangeCounter(0, 0, 100);
   happiness = new RangeCounter(0, 0, 100);
 
-  // TODO: dynamically change max health with age
-  maxHealth = new RangeCounter(100, 0, 100);
-
   clone(): CharacterCondition {
     const clone = new CharacterCondition();
     clone.balance = this.balance;
@@ -28,7 +25,6 @@ export class CharacterCondition {
     );
     clone.physicalHealth = new RangeCounter(this.physicalHealth.get(), 0, 100);
     clone.happiness = new RangeCounter(this.happiness.get(), 0, 100);
-    clone.maxHealth = new RangeCounter(this.maxHealth.get(), 0, 100);
     return clone;
   }
 }
@@ -112,7 +108,6 @@ export class Focus {
 export class Education {
   // 0-podstawowe 1-średnie 2-licencjat/inż 3-magister 4-doktorat
   level = new RangeCounter(0, 0, 4);
-  fieldOfStudy: string = "";
   isStudying: boolean = false;
   studyingSinceMonth: number = 0;
 
@@ -151,7 +146,6 @@ export class State {
 
     this.character.physicalHealth.add(80);
     this.character.happiness.add(80);
-    this.character.maxHealth.add(100);
   }
 
   increaseMonthsElapsed() {
