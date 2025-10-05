@@ -60,7 +60,7 @@ function State({ tickResult }: StateProps) {
           text={job.getPosition()}
         />
       )}
-      <MoneyTab />
+      <MoneyTab state={tickResult.state} />
     </>
   );
 }

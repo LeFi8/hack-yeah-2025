@@ -5,15 +5,13 @@ import { AiOutlineDollarCircle } from "react-icons/ai";
 import { FaRegMoneyBill1 } from "react-icons/fa6";
 import { MdOutlinePercent } from "react-icons/md";
 import { RiExchangeFundsFill } from "react-icons/ri";
+import type { State as GameState } from "../../game/state.ts";
 
-const mockedAmount = "15 000zł";
-const mockedMonthlySalary = "5 000zł";
-const mockedMonthlyExpenses = "3 000zł";
-const mockedZUSAccount = "50 000zł";
-const mockedExpectedPension = "2 500zł";
-const mockedReplacementRate = "50%";
+interface MoneyTabProps {
+  state: GameState;
+}
 
-function MoneyTab() {
+function MoneyTab({ state }: MoneyTabProps) {
   const [tabIndex, setTabIndex] = React.useState(0);
 
   return (
@@ -46,21 +44,21 @@ function MoneyTab() {
               <p className="text-lg">Savings</p>
               <StateInfo
                 icon={<AiOutlineDollarCircle size={20} />}
-                text={mockedAmount}
+                text={state.character.balance.toFixed(2)}
               />
             </div>
             <div>
               <p className="text-lg">Monthly Salary</p>
               <StateInfo
                 icon={<FaRegMoneyBill1 size={20} />}
-                text={mockedMonthlySalary}
+                text={state.job?.getBruttoIncome().toFixed(2) || "Unemployed"}
               />
             </div>
             <div>
               <p className="text-lg">Monthly Expenses</p>
               <StateInfo
                 icon={<FaRegMoneyBill1 size={20} />}
-                text={mockedMonthlyExpenses}
+                text={state.character.monthlyExpenses.get().toFixed(2) || "0"}
               />
             </div>
           </div>
@@ -72,21 +70,21 @@ function MoneyTab() {
               <p className="text-lg">ZUS Account</p>
               <StateInfo
                 icon={<AiOutlineDollarCircle size={20} />}
-                text={mockedZUSAccount}
+                text={state.zus.alreadyAccummulated.toFixed(2)}
               />
             </div>
             <div>
               <p className="text-lg">Expected Pension</p>
               <StateInfo
                 icon={<RiExchangeFundsFill size={20} />}
-                text={mockedExpectedPension}
+                text={state.zus.predictedPension.toFixed(2)}
               />
             </div>
             <div>
               <p className="text-lg">Replacement Rate</p>
               <StateInfo
                 icon={<MdOutlinePercent size={20} />}
-                text={mockedReplacementRate}
+                text={"TODO: add monthly pension to calculate"}
               />
             </div>
           </div>
