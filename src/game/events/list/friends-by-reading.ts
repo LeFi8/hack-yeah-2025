@@ -8,7 +8,7 @@ export class FriendsByReading extends Event {
     return (
       this.state.items.some(
         (item: Item) => item instanceof ReadingBooksHobby,
-      ) && this.state.focus.relation.get()
+      ) && this.state.focus.relation
     );
   }
   applyEffects() {

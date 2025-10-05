@@ -1,7 +1,6 @@
 import { DeathCalculator } from "./death/deathCalculator";
 import type { Item } from "./items";
 import type { Possibility } from "./possibilities";
-import { BooleanFocus } from "./utils";
 import { RangeCounter } from "./utils";
 import type { History } from "./utils/history";
 import { JobContract } from "./work";
@@ -35,10 +34,11 @@ export class CharacterCondition {
 }
 
 export class Focus {
-  hobby = new BooleanFocus();
-  health = new BooleanFocus();
-  relation = new BooleanFocus();
-  work = new BooleanFocus();
+  MAX_FOCUS_COUNT = 2;
+  hobby: boolean = false;
+  health: boolean = false;
+  relation: boolean = false;
+  work: boolean = false;
 
   constructor(
     hobby: boolean,
@@ -46,10 +46,26 @@ export class Focus {
     relation: boolean,
     work: boolean,
   ) {
-    this.hobby.set(hobby);
-    this.health.set(health);
-    this.relation.set(relation);
-    this.work.set(work);
+    this.hobby = hobby;
+    this.health = health;
+    this.relation = relation;
+    this.work = work;
+  }
+  public countActiveFocus(): number {
+    let count = 0;
+    if (this.hobby) count++;
+    if (this.health) count++;
+    if (this.relation) count++;
+    if (this.work) count++;
+    return count;
+  }
+
+  public toggle(field: "hobby" | "health" | "relation" | "work"): boolean {
+    if (this.countActiveFocus() >= this.MAX_FOCUS_COUNT && !this[field]) {
+      return false; // Do not allow more than MAX_FOCUS_COUNT active focuses
+    }
+    this[field] = !this[field];
+    return true;
   }
 
   private chance(probability: number): boolean {
@@ -59,7 +75,7 @@ export class Focus {
   applyEffects(_state: State) {
     // If Health focus is active you have 70% to increase health,
     // otherwise 50% to decrease it
-    if (this.health.get() && this.chance(0.7)) {
+    if (this.health && this.chance(0.7)) {
       _state.character.physicalHealth.add(1);
     } else if (this.chance(0.5)) {
       _state.character.physicalHealth.add(-1);
@@ -68,7 +84,7 @@ export class Focus {
     // If Relation focus is active you have 80% to increase hapiness
     // and 60% to increase mental health,
     // otherwise 50% to decrease happiness and mental health
-    if (this.relation.get()) {
+    if (this.relation) {
       if (this.chance(0.8)) {
         _state.character.happiness.add(1);
       }
@@ -78,7 +94,7 @@ export class Focus {
 
     // If we focus on work we have like 15% chance
     // of decrasing mental health, physical health and happiness
-    if (!this.work.get()) {
+    if (!this.work) {
       if (this.chance(0.15)) {
         _state.character.physicalHealth.add(-1);
       }
@@ -87,7 +103,7 @@ export class Focus {
       }
     }
 
-    if (this.hobby.get() && this.chance(0.6)) {
+    if (this.hobby && this.chance(0.6)) {
       _state.character.happiness.add(1);
     }
   }
@@ -120,7 +136,7 @@ export class State {
 
   constructor() {
     this.character = new CharacterCondition();
-    this.focus = new Focus(false, true, false, true);
+    this.focus = new Focus(false, false, false, false);
   }
 
   initialize() {
@@ -136,11 +152,6 @@ export class State {
     this.character.physicalHealth.add(80);
     this.character.happiness.add(80);
     this.character.maxHealth.add(100);
-
-    this.focus.health.set(true);
-    this.focus.relation.set(false);
-    this.focus.work.set(true);
-    this.focus.hobby.set(false);
   }
 
   increaseMonthsElapsed() {
